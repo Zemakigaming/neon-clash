@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.5.0</title>
+<title>NEON Clash v0.5.1</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -77,7 +77,7 @@ body.modal #ctrl.actp{position:fixed;z-index:41;left:50%;top:50%;transform:trans
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.5.0 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.5.1 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
@@ -93,7 +93,7 @@ body.modal #ctrl.actp{position:fixed;z-index:41;left:50%;top:50%;transform:trans
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.5.0';
+const VER='0.5.1';
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
 const SUITS=['S','H','D','C'];
@@ -398,7 +398,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  else { if(B.committed) for(let i=0;i<5;i++) bp.appendChild(backEl()); $('res').textContent=Y.committed?(mode==='bot'?'':'⏳ รออีกฝ่ายคว่ำการ์ด… (เปิดพร้อมกัน)'):''; }
  // controls
 
- const PH={play:['🃏','เตรียมไพ่','Prepare · Play','เลือกการ์ด '+need+' ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วกดคว่ำ · หรือ ♻ Discard จั่วใหม่','#f3f'],
+ const PH={play:['🃏','เตรียมไพ่','Prepare · Play',`💰 มี ${Y.g}G · `+'เลือกการ์ด '+need+' ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วกดคว่ำ · หรือ ♻ Discard จั่วใหม่','#f3f'],
   bonus:['✨','เลือกโบนัสดอก','Resolution · Suit Bonus','คุณชนะ! เลือก Suit Bonus 1 ดอก','#ffd23f'],
   keep:['↩','เก็บการ์ดคืนมือ','Resolution · Take Back','คุณแพ้รอบนี้ — เลือกการ์ดที่ลงไปเพื่อเก็บคืนมือ','#3cf'],
   burn:['🔥','เบิร์นการ์ด','Resolution · Burn','ชนะด้วย Upgrade — เลือก 1 ใบจากมือหรือกองทิ้งเพื่อลบออกจากเกมถาวร','#ff5a2a'],
@@ -411,15 +411,15 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  let P=V.over?['🏁','จบเกม','Game Over',V.winner<0?'เสมอ':V.winner===V.me?'คุณชนะ!':`${B.name} ชนะ`,'#fff']:(PH[W]||WT[V.phase]||['⏳','Resolution','Resolution','กำลังคิดผล…','#b9f']);
  const waitingNow=!PH[W]&&!V.over;
  const pb=$('phaseBar');pb.style.setProperty('--pc',P[4]);$('ctrl').style.setProperty('--pc',P[4]);
- pb.innerHTML=`<div class="pi">${P[0]}</div><div><div><span class="pn">${P[1]}</span><span class="pe">${P[2]}</span></div><div class="pd">${P[3]}</div></div><div class="pr">รอบ ${V.round}<br>${V.lead===V.me?'👑 คุณถือ Lead':'👑 Lead: '+B.name}</div>`;
+ pb.innerHTML=`<div class="pi">${P[0]}</div><div><div><span class="pn">${P[1]}</span><span class="pe">${P[2]}</span></div><div class="pd">${P[3]}</div></div><div class="pr"><span style="font-size:18px;color:#ffd23f;text-shadow:0 0 6px #fa0">💰 ${Y.g}G</span><br>รอบ ${V.round}<br>${V.lead===V.me?'👑 คุณถือ Lead':'👑 Lead: '+B.name}</div>`;
  pb.dataset.phase=V.over?'over':(PH[W]?W:'wait-'+V.phase);
  const key=V.round+'|'+pb.dataset.phase; if(key!==window.__lastPh){window.__lastPh=key;pb.classList.remove('anim');void pb.offsetWidth;pb.classList.add('anim');}
  const modalOn=['bonus','keep','burn'].includes(W)&&!V.over; document.body.classList.toggle('modal',modalOn);
  const ctrl=$('ctrl'),n=sel.size; $('pv').textContent=''; ctrl.className='actp'+(modalOn?' modalp':'');
  if(W==='play'){
-  ctrl.innerHTML=`<span class="ttl">เลือก Chip แล้วคว่ำการ์ด</span><div class="bigopt"><button id="cA" class="${chip==='A'?'gold chipsel':'alt'}">⚔️ Attack</button><button id="cD" class="${chip==='D'?'gold chipsel':'alt'}">🛡️ Defense</button></div><div class="bigopt"><button id="bPlay" ${n===need?'':'disabled'}>▶ คว่ำการ์ด ${n}/${need}</button><button id="bDisc" class="alt" ${n&&Y.canDisc?'':'disabled'}>♻ ทิ้ง ${n||''} ใบ แล้วจั่วใหม่ (${Y.discCost?Y.discCost+'G':'ฟรี'})</button></div>`;
+  ctrl.innerHTML=`<span class="ttl">เลือก Chip แล้วคว่ำการ์ด</span><div class="bigopt"><button id="cA" class="${chip==='A'?'gold chipsel':'alt'}">⚔️ Attack</button><button id="cD" class="${chip==='D'?'gold chipsel':'alt'}">🛡️ Defense</button><span style="width:14px"></span><button id="bPlay" ${n===need?'':'disabled'}>▶ คว่ำการ์ด ${n}/${need}</button><button id="bDisc" class="alt" ${Y.canDisc?'':'disabled'}>♻ Discard ${n?'ทิ้ง '+n+' ใบ แล้วจั่วใหม่':'(เลือกการ์ดที่จะทิ้ง)'} · ${Y.discCost?Y.discCost+'G':'ฟรี'}</button>${Y.canDisc?'':`<div class="hint" style="color:#f99">Discard ใช้ไม่ได้: มี ${Y.g}G แต่ครั้งที่ ${Y.discUsed+1} ต้องจ่าย ${Y.discCost}G</div>`}</div>`;
   $('cA').onclick=()=>{chip='A';render();};$('cD').onclick=()=>{chip='D';render();};
-  $('bPlay').onclick=()=>{const ids=[...sel];sel.clear();act({k:'commit',ids,chip});};$('bDisc').onclick=()=>{const ids=[...sel];sel.clear();act({k:'discard',ids});};
+  $('bPlay').onclick=()=>{const ids=[...sel];sel.clear();act({k:'commit',ids,chip});};$('bDisc').onclick=()=>{if(!sel.size){$('pv').innerHTML='<b style="color:#ff6">👆 แตะการ์ดในมือที่จะทิ้งก่อน (กี่ใบก็ได้) แล้วกด Discard อีกครั้ง</b>';return;}const ids=[...sel];sel.clear();act({k:'discard',ids});};
   if(n){const cards=hand.filter(c=>sel.has(c.id));const e=NC.evalHand(cards);$('pv').textContent=`พรีวิว: ${NC.RANK[e.code][0]} (${NC.RANK_TH[e.code]}) · Speed ${NC.speedOf(Y,e)} · Prize ${e.prize}G · Suit Bonus จาก: ${NC.bonusSuits(e.rankCards).map(x=>NC.SUIT[x].sym).join('/')}`;}
   else $('pv').textContent=`เลือกการ์ด ${need} ใบ + เลือก Chip แล้วกดคว่ำ · ทิ้งการ์ด: ครั้งที่ ${Y.discUsed+1} จ่าย ${Y.discCost}G (ทิ้งกี่ใบก็ได้ แล้วจั่วจนครบ Hand Size)`; }
  else if(W==='bonus'){ ctrl.innerHTML='<span class="ttl">✨ เลือก Suit Bonus</span><div class="bigopt">'+V.pending.options.map(x=>`<button class="gold" data-s="${x}">${NC.SUIT[x].sym} ${NC.SUIT[x].bonus}</button>`).join('')+'</div>';
@@ -453,7 +453,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
   if($('bRe'))$('bRe').onclick=()=>act({k:'rematch'});}
 }
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.5.0 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.5.1 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
