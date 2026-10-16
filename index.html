@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.5.1</title>
+<title>NEON Clash v0.6.0</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -73,11 +73,49 @@ body.modal #ctrl.actp{position:fixed;z-index:41;left:50%;top:50%;transform:trans
  #ctrl.actp button{font-size:16px;padding:12px 14px;flex:1 1 40%}#ctrl .bigopt button{min-width:120px}
  #ctrl.actp:not(.modalp){position:fixed;left:6px;right:6px;bottom:6px;z-index:30;max-height:46vh;overflow:auto;padding:8px}#ctrl .ttl{font-size:15px;margin-bottom:4px}body{padding-bottom:190px}}
 #ctrl .hint{margin:6px 0 2px;display:block}
+
+/* v0.6 animations */
+body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
+.card.covered>*{visibility:hidden}.card.covered{background:url(data:image/webp;base64,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) center/cover!important;border-color:#a6f!important;box-shadow:0 0 6px #a6f}
+.card.flipin{animation:flipIn .32s ease-out}
+@keyframes flipIn{0%{transform:rotateY(90deg)}100%{transform:rotateY(0)}}
+.board .cards{perspective:800px}
+.board.hideR .rhint,.board.hideR #res{visibility:hidden}
+#skipA{position:absolute;right:10px;top:8px;font-size:12px;padding:4px 10px;z-index:5}
+.board{position:relative}
+#resultM{position:fixed;inset:0;z-index:45;display:none;align-items:center;justify-content:center;background:rgba(5,0,15,.55)}
+#resultM.on{display:flex}
+#resultM .rbox{width:min(640px,94vw);border-radius:16px;border:2px solid var(--rc);background:linear-gradient(160deg,rgba(40,0,60,.97),rgba(8,0,24,.97));box-shadow:0 0 22px var(--rc);padding:16px 18px;text-align:center;animation:mIn2 .35s ease-out}
+@keyframes mIn2{from{opacity:0;transform:scale(.9)}}
+#resultM h2{margin:2px 0 10px;font-size:28px;color:#fff;text-shadow:0 0 10px var(--rc),0 0 22px var(--rc)}
+#resultM table{width:100%;border-collapse:collapse;font-size:15px;margin:6px 0}#resultM td,#resultM th{padding:6px;border-bottom:1px solid rgba(255,255,255,.12)}
+#resultM th{color:#c9f;font-weight:600}#resultM td.win{color:#ffd23f;font-weight:800}
+#resultM .why{font-size:15px;color:#e8dcff;margin:8px 0}
+#resultM button{font-size:18px;padding:12px 28px;min-height:48px}
+@media(min-width:1000px){
+ :root{--cw:clamp(80px,min(6.4vw,10.2vh),118px)}
+ .card{width:var(--cw);height:auto;aspect-ratio:66/94}
+ .cards{min-height:calc(var(--cw)*1.42 + 4px);gap:7px}
+ .wrap{max-width:none;grid-template-columns:1fr clamp(300px,23vw,430px);padding:8px;gap:8px;height:100vh}
+ .wrap>div{min-height:0}
+ .panel{padding:6px 8px}
+ .ph{gap:10px}
+ #phaseBar{padding:7px 14px;margin:0}#phaseBar .pi{font-size:24px}#phaseBar .pn{font-size:19px}#phaseBar .pd{font-size:13px;margin-top:1px}
+ #ctrl.actp{padding:6px 10px}#ctrl .ttl{display:none}#ctrl.modalp .ttl{display:block}#ctrl.actp button{min-height:46px;padding:9px 18px;margin:3px}
+ .board{gap:2px}.res{min-height:24px;font-size:17px}
+ .tarot{width:calc(var(--cw)*0.92);height:calc(var(--cw)*1.42)}
+ .shop{gap:6px}
+ #log{height:auto;flex:1;min-height:80px}
+ .wrap>div:last-child{overflow:hidden}
+ .wrap>div:last-child>.panel:last-child{flex:1;display:flex;flex-direction:column;min-height:0}
+ .card .r{font-size:clamp(14px,1.1vw,20px)}
+ .item{width:auto}
+}
 </style></head><body>
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.5.1 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.6.0 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
@@ -89,11 +127,11 @@ body.modal #ctrl.actp{position:fixed;z-index:41;left:50%;top:50%;transform:trans
  <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP, 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม แต่เก็บการ์ดที่เล่นคืนมือได้) · Defense: DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) และได้ 3G · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade (เลข 2–10 ไม่มีดอก / ดอกไม่มีเลข · ถ้าชนะ 🔥Burn 1 ใบจากมือหรือกองทิ้ง) ใบละ 2G ขึ้นมือ · Tarot ราคา + จำนวนที่มี · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
 </div></div>
 <div class="menu" id="menu"><div class="box" id="menuBox"></div></div>
-<div class="tip" id="tip"></div>
+<div class="tip" id="tip"></div><div id="resultM"></div>
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.5.1';
+const VER='0.6.0';
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
 const SUITS=['S','H','D','C'];
@@ -218,10 +256,12 @@ function resolve(g){
   const st=P.map((p,i)=>({chip:p.commit.chip,code:ev[i].code,speed:p.commit.chip==='A'?speedOf(p,ev[i]):0,high:ev[i].high}));
   P.forEach((p,i)=>log(g,`🃏 ${p.name}: ${p.commit.chip==='A'?'⚔️ Attack':'🛡️ Defense'} | ${p.commit.cards.map(cname).join(' ')} → ${RANK[ev[i].code][0]}${p.commit.chip==='A'?' (Speed '+st[i].speed+')':''}`));
   const atk=[0,1].filter(i=>st[i].chip==='A');
-  let w=-1;
+  let w=-1; const spd0=st.map(x=>x.speed);
   if(atk.length===1) w=atk[0];
   else if(atk.length===2){const c=cmpAtk(st[0],st[1]); w=c>0?0:c<0?1:-1; if(w<0){st[0].speed=st[1].speed=0; log(g,'🤝 Speed และ High Card เท่ากัน → เสมอ (Speed 0)');}}
   g.reveal={played:P.map(p=>p.commit.cards),chips:P.map(p=>p.commit.chip),codes:ev.map(e=>e.code),speeds:st.map(s=>s.speed),w,dmg:0,bonus:null,prize:0};
+  g.reveal.spd0=spd0; g.reveal.defG=st.map(x=>x.chip==='D'?CFG.DEF_G:0);
+  g.reveal.why=atk.length===0?'none':atk.length===1?'only':w<0?'tie':spd0[0]!==spd0[1]?'speed':'high';
   // Defending players receive 3G (3.4)
   P.forEach((p,i)=>{ if(st[i].chip==='D'){p.g+=CFG.DEF_G;log(g,`🛡️ ${p.name} Defense +${CFG.DEF_G}G`);} });
   g.res={ev,st,w};
@@ -391,11 +431,12 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  const W=V.waiting; const need=Y.playN;
  const h=$('hand');h.replaceChildren();hand.slice().sort((a,b)=>(a.r||0)-(b.r||0)||String(a.s||'').localeCompare(String(b.s||''))).forEach(c=>{const e=cardEl(c,{sel:sel.has(c.id)});e.onclick=()=>{if(W!=='play')return;sel.has(c.id)?sel.delete(c.id):sel.add(c.id);render();};h.appendChild(e);});
  // board
+ $('skipA')&&$('skipA').remove(); document.querySelector('.board').classList.remove('hideR'); document.body.classList.remove('animating');
  const bp=$('botPlay'),yp=$('youPlay');bp.replaceChildren();yp.replaceChildren();
- const show=(el,i)=>{ R.played[i].forEach(c=>el.appendChild(cardEl(c))); el.insertAdjacentHTML('beforeend',`<div class="hint" style="align-self:center;font-size:13px">${R.chips[i]==='A'?'⚔️ <b>Attack</b>':'🛡️ <b>Defense</b>'}<br>${NC.RANK[R.codes[i]][0]}<br>${R.chips[i]==='A'?'Speed '+R.speeds[i]:'(ไม่นับ Speed)'}</div>`); };
- if(R&&V.phase!=='prepare'){ show(yp,V.me); show(bp,1-V.me);
+ const show=(el,i)=>{ R.played[i].forEach(c=>el.appendChild(cardEl(c))); el.insertAdjacentHTML('beforeend',`<div class="hint rhint" style="align-self:center;font-size:13px">${R.chips[i]==='A'?'⚔️ <b>Attack</b>':'🛡️ <b>Defense</b>'}<br>${NC.RANK[R.codes[i]][0]}<br>${R.chips[i]==='A'?'Speed '+R.speeds[i]:'(ไม่นับ Speed)'}</div>`); };
+ if(R&&V.phase!=='prepare'){ show(yp,V.me); show(bp,1-V.me); revealAnim(R,yp,bp,Y,B);
    $('res').innerHTML=R.w<0?'🤝 ไม่มีผู้ชนะ — ไม่มีใครได้รับ DMG':(R.w===V.me?'🏆 คุณชนะ!':`${mode==='bot'?'🤖':'🧑'} ${B.name} ชนะ`)+(R.bonus?` · Prize ${R.prize}G · Suit Bonus ${NC.SUIT[R.bonus].sym} ${NC.SUIT[R.bonus].bonus} · DMG ${R.dmg}`:(R.w>=0?' · รอเลือก Suit Bonus…':'')); }
- else { if(B.committed) for(let i=0;i<5;i++) bp.appendChild(backEl()); $('res').textContent=Y.committed?(mode==='bot'?'':'⏳ รออีกฝ่ายคว่ำการ์ด… (เปิดพร้อมกัน)'):''; }
+ else { if(B.committed){ for(let i=0;i<5;i++) bp.appendChild(backEl()); if(AN.oppR!==V.round){AN.oppR=V.round;slideIn(bp,null);} } if(Y.committed){ for(let i=0;i<Y.playN;i++) yp.appendChild(backEl()); if(AN.rects){slideIn(yp,AN.rects);AN.rects=null;} } $('res').textContent=Y.committed?(mode==='bot'?'':'⏳ รออีกฝ่ายคว่ำการ์ด… (เปิดพร้อมกัน)'):''; }
  // controls
 
  const PH={play:['🃏','เตรียมไพ่','Prepare · Play',`💰 มี ${Y.g}G · `+'เลือกการ์ด '+need+' ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วกดคว่ำ · หรือ ♻ Discard จั่วใหม่','#f3f'],
@@ -419,7 +460,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  if(W==='play'){
   ctrl.innerHTML=`<span class="ttl">เลือก Chip แล้วคว่ำการ์ด</span><div class="bigopt"><button id="cA" class="${chip==='A'?'gold chipsel':'alt'}">⚔️ Attack</button><button id="cD" class="${chip==='D'?'gold chipsel':'alt'}">🛡️ Defense</button><span style="width:14px"></span><button id="bPlay" ${n===need?'':'disabled'}>▶ คว่ำการ์ด ${n}/${need}</button><button id="bDisc" class="alt" ${Y.canDisc?'':'disabled'}>♻ Discard ${n?'ทิ้ง '+n+' ใบ แล้วจั่วใหม่':'(เลือกการ์ดที่จะทิ้ง)'} · ${Y.discCost?Y.discCost+'G':'ฟรี'}</button>${Y.canDisc?'':`<div class="hint" style="color:#f99">Discard ใช้ไม่ได้: มี ${Y.g}G แต่ครั้งที่ ${Y.discUsed+1} ต้องจ่าย ${Y.discCost}G</div>`}</div>`;
   $('cA').onclick=()=>{chip='A';render();};$('cD').onclick=()=>{chip='D';render();};
-  $('bPlay').onclick=()=>{const ids=[...sel];sel.clear();act({k:'commit',ids,chip});};$('bDisc').onclick=()=>{if(!sel.size){$('pv').innerHTML='<b style="color:#ff6">👆 แตะการ์ดในมือที่จะทิ้งก่อน (กี่ใบก็ได้) แล้วกด Discard อีกครั้ง</b>';return;}const ids=[...sel];sel.clear();act({k:'discard',ids});};
+  $('bPlay').onclick=()=>{AN.rects=[...document.querySelectorAll('#hand .card.sel')].map(e=>e.getBoundingClientRect());const ids=[...sel];sel.clear();act({k:'commit',ids,chip});};$('bDisc').onclick=()=>{if(!sel.size){$('pv').innerHTML='<b style="color:#ff6">👆 แตะการ์ดในมือที่จะทิ้งก่อน (กี่ใบก็ได้) แล้วกด Discard อีกครั้ง</b>';return;}const ids=[...sel];sel.clear();act({k:'discard',ids});};
   if(n){const cards=hand.filter(c=>sel.has(c.id));const e=NC.evalHand(cards);$('pv').textContent=`พรีวิว: ${NC.RANK[e.code][0]} (${NC.RANK_TH[e.code]}) · Speed ${NC.speedOf(Y,e)} · Prize ${e.prize}G · Suit Bonus จาก: ${NC.bonusSuits(e.rankCards).map(x=>NC.SUIT[x].sym).join('/')}`;}
   else $('pv').textContent=`เลือกการ์ด ${need} ใบ + เลือก Chip แล้วกดคว่ำ · ทิ้งการ์ด: ครั้งที่ ${Y.discUsed+1} จ่าย ${Y.discCost}G (ทิ้งกี่ใบก็ได้ แล้วจั่วจนครบ Hand Size)`; }
  else if(W==='bonus'){ ctrl.innerHTML='<span class="ttl">✨ เลือก Suit Bonus</span><div class="bigopt">'+V.pending.options.map(x=>`<button class="gold" data-s="${x}">${NC.SUIT[x].sym} ${NC.SUIT[x].bonus}</button>`).join('')+'</div>';
@@ -452,8 +493,43 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
   o.innerHTML=`<div>${V.winner<0?'🤝 เสมอ':won?'🏆 คุณชนะ!':`💀 ${B.name} ชนะ`}<br>${mode==='guest'?'<span class="hint">รอ Host กดเล่นใหม่…</span><br>':`<button id="bRe">เล่นใหม่</button>`}<button class="alt" onclick="toMenu()">เมนู</button></div>`;document.body.appendChild(o);
   if($('bRe'))$('bRe').onclick=()=>act({k:'rematch'});}
 }
+
+// ---------- v0.6 animations (cosmetic only; never blocks game state) ----------
+const AN={key:null,t0:0,rects:null,oppR:null,shown:null,tick:false};const FLIP_MS=350;
+function animOff(){return !!window.__noAnim||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches;}
+function slideIn(row,rects){ if(animOff())return; const cs=[...row.querySelectorAll('.card')];
+ cs.forEach((c,i)=>{const to=c.getBoundingClientRect();let dx=0,dy=-160;if(rects&&rects[i]){dx=rects[i].left-to.left;dy=rects[i].top-to.top;}else if(rects){dy=160;}
+  c.animate([{transform:`translate(${dx}px,${dy}px) rotate(${rects?0:-8}deg)`,opacity:rects?1:0},{transform:'none',opacity:1}],{duration:420,delay:i*60,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'});});}
+function revealAnim(R,yp,bp,Y,B){ const key=V.round+'|'+R.played.map(a=>a.map(c=>c.id).join(',')).join('/');
+ if(key!==AN.key){AN.key=key;AN.t0=animOff()?-1e9:performance.now();}
+ const ys=[...yp.querySelectorAll('.card')],bs=[...bp.querySelectorAll('.card')];
+ for(let i=0;i<5;i++){ if(bs[i])bs[i].dataset.fi=2*i; if(ys[i])ys[i].dataset.fi=2*i+1; }
+ AN.total=Math.max(ys.length,bs.length)*2; if(AN.rects){slideIn(yp,AN.rects);AN.rects=null;} if(AN.oppR!==V.round){AN.oppR=V.round;slideIn(bp,null);} animTick(true); }
+function animTick(first){ const n=Math.floor((performance.now()-AN.t0)/FLIP_MS); const bd=document.querySelector('.board');
+ document.querySelectorAll('.board .card[data-fi]').forEach(c=>{const fi=+c.dataset.fi; if(fi>=n)c.classList.add('covered'); else if(c.classList.contains('covered')){c.classList.remove('covered');if(!first)c.classList.add('flipin');}});
+ const done=n>=AN.total; bd.classList.toggle('hideR',!done); document.body.classList.toggle('animating',!done);
+ if(!done){ if(!$('skipA')){bd.insertAdjacentHTML('beforeend','<button id="skipA" class="alt">⏩ ข้าม</button>');$('skipA').onclick=()=>{AN.t0=-1e9;animTick();};}
+   if(!AN.tick){AN.tick=true;setTimeout(()=>{AN.tick=false;animTick();},60);} return; }
+ $('skipA')&&$('skipA').remove(); if(AN.shown!==AN.key){AN.shown=AN.key;showResult();} }
+function showResult(){ const R=V&&V.reveal; if(!R)return; const me=V.me,op=1-me,Y=V.players[me],B=V.players[op];
+ const won=R.w===me,draw=R.w<0; const rc=draw?'#b9f':won?'#ffd23f':'#ff4a6a';
+ const nm=i=>NC.RANK[R.codes[i]][0]; const chip=i=>R.chips[i]==='A'?'⚔️ Attack':'🛡️ Defense';
+ const gold=i=>(R.defG?R.defG[i]:0)+(R.w===i?R.prize:0); const sp=i=>R.chips[i]==='A'?(R.spd0?R.spd0[i]:R.speeds[i]):'—';
+ const W=R.w>=0?(R.w===me?'คุณ':B.name):''; const L=R.w>=0?(R.w===me?B.name:'คุณ'):'';
+ const why={none:'ทั้งคู่ Defense — ไม่มีผู้ชนะ ไม่มี DMG',only:`${W} เป็นฝ่ายเดียวที่ Attack จึงชนะ`,speed:`${W} ชนะเพราะมือ ${nm(R.w)} มี Speed สูงกว่า (${sp(R.w)} ต่อ ${sp(1-R.w)})`,high:`Speed เท่ากัน (${sp(R.w)}) — ${W} ชนะด้วย Tie-break (High Card ไล่จากใบสูงสุด)`,tie:'Speed และ High Card เท่ากันทุกใบ → เสมอ ไม่มี DMG'}[R.why]||'';
+ const dmgTxt=R.w>=0?(R.dmg?`${L} โดน ${R.dmg} DMG`:'(DMG คำนวณหลังเลือก Suit Bonus)'):'ไม่มี DMG';
+ const m=$('resultM');m.style.setProperty('--rc',rc);
+ m.innerHTML=`<div class="rbox"><h2>${draw?'🤝 เสมอ / ไม่มีผู้ชนะ':won?'🏆 คุณชนะ!':`💀 ${B.name} ชนะ`}</h2>
+ <table><tr><th></th><th>คุณ</th><th>${B.name}</th></tr>
+ <tr><th>มือ (Hand)</th><td class="${R.w===me?'win':''}">${nm(me)}</td><td class="${R.w===op?'win':''}">${nm(op)}</td></tr>
+ <tr><th>Chip</th><td>${chip(me)}</td><td>${chip(op)}</td></tr>
+ <tr><th>Speed</th><td>${sp(me)}</td><td>${sp(op)}</td></tr>
+ <tr><th>Gold</th><td>+${gold(me)}G</td><td>+${gold(op)}G</td></tr></table>
+ <div class="why">💡 ${why}<br>💥 ${dmgTxt}</div><button id="bResOk" class="gold">ต่อไป ▶</button></div>`;
+ m.classList.add('on'); const close=()=>{m.classList.remove('on');clearTimeout(AN.rt);}; $('bResOk').onclick=close; m.onclick=e=>{if(e.target===m)close();};
+ clearTimeout(AN.rt); AN.rt=setTimeout(close,6000); }
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.5.1 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.6.0 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
