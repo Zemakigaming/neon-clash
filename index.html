@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.6.3</title>
+<title>NEON Clash v0.6.4</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -141,7 +141,7 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.6.3 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.6.4 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div><div class="oppRow"><div class="hpb" id="botHP"><i></i><span></span></div><div class="chipsBox sm" id="botChips"><div class="stks"></div><div class="cn"></div></div></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
@@ -150,14 +150,14 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <div style="display:flex;flex-direction:column;gap:8px">
  <div class="panel" id="shopP"><b>🛒 Market</b></div>
  <div class="panel"><b>📜 Log</b><div id="log"></div></div>
- <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP, 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม แต่เก็บการ์ดที่เล่นคืนมือได้) · Defense: ไม่ถือว่าแพ้หรือชนะ · DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · การ์ดที่ลงทิ้งทั้งหมด (ไม่มี Take Back) · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade (เลข 2–10 ไม่มีดอก / ดอกไม่มีเลข · ถ้าชนะ 🔥Burn 1 ใบจากมือหรือกองทิ้ง) ใบละ 2G ขึ้นมือ · Tarot ราคา + จำนวนที่มี · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
+ <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP, 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: ไม่ถือว่าแพ้หรือชนะ · DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่; Defense ทั้งคู่ = เก็บได้ทั้งคู่) · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade (เลข 2–10 ไม่มีดอก / ดอกไม่มีเลข · ถ้าชนะ 🔥Burn 1 ใบจากมือหรือกองทิ้ง) ใบละ 2G ขึ้นมือ · Tarot ราคา + จำนวนที่มี · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
 </div></div>
 <div class="menu" id="menu"><div class="box" id="menuBox"></div></div>
 <div class="tip" id="tip"></div><div id="resultM"></div>
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.6.3';
+const VER='0.6.4';
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
 const SUITS=['S','H','D','C'];
@@ -319,27 +319,29 @@ function afterDamage(g){
   checkOver(g); if(g.over) return;
   const P=g.players,w=g.res.w;
   // 3.5 winner & defenders discard all played; defeated may return any number to hand
-  P.forEach((p,i)=>{ if(!(w>=0&&i!==w&&p.commit.chip==='A')){ p.discard.push(...p.commit.cards); p.hand=p.hand.filter(c=>!p.commit.cards.includes(c)); } });
-  P.forEach((p,i)=>{ if(p.commit.chip==='D'&&w>=0&&i!==w) log(g,`🛡️ ${p.name} Defense → ไม่ถือว่าพ่ายแพ้ (กฏ 3.3) · การ์ดที่ลงไปทิ้งทั้งหมด ไม่มี Take Back (กฏ 3.5)`); });
-  g.reveal.fate=P.map((p,i)=>w<0?'discard':i===w?'discard':p.commit.chip==='A'?'takeback':'discard');
+  // OVERRIDE (Thongchai, binding, v0.6.4): Defense players may also take back (when opponent wins with Attack; both-Defense → both)
+  g.keepQ=keepers(g);
+  P.forEach((p,i)=>{ if(!g.keepQ.includes(i)){ p.discard.push(...p.commit.cards); p.hand=p.hand.filter(c=>!p.commit.cards.includes(c)); } });
+  const kq=keepers(g); P.forEach((p,i)=>{ if(p.commit.chip==='D'&&kq.includes(i)) log(g,`🛡️ ${p.name} Defense → ไม่ถือว่าพ่ายแพ้ แต่เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่ของพี่ Thongchai)`); });
+  g.reveal.fate=P.map((p,i)=>kq.includes(i)?'takeback':'discard');
   g.burnLeft=(w>=0)?P[w].commit.cards.filter(c=>c.upg==='burn').length:0;
   nextAfterBurn(g);
 }
 function nextAfterBurn(g){ const P=g.players,w=g.res.w;
   if(g.burnLeft>0){ const W=P[w]; if(W.hand.length+W.discard.length>0){ g.phase='burn'; g.pending={type:'burn',pi:w,left:g.burnLeft}; return; } g.burnLeft=0; }
-  const d=(w>=0&&P[1-w].commit.chip==='A')?1-w:-1;
-  if(d>=0){ g.phase='keep'; g.pending={type:'keep',pi:d}; return; }
-  toShop(g);
+  nextKeep(g);
 }
 // Burn: permanently remove 1 card from the game, chosen from your hand OR your discard pile
 function burnCard(g,pi,id){ if(g.phase!=='burn'||g.pending.pi!==pi) return false; const p=g.players[pi];
   let c=p.hand.find(x=>x.id===id),from='มือ'; if(c) p.hand=p.hand.filter(x=>x!==c); else { c=p.discard.find(x=>x.id===id); from='กองทิ้ง'; if(!c) return false; p.discard=p.discard.filter(x=>x!==c); }
   g.burned.push(c); g.burnLeft--; log(g,`🔥 ${p.name} Burn ${cname(c)} จาก${from} (ออกจากเกมถาวร)`); g.pending=null; nextAfterBurn(g); return true; }
+function keepers(g){ const P=g.players,w=g.res.w; if(w>=0) return P[1-w].commit.chip==='A'||P[1-w].commit.chip==='D'?[1-w]:[]; return P.every(p=>p.commit.chip==='D')?[0,1]:[]; }
+function nextKeep(g){ const P=g.players; const d=(g.keepQ||[]).shift(); if(d!=null){ g.phase='keep'; g.pending={type:'keep',pi:d,why:P[d].commit.chip==='A'?'defeated':'defense'}; return; } toShop(g); }
 function keepCards(g,pi,ids){ if(g.phase!=='keep'||g.pending.pi!==pi) return false; const p=g.players[pi]; ids=ids||[];
   const played=p.commit.cards; if(ids.some(id=>!played.find(c=>c.id===id))) return false;
   const back=played.filter(c=>ids.includes(c.id)), gone=played.filter(c=>!ids.includes(c.id));
   p.hand=p.hand.filter(c=>!played.includes(c)).concat(back); p.discard.push(...gone);
-  log(g,`↩️ ${p.name} (พ่ายแพ้) เก็บการ์ดคืนมือ ${back.length} ใบ`); g.pending=null; toShop(g); return true; }
+  log(g,`↩️ ${p.name} (${p.commit.chip==='A'?'พ่ายแพ้':'Defense'}) เก็บการ์ดคืนมือ ${back.length} ใบ`); g.pending=null; nextKeep(g); return true; }
 function toShop(g){ g.phase='shop'; g.shopDone=[false,false]; g.shopTurn=1-g.lead; g.freeSpecial=g.players.map((p,i)=>g.res.w>=0&&i!==g.res.w&&p.commit.chip==='A'); g.players.forEach(p=>p.commit=null); }
 function tarotPrice(p,t){return t.cost+p.tarots.length;}
 function buySpecial(g,pi,id){ if(g.phase!=='shop'||g.shopTurn!==pi) return false; const p=g.players[pi]; const i=g.shop.s.findIndex(c=>c.id===id); if(i<0) return false;
@@ -388,8 +390,9 @@ function botPrepare(g,pi){
 }
 function botBonus(g,pi){ const p=g.players[pi],o=g.players[1-pi],op=g.pending.options;
   const pref=o.hp<=4?['S','H','C','D']:p.hp<=4?['H','C','S','D']:['S','D','C','H']; chooseBonus(g,pi,pref.find(s=>op.includes(s))); }
-function botKeep(g,pi){ const p=g.players[pi]; const cards=p.commit.cards; const cnt={};cards.concat(p.hand).forEach(c=>cnt[c.r]=(cnt[c.r]||0)+1);
-  keepCards(g,pi,cards.filter(c=>c.r>=11||cnt[c.r]>=2).map(c=>c.id)); }
+function botKeep(g,pi){ const p=g.players[pi]; const cards=p.commit.cards; const pool=p.hand.includes(cards[0])?p.hand:p.hand.concat(cards); const cnt={};pool.forEach(c=>{if(c.r!=null)cnt[c.r]=(cnt[c.r]||0)+1;});
+  // take back good cards: specials/Upgrades, J+ and anything that pairs up; leave junk
+  keepCards(g,pi,cards.filter(c=>c.special||c.r>=11||cnt[c.r]>=2).map(c=>c.id)); }
 function burnValue(c,p){ return c.special?100:c.r; } // weakest = lowest-rank basic card
 function botBurn(g,pi){ const p=g.players[pi]; const all=p.discard.map(c=>[c,0]).concat(p.hand.map(c=>[c,0.5])); all.sort((a,b)=>(burnValue(a[0],p)+a[1])-(burnValue(b[0],p)+b[1])); burnCard(g,pi,all[0][0].id); }
 function botShop(g,pi){ const p=g.players[pi];
@@ -469,7 +472,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
 
  const PH={play:['🃏','เตรียมไพ่','Prepare · Play',`💰 มี ${Y.g}G · `+'เลือกการ์ด '+need+' ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วกดคว่ำ · หรือ ♻ Discard จั่วใหม่','#f3f'],
   bonus:['✨','เลือกโบนัสดอก','Resolution · Suit Bonus','คุณชนะ! เลือก Suit Bonus 1 ดอก','#ffd23f'],
-  keep:['↩','เก็บการ์ดคืนมือ','Resolution · Take Back','คุณแพ้รอบนี้ — เลือกการ์ดที่ลงไปเพื่อเก็บคืนมือ','#3cf'],
+  keep:['↩','เก็บการ์ดคืนมือ','Resolution · Take Back',(V.pending&&V.pending.why==='defense'?'คุณ Defense':'คุณแพ้รอบนี้')+' — เลือกการ์ดที่ลงไปเพื่อเก็บคืนมือ','#3cf'],
   burn:['🔥','เบิร์นการ์ด','Resolution · Burn','ชนะด้วย Upgrade — เลือก 1 ใบจากมือหรือกองทิ้งเพื่อลบออกจากเกมถาวร','#ff5a2a'],
   shop:['🛒','ร้านค้า','Shopping','ตาคุณซื้อ: Special Poker / Tarot / Refresh · เสร็จแล้วกด ✔ Ready (จบการซื้อ)','#3f9']};
  const WT={prepare:['⏳','รอคู่แข่งคว่ำการ์ด','Prepare · Waiting',Y.committed?'คว่ำการ์ดแล้ว — จะเปิดพร้อมกันเมื่ออีกฝ่ายพร้อม':'รอสักครู่…','#b9f'],
@@ -494,7 +497,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  else if(W==='bonus'){ ctrl.innerHTML='<span class="ttl">✨ เลือก Suit Bonus</span><div class="bigopt">'+V.pending.options.map(x=>`<button class="gold" data-s="${x}">${NC.SUIT[x].sym} ${NC.SUIT[x].bonus}</button>`).join('')+'</div>';
   ctrl.querySelectorAll('button').forEach(b=>b.onclick=()=>act({k:'bonus',s:b.dataset.s})); $('pv').textContent='Suit ในการ์ดที่ประกอบ Ranking มีจำนวนเท่ากัน เลือกได้ 1 Suit'; }
  else if(W==='keep'){ const kc=V.keepCards||[];[...keepSel].forEach(id=>{if(!kc.some(c=>c.id===id))keepSel.delete(id);});
-  ctrl.innerHTML='<span class="ttl">↩ คุณแพ้ — เลือกการ์ดเก็บคืนมือ (Take Back) กี่ใบก็ได้</span><div class="cards" id="keepRow" style="margin:6px 0"></div><button id="bKeep" class="gold">↩ เก็บ '+keepSel.size+' ใบ (ที่เหลือลงกองทิ้ง)</button><button id="bKeepAll" class="alt">เก็บทั้งหมด</button>';
+  ctrl.innerHTML='<span class="ttl">↩ '+(V.pending&&V.pending.why==='defense'?'คุณ Defense':'คุณพ่ายแพ้')+' — เลือกการ์ดเก็บคืนมือ (Take Back) กี่ใบก็ได้</span><div class="cards" id="keepRow" style="margin:6px 0"></div><button id="bKeep" class="gold">↩ เก็บ '+keepSel.size+' ใบ (ที่เหลือลงกองทิ้ง)</button><button id="bKeepAll" class="alt">เก็บทั้งหมด</button>';
   kc.forEach(c=>{const e=cardEl(c,{sel:keepSel.has(c.id)});e.onclick=()=>{keepSel.has(c.id)?keepSel.delete(c.id):keepSel.add(c.id);render();};$('keepRow').appendChild(e);});
   $('bKeep').onclick=()=>{const ids=[...keepSel];keepSel.clear();act({k:'keep',ids});};$('bKeepAll').onclick=()=>{keepSel.clear();act({k:'keep',ids:kc.map(c=>c.id)});}; }
  else if(W==='burn'){ const disc=V.myDiscard||[];
@@ -547,14 +550,14 @@ function showResult(){ const R=V&&V.reveal; if(!R)return; const me=V.me,op=1-me,
  const why={none:'ทั้งคู่ Defense — ไม่มีผู้ชนะ ไม่มี DMG',only:`${W} เป็นฝ่ายเดียวที่ Attack จึงชนะ`,speed:`${W} ชนะเพราะมือ ${nm(R.w)} มี Speed สูงกว่า (${sp(R.w)} ต่อ ${sp(1-R.w)})`,high:`Speed เท่ากัน (${sp(R.w)}) — ${W} ชนะด้วย Tie-break (High Card ไล่จากใบสูงสุด)`,tie:'Speed และ High Card เท่ากันทุกใบ → เสมอ ไม่มี DMG'}[R.why]||'';
  const dmgTxt=R.w>=0?(R.dmg?`${L} โดน ${R.dmg} DMG`:'(DMG คำนวณหลังเลือก Suit Bonus)'):'ไม่มี DMG';
  const m=$('resultM');m.style.setProperty('--rc',rc);
- const iDef=R.w===op&&R.chips[me]==='D'; const fate=i=>R.w<0?'🗑 ลงกองทิ้ง (ไม่มีผู้ชนะ)':i===R.w?'🗑 ลงกองทิ้ง (ผู้ชนะ)':R.chips[i]==='D'?'🗑 ลงกองทิ้ง (Defense ไม่ถือว่าแพ้)':'↩ พ่ายแพ้: เลือกเก็บคืนมือได้';
+ const iDef=R.chips[me]==='D'&&(R.w===op||(R.w<0&&R.chips[op]==='D')); const fate=i=>(R.fate&&R.fate[i]==='takeback')?(R.chips[i]==='D'?'↩ Defense: เลือกเก็บคืนมือได้':'↩ พ่ายแพ้: เลือกเก็บคืนมือได้'):(R.w<0?'🗑 ลงกองทิ้ง (ไม่มีผู้ชนะ)':i===R.w?'🗑 ลงกองทิ้ง (ผู้ชนะ)':'🗑 ลงกองทิ้ง');
  m.innerHTML=`<div class="rbox"><h2>${draw?'🤝 เสมอ / ไม่มีผู้ชนะ':won?'🏆 คุณชนะ!':iDef?`🛡️ ${B.name} ชนะ — คุณ Defense (ไม่ถือว่าแพ้)`:`💀 ${B.name} ชนะ — คุณพ่ายแพ้`}</h2>
  <table><tr><th></th><th>คุณ</th><th>${B.name}</th></tr>
  <tr><th>มือ (Hand)</th><td class="${R.w===me?'win':''}">${nm(me)}</td><td class="${R.w===op?'win':''}">${nm(op)}</td></tr>
  <tr><th>Chip</th><td>${chip(me)}</td><td>${chip(op)}</td></tr>
  <tr><th>Speed</th><td>${sp(me)}</td><td>${sp(op)}</td></tr>
  <tr><th>Gold</th><td>+${gold(me)}G</td><td>+${gold(op)}G</td></tr>
- <tr><th>การ์ดที่ลง</th><td class="fate">${fate(me)}</td><td>${fate(op)}</td></tr></table>${iDef?'<div class="why" id="defNote" style="color:#9cf">🛡️ กฏ 1.2 ข้อ 3.3/3.5: ผู้เล่นที่ Defense <b>ไม่ถือว่าพ่ายแพ้</b> → ได้ +3G และ DMG −1 (หรือใช้ Shield) แต่การ์ดที่ลงต้องทิ้งทั้งหมด · Take Back ได้เฉพาะคนที่ Attack แล้วแพ้</div>':''}
+ <tr><th>การ์ดที่ลง</th><td class="fate">${fate(me)}</td><td>${fate(op)}</td></tr></table>${iDef?'<div class="why" id="defNote" style="color:#9cf">🛡️ Defense <b>ไม่ถือว่าพ่ายแพ้</b>: ได้ +3G และ DMG −1 (หรือใช้ Shield) · ไม่ได้ Prize/Suit Bonus · <b>เลือกเก็บการ์ดที่ลงคืนมือได้</b> (กฏใหม่ แทนข้อ 3.5)</div>':''}
  <div class="why">💡 ${why}<br>💥 ${dmgTxt}</div><button id="bResOk" class="gold">ต่อไป ▶</button></div>`;
  m.classList.add('on'); const close=()=>{m.classList.remove('on');clearTimeout(AN.rt);}; $('bResOk').onclick=close; m.onclick=e=>{if(e.target===m)close();};
  clearTimeout(AN.rt); AN.rt=setTimeout(close,6000); }
@@ -573,7 +576,7 @@ function chipStack(id,gold){const box=$(id);if(!box)return;const sm=box.classLis
  box.dataset.gold=gold;box.querySelector('.cn').textContent=`💰 ${gold}G`;box.title=`${gold}G (1 ชิป = 1G)`;}
 function tidy(st){[...st.children].forEach(sk=>{if(!sk.children.length)sk.remove();});}
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.6.3 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.6.4 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}

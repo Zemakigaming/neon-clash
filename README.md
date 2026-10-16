@@ -8,4 +8,5 @@ Versions: NEON_Clash_v0.3.0.html
 - v0.6.0 — commit slide, flip reveal, result modal, bigger desktop cards: [NEON_Clash_v0.6.0.html](NEON_Clash_v0.6.0.html)
 - v0.6.1 — neon HP bars under the hand / opponent side: [NEON_Clash_v0.6.1.html](NEON_Clash_v0.6.1.html)
 - v0.6.2 — gold as stacked neon poker chips: [NEON_Clash_v0.6.2.html](NEON_Clash_v0.6.2.html)
-- v0.6.3 (current) — clear Defense vs defeated/Take Back messaging, loss-case tests: [NEON_Clash_v0.6.3.html](NEON_Clash_v0.6.3.html)
+- v0.6.3 — clear Defense vs defeated/Take Back messaging, loss-case tests: [NEON_Clash_v0.6.3.html](NEON_Clash_v0.6.3.html)
+- v0.6.4 (current) — rule override: Defense players may take back played cards: [NEON_Clash_v0.6.4.html](NEON_Clash_v0.6.4.html)
