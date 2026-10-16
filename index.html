@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.6.1</title>
+<title>NEON Clash v0.6.2</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -122,15 +122,30 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 @keyframes hitS{0%,100%{transform:none}20%{transform:translateX(-6px);filter:brightness(2)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}}
 @keyframes healG{50%{color:#7fffd0;transform:scale(1.25)}}
 @media(min-width:1000px){:root{--cw:clamp(80px,min(6.4vw,9.4vh),118px)}#phaseBar{padding:5px 14px}.hpb{height:22px;margin:3px 0}}
+
+/* v0.6.2 gold chip stacks */
+.handRow{display:flex;align-items:flex-end;gap:10px}.handRow #hand{flex:1;min-width:0}
+.oppRow{display:flex;align-items:center;gap:10px;flex-shrink:0}.oppRow .hpb{flex:1}
+.chipsBox{display:flex;flex-direction:column;align-items:center;flex-shrink:0;min-width:44px}
+.chipsBox .stks{display:flex;gap:4px;align-items:flex-end;min-height:58px}
+.chipsBox .stk{position:relative;width:34px;height:calc(12px + 4px*9)}
+.pchip{position:absolute;left:0;width:34px;height:12px;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#ffe066 0 30%,#e0a000 31% 55%,#fff 56% 62%,#d08a00 63%);border:1px solid #ffd23f;box-shadow:0 0 6px #ffb800,0 2px 0 #7a4b00}
+.pchip.add{animation:chipIn .35s cubic-bezier(.2,.9,.3,1.3) both}
+.pchip.out{animation:chipOut .35s ease-in forwards}
+@keyframes chipIn{from{transform:translateY(-40px) scale(1.2);opacity:0}}
+@keyframes chipOut{to{transform:translateY(-36px) scale(.6);opacity:0}}
+.chipsBox .cn{font-weight:800;color:#ffd23f;text-shadow:0 0 6px #fa0;font-size:15px;margin-top:2px;white-space:nowrap}
+.chipsBox.sm .stks{min-height:0}.chipsBox.sm{flex-direction:row;gap:6px}.chipsBox.sm .stk{width:24px;height:calc(9px + 3px*9)}.chipsBox.sm .pchip{width:24px;height:9px}
+@media(max-width:700px){.chipsBox .stk{width:26px}.chipsBox .pchip{width:26px;height:10px}.chipsBox{min-width:34px}}
 </style></head><body>
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.6.1 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
- <div class="panel" id="botP"></div><div class="hpb" id="botHP"><i></i><span></span></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.6.2 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel" id="botP"></div><div class="oppRow"><div class="hpb" id="botHP"><i></i><span></span></div><div class="chipsBox sm" id="botChips"><div class="stks"></div><div class="cn"></div></div></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
- <div class="panel"><div id="hand" class="cards"></div><div class="hpb me" id="youHP"><i></i><span></span></div><div id="ctrl" style="margin-top:6px"></div><div class="hint" id="pv"></div></div>
+ <div class="panel"><div class="handRow"><div id="hand" class="cards"></div><div class="chipsBox" id="youChips"><div class="stks"></div><div class="cn"></div></div></div><div class="hpb me" id="youHP"><i></i><span></span></div><div id="ctrl" style="margin-top:6px"></div><div class="hint" id="pv"></div></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:8px">
  <div class="panel" id="shopP"><b>🛒 Market</b></div>
@@ -142,7 +157,7 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.6.1';
+const VER='0.6.2';
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
 const SUITS=['S','H','D','C'];
@@ -437,7 +452,7 @@ function sync(){ if(mode==='host'&&conn&&conn.open){ try{conn.send({t:'state',v:
 function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.players[1-V.me],R=V.reveal;
  $('round').textContent=`รอบ ${V.round} · ${({prepare:'Prepare / Play',bonus:'Resolution: เลือก Suit Bonus',burn:'Resolution: Burn',keep:'Resolution: เก็บการ์ดคืนมือ',shop:'Shopping',over:'จบเกม',resolution:'Resolution'})[V.phase]||V.phase}`;
  $('modeChip').textContent=mode==='bot'?'🤖 Vs Bot':mode==='host'?`🌐 Host · ห้อง ${roomCode} · ${connected?'🟢 เพื่อนออนไลน์':'🔴 รอเพื่อน'}`:`🌐 Guest · ห้อง ${roomCode} · ${connected?'🟢 เชื่อมต่อแล้ว':'🔴 หลุด'}`;
- $('botP').replaceChildren(pPanel(B,false,1-V.me));$('youP').replaceChildren(pPanel(Y,true,V.me));hpBar('botHP',B.hp,B.name);hpBar('youHP',Y.hp,'คุณ');
+ $('botP').replaceChildren(pPanel(B,false,1-V.me));$('youP').replaceChildren(pPanel(Y,true,V.me));hpBar('botHP',B.hp,B.name);hpBar('youHP',Y.hp,'คุณ');chipStack('youChips',Y.g);chipStack('botChips',B.g);
  const hand=Y.hand||[];[...sel].forEach(id=>{if(!hand.some(c=>c.id===id))sel.delete(id);});
  const W=V.waiting; const need=Y.playN;
  const h=$('hand');h.replaceChildren();hand.slice().sort((a,b)=>(a.r||0)-(b.r||0)||String(a.s||'').localeCompare(String(b.s||''))).forEach(c=>{const e=cardEl(c,{sel:sel.has(c.id)});e.onclick=()=>{if(W!=='play')return;sel.has(c.id)?sel.delete(c.id):sel.add(c.id);render();};h.appendChild(e);});
@@ -544,8 +559,17 @@ const HPPREV={};
 function hpBar(id,hp,label){const el=$(id);if(!el)return;const pct=Math.max(0,Math.min(100,hp/10*100));el.querySelector('i').style.width=pct+'%';
  el.querySelector('span').textContent=`${label} ❤ ${hp} HP`;el.classList.toggle('low',hp<=3);el.classList.toggle('mid',hp>3&&hp<=6);
  const pv=HPPREV[id];if(pv!=null&&pv!==hp){const c=hp<pv?'hit':'heal';el.classList.remove('hit','heal');void el.offsetWidth;el.classList.add(c);}HPPREV[id]=hp;el.dataset.hp=hp;}
+
+const CHIP_PER=10;
+function chipStack(id,gold){const box=$(id);if(!box)return;const sm=box.classList.contains('sm');const dy=sm?3:4;const st=box.querySelector('.stks');
+ let live=[...st.querySelectorAll('.pchip:not(.out)')];const first=box.dataset.init!=='1';box.dataset.init='1';
+ while(live.length>gold){const c=live.pop();c.classList.remove('add');c.classList.add('out');setTimeout(()=>{c.remove();tidy(st);},360);}
+ for(let k=live.length;k<gold;k++){const si=Math.floor(k/CHIP_PER);let sk=st.children[si];while(!sk||st.children.length<=si){sk=document.createElement('div');sk.className='stk';st.appendChild(sk);sk=st.children[si];}
+  const c=document.createElement('div');c.className='pchip'+(first?'':' add');c.style.bottom=((k%CHIP_PER)*dy)+'px';if(!first)c.style.animationDelay=((k-live.length)*45)+'ms';sk.appendChild(c);}
+ box.dataset.gold=gold;box.querySelector('.cn').textContent=`💰 ${gold}G`;box.title=`${gold}G (1 ชิป = 1G)`;}
+function tidy(st){[...st.children].forEach(sk=>{if(!sk.children.length)sk.remove();});}
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.6.1 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.6.2 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
