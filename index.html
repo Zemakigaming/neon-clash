@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.4.0</title>
+<title>NEON Clash v0.5.0</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -43,13 +43,43 @@ body{background:linear-gradient(rgba(7,4,15,.55),rgba(7,4,15,.8)),url(data:image
 .card{transition:transform .12s}
 .fic{width:16px;height:16px;object-fit:contain;vertical-align:middle}
 .hero{display:flex;justify-content:center;gap:-10px;margin:8px 0}.hero img{width:70px;margin:0 -8px;border-radius:6px;box-shadow:0 0 10px #000;transform:rotate(var(--r))}
+
+/* v0.5 phase banner + action panel */
+#phaseBar{position:relative;margin:0 0 8px;padding:12px 18px;border-radius:14px;border:2px solid var(--pc,#f0f);background:linear-gradient(100deg,rgba(40,0,60,.92),rgba(10,0,30,.92));box-shadow:0 0 14px var(--pc,#f0f),inset 0 0 18px rgba(255,0,255,.15);display:flex;align-items:center;gap:14px}
+#phaseBar .pi{font-size:30px;filter:drop-shadow(0 0 6px var(--pc))}
+#phaseBar .pn{font-size:22px;font-weight:800;color:#fff;text-shadow:0 0 8px var(--pc),0 0 18px var(--pc);letter-spacing:.5px}
+#phaseBar .pe{font-size:13px;color:var(--pc);margin-left:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+#phaseBar .pd{font-size:14px;color:#e8dcff;margin-top:3px}
+#phaseBar .pr{margin-left:auto;font-size:12px;color:#bbb;text-align:right;white-space:nowrap}
+#phaseBar.anim{animation:phIn .55s ease-out}
+@keyframes phIn{0%{transform:scale(.94);opacity:.2;filter:brightness(2.2)}60%{transform:scale(1.02);opacity:1}100%{transform:none;filter:none}}
+#ctrl.actp{border:1px solid var(--pc,#c9f);border-radius:14px;padding:12px;background:rgba(20,5,40,.85);box-shadow:0 0 10px rgba(200,100,255,.35)}
+#ctrl.actp button{font-size:17px;padding:12px 22px;min-height:50px;border-radius:12px;margin:5px}
+#ctrl .ttl{display:block;font-size:17px;font-weight:700;margin-bottom:8px;color:#fff;text-shadow:0 0 6px var(--pc)}
+#ctrl .bigopt{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+#ctrl .bigopt button{min-width:150px;font-size:20px!important}
+#ctrl .chipsel{outline:3px solid #ff0;box-shadow:0 0 14px #ff0}
+#modalBk{position:fixed;inset:0;background:rgba(5,0,15,.72);backdrop-filter:blur(2px);z-index:40;display:none}
+body.modal #modalBk{display:block}
+body.modal #ctrl.actp{position:fixed;z-index:41;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,94vw);max-height:86vh;overflow:auto;animation:mIn .3s ease-out;border-width:2px;text-align:center}
+@keyframes mIn{from{opacity:0;transform:translate(-50%,-44%) scale(.95)}}
+#ctrl .cards{justify-content:center}
+.waitbox{display:flex;align-items:center;gap:12px;font-size:17px;color:#cfc0ff;justify-content:center;padding:6px}
+.spin{width:26px;height:26px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:var(--pc,#f0f);animation:sp 0.9s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.card.upgc .r{font-size:18px}.card.upgc .ug{position:absolute;top:30%;width:100%;text-align:center;font-size:22px}
+.card.upgc .st{bottom:3px;font-size:8px;line-height:1.15;color:#fc6;white-space:normal}
+@media(max-width:700px){#phaseBar{padding:9px 12px;gap:10px}#phaseBar .pn{font-size:18px}#phaseBar .pi{font-size:24px}#phaseBar .pr{display:none}#phaseBar .pe{display:block;margin:0}
+ #ctrl.actp button{font-size:16px;padding:12px 14px;flex:1 1 40%}#ctrl .bigopt button{min-width:120px}
+ #ctrl.actp:not(.modalp){position:fixed;left:6px;right:6px;bottom:6px;z-index:30;max-height:46vh;overflow:auto;padding:8px}#ctrl .ttl{font-size:15px;margin-bottom:4px}body{padding-bottom:190px}}
+#ctrl .hint{margin:6px 0 2px;display:block}
 </style></head><body>
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.4.0 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.5.0 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div>
- <div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
+ <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
  <div class="panel"><div id="hand" class="cards"></div><div id="ctrl" style="margin-top:6px"></div><div class="hint" id="pv"></div></div>
 </div>
@@ -63,7 +93,7 @@ body{background:linear-gradient(rgba(7,4,15,.55),rgba(7,4,15,.8)),url(data:image
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.4.0';
+const VER='0.5.0';
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
 const SUITS=['S','H','D','C'];
@@ -318,9 +348,9 @@ const PREFIX='neonclash-v02-';
 let mode=null,me=0,g=null,V=null,sel=new Set(),peer=null,conn=null,roomCode='',lastSeen=0,hbTimer=null,connected=false;
 // ---------- art / card elements ----------
 function cardEl(c,opt={}){const S=c.s?NC.SUIT[c.s]:{sym:'',fac:'Upgrade (ไม่มีดอก)',th:'',col:'#ddd'};const d=document.createElement('div');const art=c.upg?null:CARD_ART[c.s+c.r];
- d.className='card'+(art?' img':'')+(opt.sel?' sel':'');d.style.setProperty('--c',S.col);if(art)d.style.backgroundImage=`url(${art})`;
+ d.className='card'+(art?' img':'')+(c.upg?' upgc':'')+(opt.sel?' sel':'');d.style.setProperty('--c',S.col);if(art)d.style.backgroundImage=`url(${art})`;
  const ic=c.s?UI_ART['icon_'+c.s]:null;if(c.upg){d.style.background='linear-gradient(160deg,#3a2a00,#120a20)';}
- d.innerHTML=`<div class="r">${c.r==null?'':NC.rname(c.r)}</div>${!art&&ic?`<img class="ic2" src="${ic}">`:`<div class="s">${S.sym}</div>`}<div class="f">${S.fac}</div>${art&&ic?`<img class="ic" src="${ic}">`:''}${c.upg?'<div class="st" style="color:#fc6">⬆ Upgrade · 🔥Burn 1</div>':''}`;
+ if(c.upg){d.innerHTML=`<div class="r">${c.r==null?'':NC.rname(c.r)}</div><div class="ug">${c.s?S.sym:'⬆'}</div><div class="st">⬆ Upgrade<br>🔥 Burn 1</div>`;}else d.innerHTML=`<div class="r">${c.r==null?'':NC.rname(c.r)}</div>${!art&&ic?`<img class="ic2" src="${ic}">`:`<div class="s">${S.sym}</div>`}<div class="f">${S.fac}</div>${art&&ic?`<img class="ic" src="${ic}">`:''}${c.upg?'<div class="st" style="color:#fc6">⬆ Upgrade · 🔥Burn 1</div>':''}`;
  d.title=c.upg?`Upgrade ${NC.cname(c)} — ถ้าชนะ: Burn การ์ด 1 ใบ (จากมือหรือกองทิ้ง)`:`${NC.rname(c.r)}${S.sym} ${S.fac} (${S.th})`;return d;}
 function backEl(){const d=document.createElement('div');d.className='card back';return d;}
 function tarotEl(t){const d=document.createElement('div');d.className='tarot';const a=ART[t.name];
@@ -367,31 +397,50 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
    $('res').innerHTML=R.w<0?'🤝 ไม่มีผู้ชนะ — ไม่มีใครได้รับ DMG':(R.w===V.me?'🏆 คุณชนะ!':`${mode==='bot'?'🤖':'🧑'} ${B.name} ชนะ`)+(R.bonus?` · Prize ${R.prize}G · Suit Bonus ${NC.SUIT[R.bonus].sym} ${NC.SUIT[R.bonus].bonus} · DMG ${R.dmg}`:(R.w>=0?' · รอเลือก Suit Bonus…':'')); }
  else { if(B.committed) for(let i=0;i<5;i++) bp.appendChild(backEl()); $('res').textContent=Y.committed?(mode==='bot'?'':'⏳ รออีกฝ่ายคว่ำการ์ด… (เปิดพร้อมกัน)'):''; }
  // controls
- const ctrl=$('ctrl'),n=sel.size; $('pv').textContent='';
+
+ const PH={play:['🃏','เตรียมไพ่','Prepare · Play','เลือกการ์ด '+need+' ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วกดคว่ำ · หรือ ♻ Discard จั่วใหม่','#f3f'],
+  bonus:['✨','เลือกโบนัสดอก','Resolution · Suit Bonus','คุณชนะ! เลือก Suit Bonus 1 ดอก','#ffd23f'],
+  keep:['↩','เก็บการ์ดคืนมือ','Resolution · Take Back','คุณแพ้รอบนี้ — เลือกการ์ดที่ลงไปเพื่อเก็บคืนมือ','#3cf'],
+  burn:['🔥','เบิร์นการ์ด','Resolution · Burn','ชนะด้วย Upgrade — เลือก 1 ใบจากมือหรือกองทิ้งเพื่อลบออกจากเกมถาวร','#ff5a2a'],
+  shop:['🛒','ร้านค้า','Shopping','ตาคุณซื้อ: Special Poker / Tarot / Refresh · เสร็จแล้วกด ✔ Ready (จบการซื้อ)','#3f9']};
+ const WT={prepare:['⏳','รอคู่แข่งคว่ำการ์ด','Prepare · Waiting',Y.committed?'คว่ำการ์ดแล้ว — จะเปิดพร้อมกันเมื่ออีกฝ่ายพร้อม':'รอสักครู่…','#b9f'],
+  bonus:['⏳','คู่แข่งเลือกโบนัส','Resolution · Suit Bonus',`รอ ${B.name} เลือก Suit Bonus…`,'#ffd23f'],
+  keep:['⏳','คู่แข่งเก็บการ์ด','Resolution · Take Back',`รอ ${B.name} เลือกการ์ดเก็บคืนมือ…`,'#3cf'],
+  burn:['⏳','คู่แข่งเบิร์นการ์ด','Resolution · Burn',`รอ ${B.name} เลือกการ์ดที่จะ Burn…`,'#ff5a2a'],
+  shop:['⏳','คู่แข่งช้อปอยู่','Shopping · Waiting',`รอ ${B.name} ซื้อของให้เสร็จ (คนไม่มี Lead ซื้อก่อน)`,'#3f9']};
+ let P=V.over?['🏁','จบเกม','Game Over',V.winner<0?'เสมอ':V.winner===V.me?'คุณชนะ!':`${B.name} ชนะ`,'#fff']:(PH[W]||WT[V.phase]||['⏳','Resolution','Resolution','กำลังคิดผล…','#b9f']);
+ const waitingNow=!PH[W]&&!V.over;
+ const pb=$('phaseBar');pb.style.setProperty('--pc',P[4]);$('ctrl').style.setProperty('--pc',P[4]);
+ pb.innerHTML=`<div class="pi">${P[0]}</div><div><div><span class="pn">${P[1]}</span><span class="pe">${P[2]}</span></div><div class="pd">${P[3]}</div></div><div class="pr">รอบ ${V.round}<br>${V.lead===V.me?'👑 คุณถือ Lead':'👑 Lead: '+B.name}</div>`;
+ pb.dataset.phase=V.over?'over':(PH[W]?W:'wait-'+V.phase);
+ const key=V.round+'|'+pb.dataset.phase; if(key!==window.__lastPh){window.__lastPh=key;pb.classList.remove('anim');void pb.offsetWidth;pb.classList.add('anim');}
+ const modalOn=['bonus','keep','burn'].includes(W)&&!V.over; document.body.classList.toggle('modal',modalOn);
+ const ctrl=$('ctrl'),n=sel.size; $('pv').textContent=''; ctrl.className='actp'+(modalOn?' modalp':'');
  if(W==='play'){
-  ctrl.innerHTML=`<span class="hint">Chip:</span> <button id="cA" class="${chip==='A'?'gold':'alt'}">⚔️ Attack</button><button id="cD" class="${chip==='D'?'gold':'alt'}">🛡️ Defense</button> &nbsp; <button id="bPlay" ${n===need?'':'disabled'}>▶ คว่ำการ์ด ${n}/${need}</button><button id="bDisc" class="alt" ${n&&Y.canDisc?'':'disabled'}>♻ ทิ้ง ${n||''} ใบ แล้วจั่วใหม่ (${Y.discCost?Y.discCost+'G':'ฟรี'})</button>`;
+  ctrl.innerHTML=`<span class="ttl">เลือก Chip แล้วคว่ำการ์ด</span><div class="bigopt"><button id="cA" class="${chip==='A'?'gold chipsel':'alt'}">⚔️ Attack</button><button id="cD" class="${chip==='D'?'gold chipsel':'alt'}">🛡️ Defense</button></div><div class="bigopt"><button id="bPlay" ${n===need?'':'disabled'}>▶ คว่ำการ์ด ${n}/${need}</button><button id="bDisc" class="alt" ${n&&Y.canDisc?'':'disabled'}>♻ ทิ้ง ${n||''} ใบ แล้วจั่วใหม่ (${Y.discCost?Y.discCost+'G':'ฟรี'})</button></div>`;
   $('cA').onclick=()=>{chip='A';render();};$('cD').onclick=()=>{chip='D';render();};
   $('bPlay').onclick=()=>{const ids=[...sel];sel.clear();act({k:'commit',ids,chip});};$('bDisc').onclick=()=>{const ids=[...sel];sel.clear();act({k:'discard',ids});};
   if(n){const cards=hand.filter(c=>sel.has(c.id));const e=NC.evalHand(cards);$('pv').textContent=`พรีวิว: ${NC.RANK[e.code][0]} (${NC.RANK_TH[e.code]}) · Speed ${NC.speedOf(Y,e)} · Prize ${e.prize}G · Suit Bonus จาก: ${NC.bonusSuits(e.rankCards).map(x=>NC.SUIT[x].sym).join('/')}`;}
   else $('pv').textContent=`เลือกการ์ด ${need} ใบ + เลือก Chip แล้วกดคว่ำ · ทิ้งการ์ด: ครั้งที่ ${Y.discUsed+1} จ่าย ${Y.discCost}G (ทิ้งกี่ใบก็ได้ แล้วจั่วจนครบ Hand Size)`; }
- else if(W==='bonus'){ ctrl.innerHTML='<b>เลือก Suit Bonus:</b> '+V.pending.options.map(x=>`<button class="gold" data-s="${x}">${NC.SUIT[x].sym} ${NC.SUIT[x].bonus}</button>`).join('');
+ else if(W==='bonus'){ ctrl.innerHTML='<span class="ttl">✨ เลือก Suit Bonus</span><div class="bigopt">'+V.pending.options.map(x=>`<button class="gold" data-s="${x}">${NC.SUIT[x].sym} ${NC.SUIT[x].bonus}</button>`).join('')+'</div>';
   ctrl.querySelectorAll('button').forEach(b=>b.onclick=()=>act({k:'bonus',s:b.dataset.s})); $('pv').textContent='Suit ในการ์ดที่ประกอบ Ranking มีจำนวนเท่ากัน เลือกได้ 1 Suit'; }
  else if(W==='keep'){ const kc=V.keepCards||[];[...keepSel].forEach(id=>{if(!kc.some(c=>c.id===id))keepSel.delete(id);});
-  ctrl.innerHTML='<b>คุณพ่ายแพ้ — เลือกการ์ดที่เล่นเพื่อเก็บคืนมือ (กี่ใบก็ได้):</b><div class="cards" id="keepRow" style="margin:6px 0"></div><button id="bKeep" class="gold">↩ เก็บ '+keepSel.size+' ใบ (ที่เหลือลงกองทิ้ง)</button><button id="bKeepAll" class="alt">เก็บทั้งหมด</button>';
+  ctrl.innerHTML='<span class="ttl">↩ คุณแพ้ — เลือกการ์ดเก็บคืนมือ (Take Back) กี่ใบก็ได้</span><div class="cards" id="keepRow" style="margin:6px 0"></div><button id="bKeep" class="gold">↩ เก็บ '+keepSel.size+' ใบ (ที่เหลือลงกองทิ้ง)</button><button id="bKeepAll" class="alt">เก็บทั้งหมด</button>';
   kc.forEach(c=>{const e=cardEl(c,{sel:keepSel.has(c.id)});e.onclick=()=>{keepSel.has(c.id)?keepSel.delete(c.id):keepSel.add(c.id);render();};$('keepRow').appendChild(e);});
   $('bKeep').onclick=()=>{const ids=[...keepSel];keepSel.clear();act({k:'keep',ids});};$('bKeepAll').onclick=()=>{keepSel.clear();act({k:'keep',ids:kc.map(c=>c.id)});}; }
  else if(W==='burn'){ const disc=V.myDiscard||[];
-  ctrl.innerHTML=`<b>🔥 Burn การ์ด 1 ใบ (เหลือ ${V.pending.left}) — เอาออกจากเกมถาวร · เลือกจากมือหรือกองทิ้ง:</b><div class="hint">✋ มือ</div><div class="cards" id="burnHand"></div><div class="hint">🗑 กองทิ้ง</div><div class="cards" id="burnDisc"></div>`;
+  ctrl.innerHTML=`<span class="ttl">🔥 Burn การ์ด 1 ใบ (เหลือ ${V.pending.left}) — ลบออกจากเกมถาวร</span><div class="hint">✋ มือ</div><div class="cards" id="burnHand"></div><div class="hint">🗑 กองทิ้ง</div><div class="cards" id="burnDisc"></div>`;
   hand.forEach(c=>{const e=cardEl(c);e.onclick=()=>act({k:'burn',id:c.id});$('burnHand').appendChild(e);});
   disc.forEach(c=>{const e=cardEl(c);e.onclick=()=>act({k:'burn',id:c.id});$('burnDisc').appendChild(e);});
-  $('pv').textContent='คุณชนะด้วยการ์ด Upgrade: คลิกการ์ด 1 ใบเพื่อ Burn'; }
- else if(W==='shop'){ ctrl.innerHTML=`<button class="gold" id="bEnd">✔ จบการซื้อ</button><button class="alt" id="rS" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Special ทั้งหมด (1G)</button><button class="alt" id="rT" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Tarot ทั้งหมด (1G)</button>`;
+  ctrl.insertAdjacentHTML('beforeend','<div class="hint">คลิกการ์ด 1 ใบเพื่อ Burn</div>'); }
+ else if(W==='shop'){ ctrl.innerHTML=`<span class="ttl">🛒 ตาคุณช้อป — ซื้อจากร้านค้าด้านข้าง</span><div class="bigopt"><button class="gold" id="bEnd">✔ Ready · จบการซื้อ</button><button class="alt" id="rS" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Special ทั้งหมด (1G)</button><button class="alt" id="rT" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Tarot ทั้งหมด (1G)</button></div>`;
   $('bEnd').onclick=()=>act({k:'endShop'});$('rS').onclick=()=>act({k:'refresh',kind:'s'});$('rT').onclick=()=>act({k:'refresh',kind:'t'});
   $('pv').textContent=V.free?'คุณพ่ายแพ้: ซื้อ Special Poker ได้ฟรี 1 ใบ':'Special Poker ใบละ 2G (ขึ้นมือทันที) · Tarot ราคา + จำนวน Tarot ที่มี'; }
+ else if(waitingNow){ctrl.innerHTML=`<div class="waitbox"><div class="spin"></div><div>${P[3]}</div></div>`;}
  else if(V.phase==='shop'){ctrl.innerHTML='';$('pv').textContent=`⏳ ${B.name} กำลังช้อป (เริ่มจากผู้เล่นที่ไม่มี Lead Token)`;}
  else if(['bonus','keep','burn'].includes(V.phase)){ctrl.innerHTML='';$('pv').textContent=`⏳ รอ ${B.name} ${({bonus:'เลือก Suit Bonus',keep:'เลือกการ์ดเก็บคืนมือ',burn:'เลือกการ์ดที่จะ Burn'})[V.phase]}…`;}
  else if(V.phase==='prepare'){ctrl.innerHTML='';$('pv').textContent='คว่ำการ์ดแล้ว รออีกฝ่าย…';}
- else ctrl.innerHTML='';
+ else {ctrl.innerHTML='';ctrl.className='';}
  // market (always visible; buy only on your shop turn)
  const sp=$('shopP');sp.innerHTML='<b>🛒 ร้านค้า</b>';const myTurn=W==='shop';const w=document.createElement('div');w.className='shop';
  V.shop.s.forEach(c=>{const it=document.createElement('div');it.className='item';it.appendChild(cardEl(c));const cost=V.free?0:2;const b=document.createElement('button');b.textContent=cost?`${cost}G`:'ฟรี';b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id});it.appendChild(b);w.appendChild(it);});
@@ -404,7 +453,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
   if($('bRe'))$('bRe').onclick=()=>act({k:'rematch'});}
 }
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.4.0 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.5.0 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
