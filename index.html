@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.8.1</title>
+<title>NEON Clash v0.9.0</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -146,7 +146,7 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.8.1 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.9.0 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div><div class="oppRow"><div class="hpb" id="botHP"><i></i><span></span></div><div class="chipsBox sm" id="botChips"><div class="stks"></div><div class="cn"></div></div></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
@@ -155,14 +155,14 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <div style="display:flex;flex-direction:column;gap:8px">
  <div class="panel" id="shopP"><b>🛒 Market</b></div>
  <div class="panel"><b>📜 Log</b><div id="log"></div></div>
- <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP, 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: ไม่ถือว่าแพ้หรือชนะ · DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่; Defense ทั้งคู่ = เก็บได้ทั้งคู่) · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · Tarot ราคา + จำนวนที่มี · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
+ <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP, 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: ไม่ถือว่าแพ้หรือชนะ · DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่; Defense ทั้งคู่ = เก็บได้ทั้งคู่) · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · <b>Tarot 78 ใบ</b> (จากชีท Project Poker แท็บ Tarot, อย่างละ 1) ราคา = cost + จำนวน Tarot ที่มี (♦A ลด 1G) · Tarot ที่ใช้ตอน Prepare (Moon, Sun, Contraband, Scorch, Truth, Insider, Duelist, Commander) กดปุ่ม 🔮 ใต้ปุ่มคว่ำการ์ด ใช้ได้รอบละครั้ง · Power = DMG เพิ่มเมื่อชนะ · Coin = G · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
 </div></div>
 <div class="menu" id="menu"><div class="box" id="menuBox"></div></div>
 <div class="tip" id="tip"></div><div id="resultM"></div>
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.8.1';
+const VER='0.9.0';
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
 const SUITS=['S','H','D','C'];
@@ -174,90 +174,115 @@ const cname=c=>c.joker?'🃏Joker':((c.rs?c.rs.join('/'):c.r==null?'':rname(c.r)
 const RANK={RSF:['Royal Straight Flush',15,10],SF:['Straight Flush',9,7],FOUR:['Four of a Kind',7,5],FH:['Full House',6,3],FL:['Flush',5,2],ST:['Straight',5,2],
   THREE:['Three of a Kind',4,2],TP:['Two Pair',3,2],PAIR:['Pair',2,4],HC:['High Card',1,5],NONE:['ไม่มีการ์ด',0,0]};
 const RANK_TH={RSF:'รอยัลสเตรทฟลัช',SF:'สเตรทฟลัช',FOUR:'โฟร์การ์ด',FH:'ฟูลเฮาส์',FL:'ฟลัช',ST:'สเตรท',THREE:'ตอง',TP:'สองคู่',PAIR:'คู่',HC:'ไพ่สูง',NONE:'ไม่มีการ์ด'};
-// Tarots kept from "poker fight" whose text still works under 1.2 (no Power/Defence stats exist in 1.2)
-const TAROTS=[
- ['The Big Hand',3,'+1 Hand Size','Hand Size +1'],
- ['The Miner',3,'Diamond +2 Gold (each Diamond you play, when you win)','ชนะ: ♦ แต่ละใบที่ลง +2G'],
- ['The Tie Breaker',2,'Speed +1','Speed +1'],
- ['The Sun',2,'Start round: opponent −3 HP','เริ่มรอบ คู่แข่ง −3 HP'],
- ['The Moon',2,'Start round: heal 2 HP','เริ่มรอบ ฟื้น 2 HP'],
- ['The Star',2,'Start round: +1 Coin (G)','เริ่มรอบ +1G'],
- ['The Slayer',2,'Less HP than opponent: Damage ×2','HP น้อยกว่า: DMG ×2'],
- ['The Vampire',3,'Opponent loses HP: heal half (round down)','คู่แข่งเสีย HP ฟื้นครึ่งหนึ่ง'],
- ['The Revenge',2,'Lost last round: Speed +2','แพ้รอบก่อน Speed +2'],
- ['The Doubt',2,'1 free Discard every round','ทิ้งการ์ดฟรี 1 ครั้ง/รอบ'],
- ['The Exodia',2,'Played hand has all 4 suits: Damage ×2','ครบ 4 ดอก: DMG ×2'],
- ['The Execution',2,'Win with Straight Flush / Five of a Kind = win the game','ชนะด้วย Straight Flush/Five = ชนะเกม'],
- ['The Tough',2,'Gain 20 HP, no maximum HP','+20 HP'],
-].map(([name,cost,en,th])=>({name,cost,en,th}));
+// v0.9.0: Tarot set = sheet "Project Poker" tab Tarot, 78 cards, 1 copy each, CELL values (name, arcana, cost, effect). Owner decision.
+const TAROTS=[{"name": "The Slayer", "arc": "Death", "cost": 3, "en": "If Attacking opponent(s) has less than or equal 5 HP, they take Damage +2.", "th": "Death"}, {"name": "The Execution", "arc": "Judgement", "cost": 3, "en": "You win the game if you do the Straight Flush or Five of a Kind.", "th": "Judgement"}, {"name": "The Contraband", "arc": "Justice", "cost": 3, "en": "At Prepare phase, call 1 Card Suit. All player can't use that card type until the end of this round.", "th": "Justice"}, {"name": "The Weapon", "arc": "Strength", "cost": 2, "en": "+1 Power", "th": "Strength"}, {"name": "The Sanctuary", "arc": "Temperance", "cost": 3, "en": "Defence gain 6 Coin instead of 3.", "th": "Temperance"}, {"name": "The Momentum", "arc": "The Chariot", "cost": 2, "en": "Speed 4+: +1 Power, Speed 7+: +2 Power", "th": "The Chariot"}, {"name": "The Wildfire", "arc": "The Devil", "cost": 4, "en": "Remove half of the current deck at random (rounded up). Poker card cost -1.", "th": "The Devil"}, {"name": "The One King", "arc": "The Emperor", "cost": 4, "en": "If your played Hand have only one King Card, Gold +1, Suit Bonus+1 and Speed +1", "th": "The Emperor"}, {"name": "The Empress", "arc": "The Empress", "cost": 3, "en": "+2 Hand Size but you can't Discard.", "th": "The Empress"}, {"name": "The Blind", "arc": "The Fool", "cost": 2, "en": "You can't look at your hand and must always play all cards. Speed +2", "th": "The Fool"}, {"name": "The Merchant", "arc": "The Hanged Man", "cost": 2, "en": "Whenever you discard a Face Card, +1 Coin.", "th": "The Hanged Man"}, {"name": "The Lonewolf", "arc": "The Hermit", "cost": 3, "en": "High Card gain +2 Speed, +2 Coin.", "th": "The Hermit"}, {"name": "The Classic", "arc": "The Hierophant", "cost": 2, "en": "If your played hand has only Basic Poker Cards,+1 Power, +1G", "th": "The Hierophant"}, {"name": "The Mysteries", "arc": "The High Priestess", "cost": 3, "en": "When you win the hand, look at the top 3 cards of the deck, choose any number of them to your hand and discard the rest.", "th": "The High Priestess"}, {"name": "The Couple", "arc": "The Lover", "cost": 3, "en": "Pair, Two Pair, and Full House gain +2 Speed and +1 Power", "th": "The Lover"}, {"name": "The Trickster", "arc": "The Magician", "cost": 4, "en": "After you play a hand, immedately draw a new hand and play another hand. Choose the best one.", "th": "The Magician"}, {"name": "The Moon", "arc": "The Moon", "cost": 3, "en": "At Prepare phase, you may pay 1G to heal 1 HP.", "th": "The Moon"}, {"name": "The Star", "arc": "The Star", "cost": 3, "en": "At the Prepare phase, Gain 1 Coin.", "th": "The Star"}, {"name": "The Sun", "arc": "The Sun", "cost": 3, "en": "At Prepare phase, Pay 1 G, each opponent lose 1 HP.", "th": "The Sun"}, {"name": "The Hitman", "arc": "The Tower", "cost": 3, "en": "If oponent Attack and you win with 3+ Speed, discard a Tarot Card of your choice from the opponent.", "th": "The Tower"}, {"name": "The World", "arc": "The World", "cost": 4, "en": "Before flipping up, you can swap the played hand with an opponent and pay them 1 Coin.", "th": "The World"}, {"name": "The Wheel", "arc": "Wheel of Fortune", "cost": 4, "en": "The Discard Action make your hand size +1 this round (stackable)", "th": "Wheel of Fortune"}, {"name": "The One", "arc": "Ace of Wands", "cost": 2, "en": "If Discard only 1 card, look at the top 5 cards of the deck, add 1 to your hand. Shuffle the rest back", "th": "Ace of Wands"}, {"name": "The Wind", "arc": "Eight of Wands", "cost": 3, "en": "Speed +1", "th": "Eight of Wands"}, {"name": "The Saboteur", "arc": "Five of Wands", "cost": 2, "en": "When an opponent would gain a Diamond Bonus, you gain it instead.", "th": "Five of Wands"}, {"name": "The Shield", "arc": "Four of Wands", "cost": 2, "en": "When you lose the hand, Gain 1 Shield.", "th": "Four of Wands"}, {"name": "The Royal", "arc": "King of Wands", "cost": 3, "en": "Every 2 Face card +1 speed", "th": "King of Wands"}, {"name": "The Savage", "arc": "Knight of Wands", "cost": 2, "en": "Spade Bonus +2 Power", "th": "Knight of Wands"}, {"name": "The Barbarian", "arc": "Nine of Wands", "cost": 2, "en": "Whenever you have 2 or less HP, Speed +3", "th": "Nine of Wands"}, {"name": "The Drifter", "arc": "Page of Wands", "cost": 4, "en": "Number Card can play as +1/-1.", "th": "Page of Wands"}, {"name": "The Tough", "arc": "Queen of Wands", "cost": 2, "en": "Gain 3 HP. Now, you have no maximum HP.", "th": "Queen of Wands"}, {"name": "The Planer", "arc": "Seven of Wands", "cost": 3, "en": "Whenever you Defence, search a card from the Deck to your hand before Draw Step.", "th": "Seven of Wands"}, {"name": "The Revolution", "arc": "Six of Wands", "cost": 2, "en": "A play win with at least 1 rank Two, Three, or Four Card. +1 Power and +1 Shield.", "th": "Six of Wands"}, {"name": "The Dragon", "arc": "Ten of Wands", "cost": 3, "en": "Hand size -1. If you have 5 or more coin: Speed +2, Power +3", "th": "Ten of Wands"}, {"name": "The Lucky One", "arc": "Three of Wands", "cost": 3, "en": "When you win, for each Eight and Three card in your played cards +2 G", "th": "Three of Wands"}, {"name": "as above so below", "arc": "Two of Wands", "cost": 4, "en": "Spade = Club", "th": "Two of Wands"}, {"name": "The Noble", "arc": "Ace of Cups", "cost": 3, "en": "After Shopping phase, gain 1 Poker Card from the top of Shop Pile.", "th": "Ace of Cups"}, {"name": "The Undertaker", "arc": "Eight of Cups", "cost": 2, "en": "You can buy cards from the Shop Discard Pile.", "th": "Eight of Cups"}, {"name": "Heart Breaker", "arc": "Five of Cups", "cost": 2, "en": "Opponent can't gaain health.", "th": "Five of Cups"}, {"name": "The Humble", "arc": "Four of Cups", "cost": 4, "en": "While Attacking, if there are Rank Two or Three Cards in your played hand: +2 Speed", "th": "Four of Cups"}, {"name": "The Guardian", "arc": "King of Cups", "cost": 3, "en": "When you use Sheild also Heal 1 HP.", "th": "King of Cups"}, {"name": "The Defender", "arc": "Knight of Cups", "cost": 2, "en": "Club Bonus +1 Shield.", "th": "Knight of Cups"}, {"name": "The Vampire", "arc": "Nine of Cups", "cost": 4, "en": "Whenever you win the round, you heal half of the amount an opponent HP lost. (rounded down)", "th": "Nine of Cups"}, {"name": "The Dog", "arc": "Page of Cups", "cost": 2, "en": "After Drawing Step, draw 1 card and discard a card.", "th": "Page of Cups"}, {"name": "The Healer", "arc": "Queen of Cups", "cost": 2, "en": "Heart Bonus +1 Heath", "th": "Queen of Cups"}, {"name": "The Follower", "arc": "Seven of Cups", "cost": 3, "en": "After your played cards is revealed, choose up to 2 of the opponent to replace your cands.", "th": "Seven of Cups"}, {"name": "Deja Vu", "arc": "Six of Cups", "cost": 3, "en": "If your Ranking is the same as the winning Ranking last round, +2 Speed and +2 additional Coins.", "th": "Six of Cups"}, {"name": "The Exodia", "arc": "Ten of Cups", "cost": 2, "en": "if your played cards contain all 4 suit, Power x2 and gain 2G", "th": "Ten of Cups"}, {"name": "The Riptide", "arc": "Three of Cups", "cost": 3, "en": "Flush Power +3", "th": "Three of Cups"}, {"name": "Duality of man", "arc": "Two of Cups", "cost": 4, "en": "Diamond = Heart", "th": "Two of Cups"}, {"name": "The Perfectionist", "arc": "Ace of Swords", "cost": 3, "en": "Ace Card each +1 Speed, +1 Power", "th": "Ace of Swords"}, {"name": "The Deliberate", "arc": "Eight of Swords", "cost": 4, "en": "when perform Discard, you may search for a card from your Deck. Then shuffle the deck, and draw the remaining cards. Discard cost x2.", "th": "Eight of Swords"}, {"name": "The Duelist", "arc": "Five of Swords", "cost": 2, "en": "At Prepare phase, you may place the Attack Chip at front and all player can't defence this round.", "th": "Five of Swords"}, {"name": "The Cycle", "arc": "Four of Swords", "cost": 3, "en": "After Shopping phase, choose 1 card in your discard pile to your hand.", "th": "Four of Swords"}, {"name": "The Insider", "arc": "King of Swords", "cost": 2, "en": "Once per round, before placing A/D Chip, look at 3 random played cards of an opponent.", "th": "King of Swords"}, {"name": "The Truth", "arc": "Knight of Swords", "cost": 3, "en": "During Prepare Phase, you can ask to see all card in opponents' hand. You can't Defence.", "th": "Knight of Swords"}, {"name": "The Misfortune", "arc": "Nine of Swords", "cost": 2, "en": "When you have no Coin, Power +2", "th": "Nine of Swords"}, {"name": "The Ghost", "arc": "Page of Swords", "cost": 3, "en": "Card with the same rank of the card in your discard pile +1 Power", "th": "Page of Swords"}, {"name": "The Flase Scale", "arc": "Queen of Swords", "cost": 3, "en": "Straight and Flush can be only 4 cards but Speed -1", "th": "Queen of Swords"}, {"name": "The Cat", "arc": "Seven of Swords", "cost": 2, "en": "After Drawing Step, discard 1 card from each opponent's hand at random, then they draw a card.", "th": "Seven of Swords"}, {"name": "The Doubt", "arc": "Six of Swords", "cost": 3, "en": "Gain 1 free Discard Action everyround.", "th": "Six of Swords"}, {"name": "The Enforce", "arc": "Ten of Swords", "cost": 3, "en": "On purchase: trade this card and one of your Tarot Cards for one of an opponent's Tarot Cards.", "th": "Ten of Swords"}, {"name": "The Revenge", "arc": "Three of Swords", "cost": 3, "en": "If you Attack and lose, next round Speed +2", "th": "Three of Swords"}, {"name": "The Gambler", "arc": "Two of Swords", "cost": 2, "en": "When you win the hand, gain 3 extra Coins. You gain no Coins instead if you Defence.", "th": "Two of Swords"}, {"name": "The Joker", "arc": "Ace of Pentacles", "cost": 3, "en": "Gain 1 Joker from the Shop Pile. Joker Speed +1, Power +1 and can be any Rank and any Type.", "th": "Ace of Pentacles"}, {"name": "The Scorch", "arc": "Eight of Pentacles", "cost": 2, "en": "Once per round, during Prepre phase, you may pay 1 G to remove a card from discard pile.", "th": "Eight of Pentacles"}, {"name": "The Thief", "arc": "Five of Pentacles", "cost": 3, "en": "At Prepare phase, gain 1G from a player with the most G.", "th": "Five of Pentacles"}, {"name": "The Rich", "arc": "Four of Pentacles", "cost": 3, "en": "+1 Hand Size", "th": "Four of Pentacles"}, {"name": "The Tax", "arc": "King of Pentacles", "cost": 3, "en": "Gain 1 Coin per card the opponents buy. (Max 3 per round)", "th": "King of Pentacles"}, {"name": "The Commander", "arc": "Knight of Pentacles", "cost": 3, "en": "You can buy a Poker Card after Prepare phase. Card costs +1  this way.", "th": "Knight of Pentacles"}, {"name": "The Miner", "arc": "Nine of Pentacles", "cost": 2, "en": "Diamond Bonus +2 Gold", "th": "Nine of Pentacles"}, {"name": "The Hare", "arc": "Page of Pentacles", "cost": 3, "en": "Straight can skip 1 rank.", "th": "Page of Pentacles"}, {"name": "The Extraordinary", "arc": "Queen of Pentacles", "cost": 4, "en": "Special Poker Card cost 1 less.", "th": "Queen of Pentacles"}, {"name": "The Investor", "arc": "Seven of Pentacles", "cost": 3, "en": "When you have 10 or more Coin, flip this card and Gain 10 Coins. (Once per game)", "th": "Seven of Pentacles"}, {"name": "The Tree", "arc": "Six of Pentacles", "cost": 2, "en": "when you gain health gaain 1 more.", "th": "Six of Pentacles"}, {"name": "The Distinie", "arc": "Ten of Pentacles", "cost": 3, "en": "_+1 Power per Coin(s) you currently have. (Max 3)", "th": "Ten of Pentacles"}, {"name": "The Doppelganger", "arc": "Three of Pentacles", "cost": 3, "en": "Three of a Kind and Four of a Kind, +1 Power and Gain 3 more Coins.", "th": "Three of Pentacles"}, {"name": "The Laborer", "arc": "Two of Pentacles", "cost": 3, "en": "Rank Two and Three cards, +1 Power, +1G", "th": "Two of Pentacles"}];
 const TBYNAME=Object.fromEntries(TAROTS.map(t=>[t.name,t]));
 
 function rng(seed){let s=(seed>>>0)||1;return()=>{s^=s<<13;s>>>=0;s^=s>>17;s^=s<<5;s>>>=0;return s/4294967296;};}
 function shuffle(a,R){for(let i=a.length-1;i>0;i--){const j=Math.floor(R()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-// evaluate up to 5 cards → {code, speed, prize, rankCards (cards that form the Ranking), high (all ranks desc for tie-break)}
-function evalFixed(cards){
-  const n=cards.length; const high=cards.map(c=>c.r||0).sort((a,b)=>b-a);
-  if(!n) return {code:'NONE',speed:0,prize:0,rankCards:[],high};  // no cards left at all (gap)
+const TN=(p,n)=>p&&p.tarots?p.tarots.filter(t=>t.name===n).length:0; const countT=TN;
+// ---- hand evaluation with sheet Upgrade cards + tarot modifiers ----
+// mods: {ban (suit made blank by The Contraband), sc (Spade=Club), dh (Diamond=Heart), drift (number cards ±1), hare (Straight may skip 1 rank),
+//        scale (Straight/Flush may be 4 cards, Speed −1), joker (Jokers = any rank & suit)}
+function modsOf(p,ban){return {ban:ban||null,sc:TN(p,'as above so below')>0,dh:TN(p,'Duality of man')>0,drift:TN(p,'The Drifter')>0,hare:TN(p,'The Hare')>0,scale:TN(p,'The Flase Scale')>0,joker:TN(p,'The Joker')>0};}
+const canon=(s,m)=>s==null?null:(m&&m.sc&&s==='S')?'C':(m&&m.dh&&s==='D')?'H':s;
+function isStraight(rs,hare){ // rs: distinct ranks (numbers) — returns true if they form a straight (ace low allowed)
+  const n=rs.length; if(new Set(rs).size!==n) return false; const variants=[rs]; if(rs.includes(14)) variants.push(rs.map(r=>r===14?1:r));
+  return variants.some(v=>{const a=v.slice().sort((x,y)=>x-y);const span=a[n-1]-a[0];return span===n-1||(hare&&span===n);}); }
+function evalFixed(cards,m){
+  m=m||{}; const n=cards.length; const high=cards.map(c=>c.r||0).sort((a,b)=>b-a);
+  if(!n) return {code:'NONE',speed:0,prize:0,rankCards:[],high};
   const by={}; cards.forEach(c=>{if(c.r!=null)(by[c.r]=by[c.r]||[]).push(c);});
   const groups=Object.values(by).sort((a,b)=>b.length-a.length||b[0].r-a[0].r); if(!groups.length) groups.push([]);
-  const flush=n===5&&cards[0].s!=null&&cards.every(c=>c.s===cards[0].s);  // suitless Upgrade cards never make a Flush
+  const cs=c=>canon(c.s,m);
+  const flushSet=set=>set.length>=1&&cs(set[0])!=null&&set.every(c=>cs(c)===cs(set[0]));
   const ranked=cards.filter(c=>c.r!=null);
-  let straight=false,royal=false;
-  if(n===5&&ranked.length===5&&groups.length===5){ if(high[0]-high[4]===4) straight=true; else if(high.join()==='14,5,4,3,2') straight=true; royal=straight&&high[0]===14&&high[4]===10; }
-  let code,rc;
+  const strSet=set=>set.every(c=>c.r!=null)&&isStraight(set.map(c=>c.r),m.hare);
+  let flush=n===5&&flushSet(cards), straight=n===5&&strSet(cards), sf=flush&&straight, four=false, fl4=null,st4=null,sf4=null;
+  if(m.scale&&n>=4){ for(const sub of combos(cards,4)){ if(!fl4&&flushSet(sub)) fl4=sub; if(!st4&&strSet(sub)) st4=sub; if(!sf4&&flushSet(sub)&&strSet(sub)) sf4=sub; } }
+  const royal=set=>{const r=set.map(c=>c.r);return r.includes(14)&&r.includes(10)&&Math.min(...r)>=10;};
+  let code,rc,pen=0;
   if(groups[0].length>=4){code='FOUR';rc=groups[0];}           // Five of a Kind: not in 1.2 → counted as Four of a Kind (gap)
-  else if(straight&&flush){code=royal?'RSF':'SF';rc=cards;}
-  else if(groups[0].length===3&&groups[1]&&groups[1].length>=2){code='FH';rc=cards;}
-  else if(flush){code='FL';rc=cards;}
-  else if(straight){code='ST';rc=cards;}
+  else if(sf){code=royal(cards)?'RSF':'SF';rc=cards;}
+  else if(sf4){code=royal(sf4)?'RSF':'SF';rc=sf4;pen=1;}
+  else if(groups[0].length===3&&groups[1]&&groups[1].length>=2){code='FH';rc=groups[0].concat(groups[1]);}
+  else if(flush){code='FL';rc=cards;} else if(fl4){code='FL';rc=fl4;pen=1;}
+  else if(straight){code='ST';rc=cards;} else if(st4){code='ST';rc=st4;pen=1;}
   else if(groups[0].length===3){code='THREE';rc=groups[0];}
   else if(groups[0].length===2&&groups[1]&&groups[1].length===2){code='TP';rc=groups[0].concat(groups[1]);}
   else if(groups[0].length===2){code='PAIR';rc=groups[0];}
   else {code='HC';rc=[cards.slice().sort((a,b)=>(b.r||0)-(a.r||0))[0]];}
-  const five=groups[0].length===5;
-  return {code,speed:RANK[code][1],prize:RANK[code][2],rankCards:rc,high,five};
+  if(code==='FH') rc=cards;
+  return {code,speed:Math.max(0,RANK[code][1]-pen),prize:RANK[code][2],rankCards:rc,high,five:groups[0].length===5,scalePen:pen};
 }
-// v0.8.0 sheet Upgrade cards: wild suit (S/C/H/D, counts as any suit) and multi-number (2-3-4 / 5-6-7 / 8-9-10, counts as any ONE of those ranks).
-// evalHand tries every rank choice, gives wild cards the only suit that could make a Flush, and keeps the best (Speed, then High Card).
-// Wild cards only carry a suit (for Suit Bonus) when the hand is a Flush / Straight Flush; otherwise they count as suitless for the bonus.
-function evalHand(cards){
-  if(!cards.some(c=>c.wild||c.rs)) return evalFixed(cards);
-  const fixedS=[...new Set(cards.filter(c=>!c.wild&&c.s!=null).map(c=>c.s))]; const ws=fixedS.length===1?fixedS[0]:fixedS.length===0?'S':null;
-  const opts=cards.map(c=>c.rs||[c.r]); let best=null; const idx=cards.map(()=>0);
-  for(;;){ const cl=cards.map((c,i)=>(c.wild||c.rs)?{...c,r:opts[i][idx[i]],s:c.wild?ws:c.s,o:c}:c); let e=evalFixed(cl);
-    if(!['FL','SF','RSF'].includes(e.code)&&cl.some(c=>c.o&&c.o.wild)){ const cl2=cl.map(c=>c.o&&c.o.wild?{...c,s:null}:c); e=evalFixed(cl2); }
+// wild suit (S/C/H/D) = any suit; multi-number = any one of its ranks; best value chosen automatically (Speed, then High Card)
+function evalHand(cards,m){
+  m=m||{};
+  const opts=cards.map(c=>{ let R=c.rs?c.rs.slice():[c.r];
+    if(c.joker&&m.joker) R=[2,3,4,5,6,7,8,9,10,11,12,13,14];
+    if(m.drift&&!c.joker) R=[...new Set(R.flatMap(r=>r!=null&&r>=2&&r<=10?[r-1,r,r+1].filter(x=>x>=2&&x<=14):[r]))];
+    if(m.ban&&!c.wild&&!c.joker&&c.s===m.ban) R=[null];
+    return R;});
+  const wildish=c=>c.wild||(c.joker&&m.joker);
+  const simple=cards.every((c,i)=>opts[i].length===1&&!wildish(c)&&!(m.ban&&c.s===m.ban));
+  if(simple) return {...evalFixed(cards,m),cards};
+  const fixedS=[...new Set(cards.filter((c,i)=>!wildish(c)&&c.s!=null&&opts[i][0]!==null&&!(m.ban&&c.s===m.ban)).map(c=>canon(c.s,m)))];
+  let ws=fixedS.length===1?fixedS[0]:fixedS.length===0?'S':null; if(ws&&ws===m.ban) ws=SUITS.find(x=>x!==m.ban);
+  let best=null; const idx=cards.map(()=>0);
+  for(let guard=0;guard<20000;guard++){
+    const cl=cards.map((c,i)=>{ const banned=m.ban&&!c.wild&&!c.joker&&c.s===m.ban; if(opts[i].length===1&&!wildish(c)&&!banned) return c;
+      return {...c,r:opts[i][idx[i]],s:banned?null:wildish(c)?ws:c.s,o:c}; });
+    let e=evalFixed(cl,m);
+    if(!['FL','SF','RSF'].includes(e.code)&&cl.some(c=>c.o&&wildish(c.o))){ e=evalFixed(cl.map(c=>c.o&&wildish(c.o)?{...c,s:null}:c),m); }
     if(!best||cmpAtk(e,best)>0) best=e;
     let k=0; while(k<idx.length&&++idx[k]>=opts[k].length){idx[k]=0;k++;} if(k>=idx.length) break; }
-  return best;
+  return {...best,cards};
 }
-// Suit Bonus candidates: suits with the max count among Ranking cards only
-function bonusSuits(rankCards){const cnt={};rankCards.forEach(c=>{if(c.s!=null)cnt[c.s]=(cnt[c.s]||0)+1;});const v=Object.values(cnt);if(!v.length)return [];const m=Math.max(...v);return SUITS.filter(s=>cnt[s]===m);}
-
-const countT=(p,n)=>p.tarots.filter(t=>t.name===n).length;
-const handSize=p=>CFG.HAND+countT(p,'The Big Hand');
-function speedOf(p,ev){ let s=ev.speed+countT(p,'The Tie Breaker'); if(p.defeatedLast) s+=2*countT(p,'The Revenge'); return s; }
-function cmpAtk(a,b){ if(a.speed!==b.speed) return a.speed-b.speed; for(let i=0;i<5;i++){const d=(a.high[i]||0)-(b.high[i]||0); if(d) return d;} return 0; }
-
-function newPlayer(name){return {name,hp:CFG.HP,g:CFG.G0,shield:0,tdisc:0,deck:[],hand:[],discard:[],tarots:[],discUsed:0,commit:null,defeatedLast:false};}
+// Suit Bonus candidates: suits with the max count among Ranking cards (Spade=Club / Diamond=Heart tarots: a card counts for both suits)
+function bonusSuits(rankCards,m){const cnt={};rankCards.forEach(c=>{if(c.s==null)return;const ss=[c.s];if(m&&m.sc&&(c.s==='S'||c.s==='C'))ss.push(c.s==='S'?'C':'S');if(m&&m.dh&&(c.s==='D'||c.s==='H'))ss.push(c.s==='D'?'H':'D');ss.forEach(s=>cnt[s]=(cnt[s]||0)+1);});
+  const v=Object.values(cnt);if(!v.length)return [];const mx=Math.max(...v);return SUITS.filter(s=>cnt[s]===mx);}
+function combos(arr,k){const out=[];const n=arr.length;const idx=[];(function rec(s){if(idx.length===k){out.push(idx.map(i=>arr[i]));return;}for(let i=s;i<n;i++){idx.push(i);rec(i+1);idx.pop();}})(0);return out;}
+const cmpAtk=(a,b)=>{ if(a.speed!==b.speed) return a.speed-b.speed; for(let i=0;i<5;i++){const d=(a.high[i]||0)-(b.high[i]||0); if(d) return d;} return 0; };
+const isFace=c=>c.r>=11&&c.r<=13; const rk=c=>c.r;
+const kings=cards=>cards.filter(c=>c.r===13).length;
+const allBasic=cards=>cards.every(c=>!c.special);
+const fourSuits=cards=>{const s=new Set(cards.filter(c=>c.s&&!c.wild).map(c=>c.s));const w=cards.filter(c=>c.wild).length;return s.size+w>=4;};
+// Speed (only matters when Attacking). p needs: tarots, hp, g, defeatedLast. ctx: {lastWin}
+function speedOf(p,ev,ctx){ const cards=ev.cards||[]; ctx=ctx||{}; let s=ev.speed;
+  s+=TN(p,'The Wind'); if(p.defeatedLast) s+=2*TN(p,'The Revenge');
+  if(ev.code==='HC') s+=2*TN(p,'The Lonewolf');
+  if(['PAIR','TP','FH'].includes(ev.code)) s+=2*TN(p,'The Couple');
+  if(kings(cards)===1) s+=TN(p,'The One King');
+  if(cards.some(c=>c.r===2||c.r===3)) s+=2*TN(p,'The Humble');
+  s+=cards.filter(c=>c.r===14).length*TN(p,'The Perfectionist');
+  s+=Math.floor(cards.filter(isFace).length/2)*TN(p,'The Royal');
+  if(p.hp<=2) s+=3*TN(p,'The Barbarian');
+  if(p.g>=5) s+=2*TN(p,'The Dragon');
+  if(ctx.lastWin&&ev.code===ctx.lastWin) s+=2*TN(p,'Deja Vu');
+  s+=cards.filter(c=>c.joker).length*TN(p,'The Joker');
+  s+=2*TN(p,'The Blind');
+  return s; }
+function newPlayer(name){return {name,hp:CFG.HP,g:CFG.G0,shield:0,tdisc:0,deck:[],hand:[],discard:[],tarots:[],discUsed:0,commit:null,defeatedLast:false,defendedLast:false,used:{},prompt:null,wheel:0,taxN:0,investor:false};}
 let UID=1;
 // Basic cards = exactly one standard 52-card poker deck (13 ranks × 4 suits, one each), NO abilities (binding owner rule)
 function makeDeck(){const a=[];SUITS.forEach(s=>{for(let r=2;r<=14;r++)a.push({r,s,id:UID++});});return a;}
 function newGame(seed,names){
   names=names||['พี่ (You)','Bot']; const R=rng(seed||Date.now());
-  const g={R,round:0,players:[newPlayer(names[0]),newPlayer(names[1])],log:[],phase:'prepare',over:false,winner:null,
-    lead:Math.floor(R()*2),specialDeck:[],specialDiscard:[],reveal:null,pending:null,shopTurn:null,shopDone:[false,false],shop:{s:[],t:[]},tarotDeck:[]};
+  const g={R,round:0,players:[newPlayer(names[0]),newPlayer(names[1])],log:[],phase:'prepare',over:false,winner:null,q:[],
+    lead:Math.floor(R()*2),specialDeck:[],specialDiscard:[],removed:[],reveal:null,pending:null,shopTurn:null,shopDone:[false,false],shop:{s:[],t:[]},tarotDeck:[],tarotGone:[],ban:null,duel:false,lastWin:null};
   const deck=shuffle(makeDeck(),R); g.players.forEach(p=>{p.deck=deck.splice(0,CFG.DECK0);}); g.unused=deck; // remaining 10 not used in the game
   g.players[g.lead].g+=CFG.LEAD_BONUS_G;
   g.specialDeck=shuffle(makeUpgrades(),R);
-  g.tarotDeck=shuffle(TAROTS.flatMap(t=>[t,t].map(x=>({...x,uid:UID++}))),R);
+  g.tarotDeck=shuffle(TAROTS.map(x=>({...x,uid:UID++})),R);   // v0.9.0: 78 Tarot, 1 copy each
   refillShop(g); log(g,`🎲 Lead Token: ${g.players[g.lead].name} (+1G)`);
   startRound(g); return g;
 }
 function log(g,m){g.log.push(m);}
+const other=(g,p)=>g.players[1-g.players.indexOf(p)];
 // v0.8.1: ALL Burn cards + Burn ability removed (owner decision, Oct 17 2026). Special pool = 43 sheet Upgrade cards only.
 function makeUpgrades(){const a=[];
-  // v0.8.0: Upgrade Card tab of sheet "Project Poker" (cell values, 43 rows, EXACTLY 1 copy per row — owner correction: sheet counts were stale; 2G each).
+  // v0.8.0: Upgrade Card tab of sheet "Project Poker" (cell values, 43 rows, EXACTLY 1 copy per row; 2G each).
   SHEET_UPG.forEach(u=>{for(let k=0;k<u.n;k++)a.push({...u,rs:u.rs&&u.rs.slice(),id:UID++,special:true,upg:'sheet'});}); return a;}
 const BONUS_TXT={draw:'ชนะ: จั่ว +1 (draw +1)',shield:'ชนะ: Shield +1',heal:'ชนะ: Heal +1',dmg:'ชนะ: Damage +1',tdisc:'ชนะ: Tarot ทุกใบลด 1G รอบนี้',disc1:'Discard: +1G',disc2:'Discard: +2G'};
 const SHEET_UPG=(()=>{const L=[];const R={A:14,J:11,Q:12,K:13};let row=2;
@@ -268,165 +293,319 @@ const SHEET_UPG=(()=>{const L=[];const R={A:14,J:11,Q:12,K:13};let row=2;
   [43,44].forEach(rw=>L.push({row:rw,img:'R'+rw,r:null,s:null,joker:true,bonus:'disc2',n:1}));
   return L;})();
 function newSpecial(g){ if(!g.specialDeck.length){ if(!g.specialDiscard.length) return null; g.specialDeck=shuffle(g.specialDiscard,g.R); g.specialDiscard=[]; } return g.specialDeck.pop(); }
+// v0.9.0 fix: tarot deck is only rebuilt when empty (from Tarots nobody owns / not in the shop) — v0.4–0.8.1 rebuilt it on every refill
 function refillShop(g){ while(g.shop.s.length<CFG.SHOP_S){const c=newSpecial(g); if(!c)break; g.shop.s.push(c);}
-  while(g.shop.t.length<CFG.SHOP_T){ if(!g.tarotDeck.length) g.specialDeck=shuffle(makeUpgrades(),R);
-  g.tarotDeck=shuffle(TAROTS.map(x=>({...x,uid:UID++})),g.R); g.shop.t.push(g.tarotDeck.pop()); } }
-function draw(g,p,n){for(let i=0;i<n;i++){ if(!p.deck.length){ if(!p.discard.length)return; p.deck=shuffle(p.discard,g.R);p.discard=[];log(g,`🔀 ${p.name} สับกองทิ้งเป็นกองจั่ว`);} p.hand.push(p.deck.pop()); }}
+  while(g.shop.t.length<CFG.SHOP_T){ if(!g.tarotDeck.length){ const own=new Set(g.players.flatMap(p=>p.tarots.map(t=>t.name)).concat(g.shop.t.map(t=>t.name)));
+      g.tarotDeck=shuffle(TAROTS.filter(t=>!own.has(t.name)).map(x=>({...x,uid:UID++})),g.R); if(!g.tarotDeck.length) break; }
+    g.shop.t.push(g.tarotDeck.pop()); } }
+function draw(g,p,n){let k=0;for(let i=0;i<n;i++){ if(!p.deck.length){ if(!p.discard.length)return k; p.deck=shuffle(p.discard,g.R);p.discard=[];log(g,`🔀 ${p.name} สับกองทิ้งเป็นกองจั่ว`);} p.hand.push(p.deck.pop());k++; } return k;}
+const handSize=p=>CFG.HAND+2*TN(p,'The Empress')+TN(p,'The Rich')-TN(p,'The Dragon')+(p.wheel||0);
 function drawTo(g,p){ draw(g,p,Math.max(0,handSize(p)-p.hand.length)); }
-function heal(p,n){p.hp+=n;return n;}
-function hurt(g,p,o,n){ if(n<=0) return; p.hp-=n; const v=countT(o,'The Vampire'); if(v){const h=Math.floor(n/2)*v; if(h){heal(o,h);log(g,`🧛 ${o.name} ฟื้น ${h} HP (The Vampire)`);}} }
+// health: Heart Breaker (opponent can't gain health), The Tree (+1 whenever you gain health)
+function heal(g,p,n){ if(n<=0) return 0; if(TN(other(g,p),'Heart Breaker')){log(g,`💔 ${p.name} ฟื้น HP ไม่ได้ (Heart Breaker)`);return 0;} n+=TN(p,'The Tree'); p.hp+=n; return n; }
+function hurt(g,p,o,n){ if(n>0) p.hp-=n; }
+function invest(g){ g.players.forEach(p=>{ if(!p.investor&&TN(p,'The Investor')&&p.g>=10){p.investor=true;p.g+=10;log(g,`💹 ${p.name}: The Investor → +10G (ครั้งเดียวต่อเกม)`);} }); }
+function prompt(g,pi,o,phaseLevel){ const P={type:'prompt',pi,kind:o.kind||'pick',title:o.title,items:o.items||[],options:o.options||[],min:o.min||0,max:o.max==null?1:o.max,then:o.then,data:o.data||{},goal:o.goal||'best'};
+  if(phaseLevel) g.pending=P; else g.players[pi].prompt=P; return P; }
+const cItems=cards=>cards.map(c=>({t:'c',id:c.id,c}));
+const tItems=ts=>ts.map(t=>({t:'t',id:t.uid,tarot:t}));
 function startRound(g){
-  g.round++; g.phase='prepare'; g.reveal=null; g.pending=null; log(g,`━━ รอบ ${g.round} ━━`);
+  g.round++; g.phase='prepare'; g.reveal=null; g.pending=null; g.ban=null; g.duel=false; g.q=[]; log(g,`━━ รอบ ${g.round} ━━`);
+  g.players.forEach(p=>{ p.discUsed=0; p.commit=null; p.used={}; p.wheel=0; p.taxN=0; p.prompt=null; p.tdisc=0; });
   g.players.forEach((p,i)=>{const o=g.players[1-i];
-    for(let k=0;k<countT(p,'The Sun');k++){hurt(g,o,p,3);log(g,`☀️ ${p.name}: The Sun → ${o.name} −3 HP`);}
-    const m=countT(p,'The Moon'); if(m){heal(p,2*m);log(g,`🌙 ${p.name}: The Moon +${2*m} HP`);}
-    const st=countT(p,'The Star'); if(st){p.g+=st;log(g,`⭐ ${p.name}: The Star +${st}G`);}
-    p.discUsed=0; p.commit=null; drawTo(g,p);   // Draw Step
-  });
-  checkOver(g);
+    const st=TN(p,'The Star'); if(st){p.g+=st;log(g,`⭐ ${p.name}: The Star +${st}G`);}
+    for(let k=0;k<TN(p,'The Thief');k++) if(o.g>p.g&&o.g>0){o.g--;p.g++;log(g,`🦹 ${p.name}: The Thief เอา 1G จาก ${o.name}`);} });
+  const drawn=[]; g.players.forEach((p,i)=>{ if(TN(p,'The Planer')&&p.defendedLast&&p.deck.length){ prompt(g,i,{title:'The Planer: Defense รอบก่อน → ค้นการ์ด 1 ใบจากกองจั่วขึ้นมือ (ก่อน Draw Step)',items:cItems(p.deck),min:0,max:1,then:'planer'}); } else { drawTo(g,p); drawn.push(i); } });
+  drawn.forEach(i=>catStep(g,i)); drawn.forEach(i=>dogStep(g,i));
+  invest(g); checkOver(g);
 }
-// Discard action: Xth use this round costs XG (The Doubt: 1 use per round free); discard any number, then draw to Hand Size
-function discardCost(p){ const free=countT(p,'The Doubt'); return p.discUsed<free?0:(p.discUsed-free+1); }
-function canDiscard(g,p){ return g.phase==='prepare'&&p.commit===null&&p.g>=discardCost(p); }
+function afterDraw(g,pi){ catStep(g,pi); dogStep(g,pi); }
+function catStep(g,pi){ const p=g.players[pi],o=g.players[1-pi];
+  for(let k=0;k<TN(p,'The Cat');k++) if(o.hand.length){ const c=o.hand.splice(Math.floor(g.R()*o.hand.length),1)[0]; o.discard.push(c); draw(g,o,1); log(g,`🐈 ${p.name}: The Cat → ทิ้งการ์ดสุ่ม 1 ใบของ ${o.name} แล้วให้จั่ว 1`); }
+ }
+function dogStep(g,pi){ const p=g.players[pi];
+  if(TN(p,'The Dog')){ draw(g,p,1); if(!p.prompt) prompt(g,pi,{title:'The Dog: จั่ว 1 แล้ว — เลือกทิ้ง 1 ใบ',items:cItems(p.hand),min:1,max:1,then:'dog',goal:'worst'}); } }
+// Discard action: Xth use this round costs XG (The Doubt: 1 use per round free; The Deliberate: cost ×2); The Empress: can't Discard
+function discardCost(p){ const free=TN(p,'The Doubt'); const c=p.discUsed<free?0:(p.discUsed-free+1); return TN(p,'The Deliberate')?c*2:c; }
+function canDiscard(g,p){ return g.phase==='prepare'&&p.commit===null&&!p.prompt&&!TN(p,'The Empress')&&p.g>=discardCost(p); }
 function doDiscard(g,pi,ids){
   const p=g.players[pi]; if(!canDiscard(g,p)) return false; ids=[...new Set(ids||[])]; if(!ids.length) return false;
   const cards=ids.map(id=>p.hand.find(c=>c.id===id)); if(cards.some(c=>!c)) return false;
-  const cost=discardCost(p); p.g-=cost; p.discUsed++;
+  const cost=discardCost(p); p.g-=cost; p.discUsed++; p.wheel+=TN(p,'The Wheel');
   const dg=cards.reduce((a,c)=>a+(c.bonus==='disc1'?1:c.bonus==='disc2'?2:0),0); if(dg){p.g+=dg;log(g,`💰 ${p.name} ทิ้งการ์ด Upgrade (Discard +G) → +${dg}G`);}
-  p.hand=p.hand.filter(c=>!ids.includes(c.id)); p.discard.push(...cards); drawTo(g,p);
-  log(g,`♻️ ${p.name} ทิ้ง ${cards.length} ใบ จั่วใหม่ (ครั้งที่ ${p.discUsed}, ${cost?'−'+cost+'G':'ฟรี'})`); return true;
+  const mg=cards.filter(isFace).length*TN(p,'The Merchant'); if(mg){p.g+=mg;log(g,`🧾 ${p.name}: The Merchant ทิ้ง Face Card → +${mg}G`);}
+  p.hand=p.hand.filter(c=>!ids.includes(c.id)); p.discard.push(...cards);
+  log(g,`♻️ ${p.name} ทิ้ง ${cards.length} ใบ (ครั้งที่ ${p.discUsed}, ${cost?'−'+cost+'G':'ฟรี'})`);
+  if(TN(p,'The One')&&cards.length===1&&(p.deck.length||p.discard.length)){ if(!p.deck.length){p.deck=shuffle(p.discard,g.R);p.discard=[];}
+    prompt(g,pi,{title:'The One: ทิ้ง 1 ใบ → ดูการ์ด 5 ใบบนกองจั่ว เลือก 1 ใบขึ้นมือ (ที่เหลือสับกลับ)',items:cItems(p.deck.slice(-5)),min:1,max:1,then:'one'}); }
+  else if(TN(p,'The Deliberate')&&p.deck.length){ prompt(g,pi,{title:'The Deliberate: ค้นการ์ด 1 ใบจากกองจั่วขึ้นมือ (ไม่เอาก็ได้) แล้วสับกองจั่ว',items:cItems(p.deck),min:0,max:1,then:'deliberate'}); }
+  else drawTo(g,p);
+  invest(g); return true;
 }
-// Play: exactly 5 cards (or whole hand if fewer than 5 — gap) + Attack/Defense chip, face down
+// Prepare-phase Tarot actions (exhaust: once per round)
+const TUSE={'The Moon':'จ่าย 1G ฟื้น 1 HP','The Sun':'จ่าย 1G คู่แข่ง −1 HP','The Contraband':'ประกาศดอก 1 ดอก ห้ามใช้รอบนี้','The Scorch':'จ่าย 1G ลบการ์ด 1 ใบจากกองทิ้ง',
+  'The Truth':'ดูการ์ดในมือคู่แข่ง','The Insider':'ดูการ์ดที่คู่แข่งลง 3 ใบ (สุ่ม)','The Duelist':'วาง Attack Chip ไว้ด้านหน้า: ห้ามทุกคน Defense รอบนี้','The Commander':'ซื้อ Special Poker ตอนนี้ (ราคา +1)'};
+function specialCost(p){ return Math.max(0,CFG.SPECIAL_COST-TN(p,'The Wildfire')-TN(p,'The Extraordinary')); }
+function tUses(g,pi){ const p=g.players[pi],o=g.players[1-pi]; if(g.phase!=='prepare'||p.commit||p.prompt) return [];
+  return Object.keys(TUSE).filter(n=>TN(p,n)&&!p.used[n]).filter(n=>{
+    if(n==='The Moon'||n==='The Sun') return p.g>=1; if(n==='The Scorch') return p.g>=1&&p.discard.length>0; if(n==='The Insider') return !!o.commit;
+    if(n==='The Commander') return g.shop.s.length>0&&p.g>=specialCost(p)+1; if(n==='The Duelist') return !g.duel; if(n==='The Contraband') return !g.ban; return true; }).map(n=>({name:n,label:TUSE[n]})); }
+function useT(g,pi,name){ const p=g.players[pi],o=g.players[1-pi]; if(!tUses(g,pi).some(u=>u.name===name)) return false; p.used[name]=true;
+  if(name==='The Moon'){p.g--;const h=heal(g,p,1);log(g,`🌙 ${p.name}: The Moon จ่าย 1G ฟื้น ${h} HP`);}
+  else if(name==='The Sun'){p.g--;hurt(g,o,p,1);log(g,`☀️ ${p.name}: The Sun จ่าย 1G → ${o.name} −1 HP`);checkOver(g);}
+  else if(name==='The Contraband') prompt(g,pi,{kind:'opts',title:'The Contraband: เลือกดอกที่ทุกคนห้ามใช้จนจบรอบนี้',options:SUITS.slice(),then:'contraband'});
+  else if(name==='The Scorch'){p.g--;prompt(g,pi,{title:'The Scorch: เลือกการ์ด 1 ใบในกองทิ้งเพื่อลบออกจากเกม',items:cItems(p.discard),min:1,max:1,then:'scorch',goal:'worst'});}
+  else if(name==='The Truth') prompt(g,pi,{title:`The Truth: การ์ดในมือของ ${o.name}`,items:cItems(o.hand),min:0,max:0,then:'info'});
+  else if(name==='The Insider') prompt(g,pi,{title:`The Insider: การ์ดที่ ${o.name} ลง (สุ่ม 3 ใบ)`,items:cItems(shuffle(o.commit.cards.slice(),g.R).slice(0,3)),min:0,max:0,then:'info'});
+  else if(name==='The Duelist'){g.duel=true;log(g,`⚔️ ${p.name}: The Duelist → ทุกคน Defense ไม่ได้รอบนี้`);}
+  else if(name==='The Commander') prompt(g,pi,{title:`The Commander: ซื้อ Special Poker 1 ใบ (${specialCost(p)+1}G)`,items:cItems(g.shop.s),min:0,max:1,then:'commander'});
+  return true; }
+// ---- prompt answers ----
+const ANS={
+  planer(g,pi,ids){const p=g.players[pi]; ids.forEach(id=>{const c=p.deck.find(x=>x.id===id); if(c){p.deck=p.deck.filter(x=>x!==c);p.hand.push(c);}}); if(ids.length)log(g,`🔎 ${p.name}: The Planer ค้นการ์ดขึ้นมือ`); shuffle(p.deck,g.R); drawTo(g,p); afterDraw(g,pi);},
+  dog(g,pi,ids){const p=g.players[pi]; const c=p.hand.find(x=>x.id===ids[0]); if(!c) return; p.hand=p.hand.filter(x=>x!==c); p.discard.push(c); log(g,`🐕 ${p.name}: The Dog จั่ว 1 ทิ้ง 1`);},
+  one(g,pi,ids){const p=g.players[pi]; const c=p.deck.find(x=>x.id===ids[0]); if(!c){drawTo(g,p);return;} p.deck=p.deck.filter(x=>x!==c); p.hand.push(c); shuffle(p.deck,g.R); log(g,`☝️ ${p.name}: The One เลือกการ์ดจาก 5 ใบบนกอง`); drawTo(g,p);},
+  deliberate(g,pi,ids){const p=g.players[pi]; ids.forEach(id=>{const c=p.deck.find(x=>x.id===id); if(c){p.deck=p.deck.filter(x=>x!==c);p.hand.push(c);}}); shuffle(p.deck,g.R); log(g,`🧐 ${p.name}: The Deliberate ค้นการ์ด ${ids.length} ใบ แล้วสับกอง`); drawTo(g,p);},
+  contraband(g,pi,a,opt){g.ban=opt; log(g,`🚫 ${g.players[pi].name}: The Contraband → ห้ามใช้ ${SUIT[opt].sym} จนจบรอบ`);},
+  scorch(g,pi,ids){const p=g.players[pi]; const c=p.discard.find(x=>x.id===ids[0]); if(!c) return; p.discard=p.discard.filter(x=>x!==c); g.removed.push(c); log(g,`🔥 ${p.name}: The Scorch ลบ ${cname(c)} จากกองทิ้ง`);},
+  info(){},
+  commander(g,pi,ids){const p=g.players[pi]; if(!ids.length) return; const i=g.shop.s.findIndex(c=>c.id===ids[0]); const cost=specialCost(p)+1; if(i<0||p.g<cost) return; p.g-=cost; const c=g.shop.s.splice(i,1)[0]; p.hand.push(c); refillShop(g); taxOn(g,pi); log(g,`🎖 ${p.name}: The Commander ซื้อ ${cname(c)} (−${cost}G)`);},
+  world(g,pi,a,opt){ if(opt!=='swap') return; const p=g.players[pi],o=g.players[1-pi]; if(p.g<1) return; p.g--; o.g++;
+    const a1=p.commit.cards,b1=o.commit.cards; p.hand=p.hand.filter(c=>!a1.includes(c)).concat(b1); o.hand=o.hand.filter(c=>!b1.includes(c)).concat(a1); p.commit.cards=b1; o.commit.cards=a1;
+    log(g,`🌍 ${p.name}: The World สลับการ์ดที่ลงกับ ${o.name} (จ่าย 1G)`);},
+  follower(g,pi,ids){ if(!ids.length) return; const p=g.players[pi],o=g.players[1-pi]; const theirs=o.commit.cards.filter(c=>ids.includes(c.id)); const rep=bestReplace(g,p,theirs);
+    p.hand=p.hand.filter(c=>!rep.out.includes(c)).concat(theirs); o.hand=o.hand.filter(c=>!theirs.includes(c)).concat(rep.out);
+    p.commit.cards=p.commit.cards.filter(c=>!rep.out.includes(c)).concat(theirs); o.commit.cards=o.commit.cards.filter(c=>!theirs.includes(c)).concat(rep.out);
+    log(g,`👥 ${p.name}: The Follower เอา ${theirs.map(cname).join(' ')} ของ ${o.name} มาแทน ${rep.out.map(cname).join(' ')}`);},
+  hitman(g,pi,ids){const o=g.players[1-pi]; const t=o.tarots.find(x=>x.uid===ids[0]); if(!t) return; o.tarots=o.tarots.filter(x=>x!==t); g.tarotGone.push(t); log(g,`🎯 ${g.players[pi].name}: The Hitman ทิ้ง Tarot ${t.name} ของ ${o.name}`);},
+  mysteries(g,pi,ids){const p=g.players[pi]; const top=g.pending_data_top||[]; top.forEach(c=>{p.deck=p.deck.filter(x=>x!==c); (ids.includes(c.id)?p.hand:p.discard).push(c);}); log(g,`🔮 ${p.name}: The Mysteries เก็บ ${ids.length} ใบจาก 3 ใบบนกอง`);},
+  cycle(g,pi,ids){const p=g.players[pi]; const c=p.discard.find(x=>x.id===ids[0]); if(!c) return; p.discard=p.discard.filter(x=>x!==c); p.hand.push(c); log(g,`🔁 ${p.name}: The Cycle เก็บ ${cname(c)} จากกองทิ้งขึ้นมือ`);},
+  enforce1(g,pi,ids){const p=g.players[pi],o=g.players[1-pi]; g.enf={pi,mine:ids[0]}; prompt(g,pi,{title:`The Enforce: เลือก Tarot ของ ${o.name} ที่จะได้มา`,items:tItems(o.tarots),min:1,max:1,then:'enforce2'},true);},
+  enforce2(g,pi,ids){const p=g.players[pi],o=g.players[1-pi]; const mine=p.tarots.find(t=>t.uid===g.enf.mine),enf=p.tarots.find(t=>t.name==='The Enforce'),th=o.tarots.find(t=>t.uid===ids[0]); g.enf=null;
+    if(!mine||!enf||!th) return; p.tarots=p.tarots.filter(t=>t!==mine&&t!==enf).concat(th); o.tarots=o.tarots.filter(t=>t!==th).concat(enf,mine); log(g,`🔄 ${p.name}: The Enforce แลก The Enforce + ${mine.name} กับ ${th.name} ของ ${o.name}`);},
+};
+function answer(g,pi,a){ const p=g.players[pi]; const gl=g.pending&&g.pending.type==='prompt'&&g.pending.pi===pi; const P=gl?g.pending:p.prompt; if(!P) return false; a=a||{};
+  if(P.kind==='opts'){ if(!P.options.includes(a.opt)) return false; } else { const ids=[...new Set(a.ids||[])]; if(ids.length<P.min||ids.length>P.max||ids.some(id=>!P.items.some(it=>it.id===id))) return false; a={...a,ids}; }
+  if(gl) g.pending=null; else p.prompt=null;
+  ANS[P.then](g,pi,a.ids||[],a.opt);
+  if(gl) run(g); else if(g.phase==='prepare') maybeResolve(g);
+  return true; }
+// best way to put `theirs` into p's played cards (The Follower) — replaces the cards that give the best result
+function bestReplace(g,p,theirs){ const mine=p.commit.cards; let best=null;
+  for(const out of combos(mine,theirs.length)){ const e=evalHand(mine.filter(c=>!out.includes(c)).concat(theirs),modsOf(p,g.ban)); const k={speed:speedOf(p,e,{lastWin:g.lastWin}),high:e.high}; if(!best||cmpAtk(k,best.k)>0) best={out,k}; }
+  return best; }
+// Play: exactly 5 cards + Attack/Defense chip, face down. The Blind: can't look → 5 random cards. The Truth: can't Defence.
 function playCount(p){return Math.min(CFG.PLAY_N,p.hand.length);}
 function commit(g,pi,ids,chip){
-  const p=g.players[pi]; if(g.phase!=='prepare'||p.commit!==null) return false; if(chip!=='A'&&chip!=='D') return false;
+  const p=g.players[pi]; if(g.phase!=='prepare'||p.commit!==null||p.prompt) return false; if(chip!=='A'&&chip!=='D') return false;
+  if(chip==='D'&&TN(p,'The Truth')) return false;
+  if(TN(p,'The Blind')) ids=shuffle(p.hand.slice(),g.R).slice(0,playCount(p)).map(c=>c.id);
   ids=[...new Set(ids||[])]; if(ids.length!==playCount(p)) return false;
-  const cards=ids.map(id=>p.hand.find(c=>c.id===id)); if(cards.some(c=>!c)) return false;
-  p.commit={cards,chip}; if(g.players.every(q=>q.commit)) resolve(g); return true;
+  let cards=ids.map(id=>p.hand.find(c=>c.id===id)); if(cards.some(c=>!c)) return false;
+  if(TN(p,'The Trickster')){ const before=new Set(p.hand); draw(g,p,handSize(p)); const fresh=p.hand.filter(c=>!before.has(c));
+    if(fresh.length>=playCount(p)){ const b=bestOf(g,p,fresh,playCount(p)); const ctx={lastWin:g.lastWin},m=modsOf(p,g.ban); const e1=evalHand(cards,m);
+      if(cmpAtk({speed:speedOf(p,b.ev,ctx),high:b.ev.high},{speed:speedOf(p,e1,ctx),high:e1.high})>0){cards=b.cards;} log(g,`🎩 ${p.name}: The Trickster จั่วมือใหม่แล้วเล่นอีกมือ → เลือกมือที่ดีกว่า`);} }
+  p.commit={cards,chip}; maybeResolve(g); return true;
 }
+function maybeResolve(g){ if(g.phase!=='prepare'||!g.players.every(q=>q.commit)||g.players.some(q=>q.prompt)) return;
+  g.phase='resolution'; g.q=[]; g.players.forEach((p,i)=>{ if(TN(p,'The World')&&p.g>=1) g.q.push({f:'world',pi:i}); }); g.q.push({f:'followers'}); run(g); }
+const STEP={
+  world(g,s){prompt(g,s.pi,{kind:'opts',title:'The World: สลับการ์ดที่ลงกับคู่แข่งก่อนเปิด (จ่ายเขา 1G)?',options:['swap','keep'],then:'world'},true);},
+  followers(g){ g.players.forEach((p,i)=>{ if(TN(p,'The Follower')) g.q.unshift({f:'follower',pi:i}); }); g.q.push({f:'resolve'}); },
+  follower(g,s){const o=g.players[1-s.pi]; prompt(g,s.pi,{title:`The Follower: เลือกการ์ดของ ${o.name} ได้สูงสุด 2 ใบมาแทนการ์ดของคุณ (ระบบเลือกใบที่แทนให้ดีที่สุด)`,items:cItems(o.commit.cards),min:0,max:2,then:'follower'},true);},
+  resolve(g){resolve(g);},
+  hitman(g,s){const o=g.players[1-s.pi]; if(o.tarots.length) prompt(g,s.pi,{title:`The Hitman: เลือก Tarot ของ ${o.name} ที่จะทิ้ง`,items:tItems(o.tarots),min:1,max:1,then:'hitman'},true);},
+  mysteries(g,s){const p=g.players[s.pi]; if(!p.deck.length&&p.discard.length){p.deck=shuffle(p.discard,g.R);p.discard=[];} const top=p.deck.slice(-3); if(!top.length) return; g.pending_data_top=top;
+    prompt(g,s.pi,{title:'The Mysteries: ชนะ → ดูการ์ด 3 ใบบนกองจั่ว เลือกขึ้นมือกี่ใบก็ได้ ที่เหลือทิ้ง',items:cItems(top),min:0,max:top.length,then:'mysteries'},true);},
+  keep(g){ g.keepQ=keepers(g); nextKeep(g); },
+  noble(g){ g.players.forEach(p=>{ for(let k=0;k<TN(p,'The Noble');k++){const c=newSpecial(g); if(c){p.hand.push(c);log(g,`👑 ${p.name}: The Noble รับ ${cname(c)} จากกอง Special`);}} }); },
+  cycle(g,s){const p=g.players[s.pi]; if(p.discard.length) prompt(g,s.pi,{title:'The Cycle: เลือกการ์ด 1 ใบจากกองทิ้งขึ้นมือ',items:cItems(p.discard),min:1,max:1,then:'cycle'},true);},
+  newRound(g){ g.shopTurn=null; startRound(g); },
+};
+function run(g){ let guard=0; while(g.q&&g.q.length&&!g.pending&&!g.over&&guard++<100){ const s=g.q.shift(); STEP[s.f](g,s); } }
 function resolve(g){
   const P=g.players; g.phase='resolution';
-  const ev=P.map(p=>evalHand(p.commit.cards));
-  const st=P.map((p,i)=>({chip:p.commit.chip,code:ev[i].code,speed:p.commit.chip==='A'?speedOf(p,ev[i]):0,high:ev[i].high}));
+  if(g.duel) P.forEach(p=>{ if(p.commit.chip==='D'){p.commit.chip='A';log(g,`⚔️ The Duelist: ${p.name} ต้อง Attack`);} });
+  const ctx={lastWin:g.lastWin};
+  const ev=P.map(p=>evalHand(p.commit.cards,modsOf(p,g.ban)));
+  const st=P.map((p,i)=>({chip:p.commit.chip,code:ev[i].code,speed:p.commit.chip==='A'?speedOf(p,ev[i],ctx):0,high:ev[i].high}));
   P.forEach((p,i)=>log(g,`🃏 ${p.name}: ${p.commit.chip==='A'?'⚔️ Attack':'🛡️ Defense'} | ${p.commit.cards.map(cname).join(' ')} → ${RANK[ev[i].code][0]}${p.commit.chip==='A'?' (Speed '+st[i].speed+')':''}`));
   const atk=[0,1].filter(i=>st[i].chip==='A');
   let w=-1; const spd0=st.map(x=>x.speed);
   if(atk.length===1) w=atk[0];
   else if(atk.length===2){const c=cmpAtk(st[0],st[1]); w=c>0?0:c<0?1:-1; if(w<0){st[0].speed=st[1].speed=0; log(g,'🤝 Speed และ High Card เท่ากัน → เสมอ (Speed 0)');}}
   g.reveal={played:P.map(p=>p.commit.cards),chips:P.map(p=>p.commit.chip),codes:ev.map(e=>e.code),speeds:st.map(s=>s.speed),w,dmg:0,bonus:null,prize:0};
-  g.reveal.spd0=spd0; g.reveal.defG=st.map(x=>x.chip==='D'?CFG.DEF_G:0);
+  g.reveal.spd0=spd0;
   g.reveal.why=atk.length===0?'none':atk.length===1?'only':w<0?'tie':spd0[0]!==spd0[1]?'speed':'high';
-  // Defending players receive 3G (3.4)
-  P.forEach((p,i)=>{ if(st[i].chip==='D'){p.g+=CFG.DEF_G;log(g,`🛡️ ${p.name} Defense +${CFG.DEF_G}G`);} });
+  // Defending players receive 3G (3.4); The Sanctuary: 6G instead; The Gambler: no Coins if you Defence
+  g.reveal.defG=P.map((p,i)=>st[i].chip!=='D'?0:TN(p,'The Gambler')?0:TN(p,'The Sanctuary')?6:CFG.DEF_G);
+  P.forEach((p,i)=>{ if(st[i].chip==='D'){p.g+=g.reveal.defG[i];log(g,`🛡️ ${p.name} Defense +${g.reveal.defG[i]}G`);} p.defendedLast=st[i].chip==='D'; });
   g.res={ev,st,w};
-  if(w<0){ log(g,'ไม่มีผู้ชนะในรอบนี้ ไม่มีใครได้รับ DMG · Lead Token อยู่ที่เดิม'); P.forEach(p=>p.defeatedLast=false); return afterDamage(g); }
-  const opts=bonusSuits(ev[w].rankCards);
-  if(!opts.length) return applyWin(g,null);   // Ranking cards all suitless → no Suit Bonus (gap)
+  // The Execution: play a Straight Flush or Five of a Kind → you win the game
+  P.forEach((p,i)=>{ if(TN(p,'The Execution')&&(['SF','RSF'].includes(ev[i].code)||ev[i].five)){ P[1-i].hp=Math.min(P[1-i].hp,0); log(g,`⚰️ The Execution! ${p.name} ชนะเกมทันที`);} });
+  if(w<0){ log(g,'ไม่มีผู้ชนะในรอบนี้ ไม่มีใครได้รับ DMG · Lead Token อยู่ที่เดิม'); P.forEach(p=>p.defeatedLast=false); g.lastWin=null; return afterDamage(g); }
+  const opts=bonusSuits(ev[w].rankCards,modsOf(P[w],g.ban));
+  if(!opts.length) return applyWin(g,null);
   if(opts.length>1){ g.phase='bonus'; g.pending={type:'bonus',pi:w,options:opts}; return; }
   applyWin(g,opts[0]);
 }
 function chooseBonus(g,pi,s){ if(g.phase!=='bonus'||!g.pending||g.pending.pi!==pi||!g.pending.options.includes(s)) return false; g.pending=null; applyWin(g,s); return true; }
 function applyWin(g,suit){
-  const P=g.players,{ev,st,w}=g.res,W=P[w],L=P[1-w],lst=st[1-w];
-  g.lead=w; const prize=ev[w].prize; W.g+=prize;
-  log(g,`🏆 ${W.name} ชนะ! รับ Lead Token + Prize ${prize}G (${RANK[ev[w].code][0]}) · Suit Bonus ${suit?SUIT[suit].sym+' '+SUIT[suit].bonus:'— (ไม่มีดอก)'}`);
-  let dmg=CFG.BASE_DMG;
-  if(suit==='S') dmg+=2; else if(suit==='C') W.shield++; else if(suit==='H') heal(W,1); else if(suit==='D') W.g+=2;
-  // v0.8.0 Upgrade bonuses: every sheet Upgrade card in the WINNER's played 5 (simplest reading = works like a Suit Bonus, on win)
-  const ub={draw:0,shield:0,heal:0,dmg:0,tdisc:0}; W.commit.cards.forEach(c=>{if(c.bonus in ub)ub[c.bonus]++;});
-  dmg+=ub.dmg; W.shield+=ub.shield; if(ub.heal)heal(W,ub.heal); W.tdisc+=ub.tdisc; g.drawQ=ub.draw?{pi:w,n:ub.draw}:null;
+  const P=g.players,{ev,st,w}=g.res,W=P[w],L=P[1-w],lst=st[1-w],e=ev[w],cards=W.commit.cards; g.phase='resolution';
+  g.lead=w; const prize=e.prize; const g0=W.g; const n=x=>TN(W,x);
+  log(g,`🏆 ${W.name} ชนะ! รับ Lead Token + Prize ${prize}G (${RANK[e.code][0]}) · Suit Bonus ${suit?SUIT[suit].sym+' '+SUIT[suit].bonus:'— (ไม่มีดอก)'}`);
+  let dmg=CFG.BASE_DMG, pw=0, coin=prize; const k1=kings(cards)===1?n('The One King'):0; // One King: Suit Bonus +1
+  if(suit==='S'){ dmg+=2+k1; pw+=2*n('The Savage'); }
+  else if(suit==='C'){ W.shield+=1+k1+n('The Defender'); }
+  else if(suit==='H'){ heal(g,W,1+k1+n('The Healer')); }
+  else if(suit==='D'){ const amt=2+k1+2*n('The Miner'); if(TN(L,'The Saboteur')){L.g+=amt;log(g,`🕵️ ${L.name}: The Saboteur ได้ Diamond Bonus ${amt}G แทน`);} else coin+=amt; }
+  // v0.8.0 Upgrade bonuses (winner's played sheet Upgrade cards)
+  const ub={draw:0,shield:0,heal:0,dmg:0,tdisc:0}; cards.forEach(c=>{if(c.bonus in ub)ub[c.bonus]++;});
+  dmg+=ub.dmg; W.shield+=ub.shield; if(ub.heal)heal(g,W,ub.heal); W.tdisc+=ub.tdisc; g.drawQ=ub.draw?{pi:w,n:ub.draw}:null;
   const ubt=Object.entries(ub).filter(([k,v])=>v).map(([k,v])=>BONUS_TXT[k]+(v>1?' ×'+v:'')); if(ubt.length) log(g,`⬆ Upgrade Bonus (${W.name}): ${ubt.join(' · ')}`); g.reveal.ubonus=ub;
-  const mi=countT(W,'The Miner'); if(mi){const d=W.commit.cards.filter(c=>c.s==='D').length*2*mi; if(d){W.g+=d;log(g,`⛏️ The Miner +${d}G`);}}
-  let mult=1; if(W.hp<L.hp) mult*=Math.pow(2,countT(W,'The Slayer')); if(new Set(W.commit.cards.map(c=>c.s)).size===4) mult*=Math.pow(2,countT(W,'The Exodia'));
-  dmg*=mult;
+  // Tarot Power (= extra DMG when you win) and Coins
+  const sp=st[w].speed, r23=cards.filter(c=>c.r===2||c.r===3).length;
+  pw+=n('The Weapon'); pw+=(sp>=7?2:sp>=4?1:0)*n('The Momentum');
+  if(allBasic(cards)){pw+=n('The Classic');coin+=n('The Classic');}
+  if(['PAIR','TP','FH'].includes(e.code)) pw+=n('The Couple');
+  if(e.code==='FL') pw+=3*n('The Riptide');
+  pw+=cards.filter(c=>c.r===14).length*n('The Perfectionist');
+  const dr=new Set(W.discard.map(c=>c.r).filter(r=>r!=null)); pw+=cards.filter(c=>c.r!=null&&dr.has(c.r)).length*n('The Ghost');
+  if(g0===0) pw+=2*n('The Misfortune');
+  pw+=Math.min(3,g0)*n('The Distinie');
+  if(['THREE','FOUR'].includes(e.code)){pw+=n('The Doppelganger');coin+=3*n('The Doppelganger');}
+  pw+=r23*n('The Laborer'); coin+=r23*n('The Laborer');
+  if(cards.some(c=>c.r>=2&&c.r<=4)){pw+=n('The Revolution');W.shield+=n('The Revolution');}
+  if(g0>=5) pw+=3*n('The Dragon');
+  pw+=cards.filter(c=>c.joker).length*n('The Joker');
+  if(lst.chip==='A'&&L.hp<=5) pw+=2*n('The Slayer');
+  if(e.code==='HC') coin+=2*n('The Lonewolf');
+  if(k1) coin+=k1;
+  if(g.lastWin&&e.code===g.lastWin) coin+=2*n('Deja Vu');
+  coin+=3*n('The Gambler');
+  coin+=cards.filter(c=>c.r===8||c.r===3).length*2*n('The Lucky One');
+  dmg+=pw;
+  let mult=1; if(fourSuits(cards)){ mult*=Math.pow(2,n('The Exodia')); coin+=2*n('The Exodia'); }
+  dmg*=mult; W.g+=coin;
   let taken=dmg;
-  if(lst.chip==='D'){ if(L.shield>0){L.shield--;taken=0;log(g,`🛡️ ${L.name} ใช้ 1 Shield → DMG เป็น 0`);} else taken=Math.max(0,dmg-1); }
-  hurt(g,L,W,taken); log(g,`💥 ${L.name} −${taken} HP`+(mult>1?` (×${mult})`:'')+(lst.chip==='D'&&taken>0?' (Defense −1)':''));
-  g.reveal.dmg=taken; g.reveal.bonus=suit; g.reveal.prize=prize;
-  if(countT(W,'The Execution')&&(['SF','RSF'].includes(ev[w].code)||ev[w].five)){L.hp=Math.min(L.hp,0);log(g,`⚰️ The Execution! ${W.name} ชนะเกมทันที`);}
-  W.defeatedLast=false; L.defeatedLast=(lst.chip==='A');
-  afterDamage(g);
+  if(lst.chip==='D'){ if(L.shield>0){L.shield--;taken=0;log(g,`🛡️ ${L.name} ใช้ 1 Shield → DMG เป็น 0`); if(TN(L,'The Guardian')) heal(g,L,TN(L,'The Guardian'));} else taken=Math.max(0,dmg-1); }
+  hurt(g,L,W,taken); log(g,`💥 ${L.name} −${taken} HP`+(pw?` (Tarot Power +${pw})`:'')+(mult>1?` (×${mult})`:'')+(lst.chip==='D'&&taken>0?' (Defense −1)':''));
+  if(taken&&n('The Vampire')){ const h=heal(g,W,Math.floor(taken/2)*n('The Vampire')); if(h) log(g,`🧛 ${W.name}: The Vampire ฟื้น ${h} HP`); }
+  if(TN(L,'The Shield')){ L.shield+=TN(L,'The Shield'); log(g,`🛡 ${L.name}: The Shield แพ้ → +${TN(L,'The Shield')} Shield`); }
+  if(coin-prize) log(g,`💰 ${W.name} ได้ G เพิ่มจาก Bonus/Tarot +${coin-prize}G`);
+  g.reveal.dmg=taken; g.reveal.bonus=suit; g.reveal.prize=prize; g.reveal.power=pw;
+  W.defeatedLast=false; L.defeatedLast=(lst.chip==='A'); g.lastWin=e.code;
+  g.post=[]; if(n('The Hitman')&&lst.chip==='A'&&sp>=3) g.post.push({f:'hitman',pi:w}); if(n('The Mysteries')) g.post.push({f:'mysteries',pi:w});
+  invest(g); afterDamage(g);
 }
 function afterDamage(g){
   checkOver(g); if(g.over) return;
   const P=g.players,w=g.res.w;
-  if(g.drawQ&&g.drawQ.n){ const p=P[g.drawQ.pi]; const before=p.hand.length; draw(g,p,g.drawQ.n); log(g,`🃏 ${p.name} draw +${p.hand.length-before} (Upgrade 2-3-4)`);} g.drawQ=null;
+  if(g.drawQ&&g.drawQ.n){ const p=P[g.drawQ.pi]; const k=draw(g,p,g.drawQ.n); log(g,`🃏 ${p.name} draw +${k} (Upgrade 2-3-4)`);} g.drawQ=null;
   // 3.5 winner & defenders discard all played; defeated may return any number to hand
   // OVERRIDE (Thongchai, binding, v0.6.4): Defense players may also take back (when opponent wins with Attack; both-Defense → both)
-  g.keepQ=keepers(g);
-  P.forEach((p,i)=>{ if(!g.keepQ.includes(i)){ p.discard.push(...p.commit.cards); p.hand=p.hand.filter(c=>!p.commit.cards.includes(c)); } });
-  const kq=keepers(g); P.forEach((p,i)=>{ if(p.commit.chip==='D'&&kq.includes(i)) log(g,`🛡️ ${p.name} Defense → ไม่ถือว่าพ่ายแพ้ แต่เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่ของพี่ Thongchai)`); });
+  const kq=keepers(g);
+  P.forEach((p,i)=>{ if(!kq.includes(i)){ p.discard.push(...p.commit.cards); p.hand=p.hand.filter(c=>!p.commit.cards.includes(c)); } });
+  P.forEach((p,i)=>{ if(p.commit.chip==='D'&&kq.includes(i)) log(g,`🛡️ ${p.name} Defense → ไม่ถือว่าพ่ายแพ้ แต่เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่ของพี่ Thongchai)`); });
   g.reveal.fate=P.map((p,i)=>kq.includes(i)?'takeback':'discard');
-  nextKeep(g);
+  g.q=(g.post||[]).concat([{f:'keep'}]); g.post=[]; run(g);
 }
 function keepers(g){ const P=g.players,w=g.res.w; if(w>=0) return P[1-w].commit.chip==='A'||P[1-w].commit.chip==='D'?[1-w]:[]; return P.every(p=>p.commit.chip==='D')?[0,1]:[]; }
 function nextKeep(g){ const P=g.players; const d=(g.keepQ||[]).shift(); if(d!=null){ g.phase='keep'; g.pending={type:'keep',pi:d,why:P[d].commit.chip==='A'?'defeated':'defense'}; return; } toShop(g); }
-function keepCards(g,pi,ids){ if(g.phase!=='keep'||g.pending.pi!==pi) return false; const p=g.players[pi]; ids=ids||[];
+function keepCards(g,pi,ids){ if(g.phase!=='keep'||!g.pending||g.pending.pi!==pi) return false; const p=g.players[pi]; ids=ids||[];
   const played=p.commit.cards; if(ids.some(id=>!played.find(c=>c.id===id))) return false;
   const back=played.filter(c=>ids.includes(c.id)), gone=played.filter(c=>!ids.includes(c.id));
   p.hand=p.hand.filter(c=>!played.includes(c)).concat(back); p.discard.push(...gone);
   log(g,`↩️ ${p.name} (${p.commit.chip==='A'?'พ่ายแพ้':'Defense'}) เก็บการ์ดคืนมือ ${back.length} ใบ`); g.pending=null; nextKeep(g); return true; }
-function toShop(g){ g.phase='shop'; g.shopDone=[false,false]; g.shopTurn=1-g.lead; g.freeSpecial=g.players.map((p,i)=>g.res.w>=0&&i!==g.res.w&&p.commit.chip==='A'); g.players.forEach(p=>p.commit=null); }
+function toShop(g){ g.phase='shop'; g.pending=null; g.shopDone=[false,false]; g.shopTurn=1-g.lead; g.freeSpecial=g.players.map((p,i)=>g.res.w>=0&&i!==g.res.w&&p.commit.chip==='A'); g.players.forEach(p=>p.commit=null); }
 function tarotPrice(p,t){return Math.max(0,t.cost+p.tarots.length-(p.tdisc||0));}
-function buySpecial(g,pi,id){ if(g.phase!=='shop'||g.shopTurn!==pi) return false; const p=g.players[pi]; const i=g.shop.s.findIndex(c=>c.id===id); if(i<0) return false;
-  const free=g.freeSpecial[pi]; const cost=free?0:CFG.SPECIAL_COST; if(p.g<cost) return false;
-  p.g-=cost; if(free) g.freeSpecial[pi]=false; const c=g.shop.s.splice(i,1)[0]; p.hand.push(c);
-  log(g,`🛒 ${p.name} ซื้อ Upgrade ${cname(c)} ขึ้นมือ (${cost?'−'+cost+'G':'ฟรี (พ่ายแพ้)'})`); return true; }
-function buyTarot(g,pi,uid){ if(g.phase!=='shop'||g.shopTurn!==pi) return false; const p=g.players[pi]; const i=g.shop.t.findIndex(t=>t.uid===uid); if(i<0) return false;
-  const t=g.shop.t[i],cost=tarotPrice(p,t); if(p.g<cost) return false; p.g-=cost; p.tarots.push(t); g.shop.t.splice(i,1);
-  if(t.name==='The Tough') heal(p,20);
-  log(g,`🔮 ${p.name} ซื้อ Tarot ${t.name} (−${cost}G)`); return true; }
-function refreshShop(g,pi,kind){ if(g.phase!=='shop'||g.shopTurn!==pi) return false; const p=g.players[pi]; if(p.g<CFG.REFRESH_COST) return false;
-  p.g-=CFG.REFRESH_COST; if(kind==='s'){ g.specialDiscard.push(...g.shop.s); g.shop.s=[]; } else if(kind==='t') g.shop.t=[]; else return false; refillShop(g);
+function taxOn(g,pi){ const o=g.players[1-pi]; const t=TN(o,'The Tax'); if(t&&o.taxN<3){const k=Math.min(t,3-o.taxN);o.taxN+=k;o.g+=k;log(g,`🏛 ${o.name}: The Tax +${k}G`);} }
+const shopOK=(g,pi)=>g.phase==='shop'&&g.shopTurn===pi&&!g.pending;
+function buySpecial(g,pi,id,src){ if(!shopOK(g,pi)) return false; const p=g.players[pi]; const pile=src==='d'?(TN(p,'The Undertaker')?g.specialDiscard:null):g.shop.s; if(!pile) return false;
+  const i=pile.findIndex(c=>c.id===id); if(i<0) return false;
+  const free=g.freeSpecial[pi]; const cost=free?0:specialCost(p); if(p.g<cost) return false;
+  p.g-=cost; if(free) g.freeSpecial[pi]=false; const c=pile.splice(i,1)[0]; p.hand.push(c); taxOn(g,pi);
+  log(g,`🛒 ${p.name} ซื้อ Upgrade ${cname(c)}${src==='d'?' จากกองทิ้งร้าน (The Undertaker)':''} ขึ้นมือ (${cost?'−'+cost+'G':'ฟรี'})`); invest(g); return true; }
+function buyTarot(g,pi,uid){ if(!shopOK(g,pi)) return false; const p=g.players[pi],o=g.players[1-pi]; const i=g.shop.t.findIndex(t=>t.uid===uid); if(i<0) return false;
+  const t=g.shop.t[i],cost=tarotPrice(p,t); if(p.g<cost) return false; p.g-=cost; p.tarots.push(t); g.shop.t.splice(i,1); taxOn(g,pi);
+  log(g,`🔮 ${p.name} ซื้อ Tarot ${t.name} (−${cost}G)`);
+  if(t.name==='The Tough'){ const h=heal(g,p,3); log(g,`💪 The Tough +${h} HP`); }
+  if(t.name==='The Wildfire'){ const k=Math.ceil(p.deck.length/2); shuffle(p.deck,g.R); g.removed.push(...p.deck.splice(0,k)); log(g,`🔥 The Wildfire: ลบการ์ดในกองจั่วแบบสุ่ม ${k} ใบ`); }
+  if(t.name==='The Joker'){ let j=g.shop.s.find(c=>c.joker), pile=g.shop.s; if(!j){j=g.specialDeck.find(c=>c.joker);pile=g.specialDeck;} if(!j){j=g.specialDiscard.find(c=>c.joker);pile=g.specialDiscard;}
+    if(j){pile.splice(pile.indexOf(j),1);p.hand.push(j);log(g,`🃏 The Joker: รับ Joker จากกอง Special ขึ้นมือ`);} }
+  if(t.name==='The Enforce'&&p.tarots.length>1&&o.tarots.length) prompt(g,pi,{title:'The Enforce: เลือก Tarot ของคุณที่จะแลก (พร้อม The Enforce)',items:tItems(p.tarots.filter(x=>x!==t)),min:1,max:1,then:'enforce1',goal:'worst'},true);
+  invest(g); return true; }
+function refreshShop(g,pi,kind){ if(!shopOK(g,pi)) return false; const p=g.players[pi]; if(p.g<CFG.REFRESH_COST) return false;
+  if(kind==='s'){ g.specialDiscard.push(...g.shop.s); g.shop.s=[]; } else if(kind==='t'){ g.tarotGone.push(...g.shop.t); g.shop.t=[]; } else return false; p.g-=CFG.REFRESH_COST; refillShop(g);
   log(g,`🔄 ${p.name} จ่าย 1G เปลี่ยน${kind==='s'?'การ์ด Special Poker':'การ์ด Tarot'}ในร้านทั้งหมด`); return true; }
-function endShop(g,pi){ if(g.phase!=='shop'||g.shopTurn!==pi) return false; refillShop(g); g.shopDone[pi]=true;
-  if(g.shopDone.every(x=>x)){ g.shopTurn=null; g.players.forEach(p=>p.tdisc=0); startRound(g); } else g.shopTurn=1-pi; return true; }
+function endShop(g,pi){ if(!shopOK(g,pi)) return false; refillShop(g); g.shopDone[pi]=true;
+  if(g.shopDone.every(x=>x)){ g.shopTurn=null; g.q=[{f:'noble'}]; g.players.forEach((p,i)=>{ if(TN(p,'The Cycle')) g.q.push({f:'cycle',pi:i}); }); g.q.push({f:'newRound'}); run(g); } else g.shopTurn=1-pi; return true; }
 function checkOver(g){ if(g.over) return; const P=g.players,dead=P.map(p=>p.hp<=0);
-  if(dead[0]||dead[1]||g.round>CFG.ROUND_CAP){ g.over=true; g.phase='over'; g.pending=null;
+  if(dead[0]||dead[1]||g.round>CFG.ROUND_CAP){ g.over=true; g.phase='over'; g.pending=null; g.q=[]; P.forEach(p=>p.prompt=null);
     if(dead[0]&&dead[1]) g.winner=-1; else if(dead[0]) g.winner=1; else if(dead[1]) g.winner=0; else g.winner=P[0].hp===P[1].hp?-1:(P[0].hp>P[1].hp?0:1);
     log(g,g.winner<0?'🏁 เสมอ!':`🏁 ${P[g.winner].name} ชนะเกม!`); } }
 // what is player pi expected to do now?
 function waitingFor(g,pi){ const p=g.players[pi]; if(g.over) return null;
+  if(g.pending&&g.pending.type==='prompt') return g.pending.pi===pi?'prompt':null; if(p.prompt) return 'prompt';
   if(g.phase==='prepare') return p.commit?null:'play'; if(g.phase==='bonus') return g.pending.pi===pi?'bonus':null;
   if(g.phase==='keep') return g.pending.pi===pi?'keep':null; if(g.phase==='shop') return g.shopTurn===pi?'shop':null; return null; }
-function view(g,me){
+function view(g,me){ const myP=(g.pending&&g.pending.type==='prompt'&&g.pending.pi===me)?g.pending:g.players[me].prompt;
   return {ver:VER,me,round:g.round,phase:g.phase,over:g.over,winner:g.winner,lead:g.lead,shop:g.shop,shopTurn:g.shopTurn,log:g.log.slice(-200),reveal:g.reveal,
-    pending:g.pending,free:g.freeSpecial?g.freeSpecial[me]:false,waiting:waitingFor(g,me),
-    keepCards:(g.phase==='keep'&&g.pending.pi===me)?g.players[me].commit.cards:null,
-    players:g.players.map((p,i)=>({name:p.name,hp:p.hp,g:p.g,shield:p.shield,tdisc:p.tdisc,deckN:p.deck.length,discardN:p.discard.length,handN:p.hand.length,tarots:p.tarots,
-      committed:!!p.commit&&g.phase==='prepare',hand:i===me?p.hand:null,handSize:handSize(p),playN:playCount(p),defeatedLast:p.defeatedLast,
-      canDisc:i===me?canDiscard(g,p):false,discCost:discardCost(p),discUsed:p.discUsed}))};
+    pending:g.pending&&g.pending.type!=='prompt'?g.pending:(g.pending?{type:'prompt',pi:g.pending.pi}:null),prompt:myP||null,free:g.freeSpecial?g.freeSpecial[me]:false,waiting:waitingFor(g,me),
+    keepCards:(g.phase==='keep'&&g.pending&&g.pending.pi===me)?g.players[me].commit.cards:null,ban:g.ban,duel:g.duel,lastWin:g.lastWin,tuses:tUses(g,me),
+    shopDisc:TN(g.players[me],'The Undertaker')?g.specialDiscard:null,
+    players:g.players.map((p,i)=>({name:p.name,hp:p.hp,g:p.g,shield:p.shield,tdisc:p.tdisc,deckN:p.deck.length,discardN:p.discard.length,handN:p.hand.length,tarots:p.tarots,used:p.used,
+      committed:!!p.commit&&g.phase==='prepare',hand:i===me?p.hand:null,handSize:handSize(p),playN:playCount(p),defeatedLast:p.defeatedLast,specialCost:specialCost(p),
+      canDisc:i===me?canDiscard(g,p):false,discCost:discardCost(p),discUsed:p.discUsed,blind:TN(p,'The Blind')>0,noDef:TN(p,'The Truth')>0,prompting:!!p.prompt}))};
 }
 // ---------- Bot ----------
-function combos(arr,k){const out=[];const n=arr.length;const idx=[];(function rec(s){if(idx.length===k){out.push(idx.map(i=>arr[i]));return;}for(let i=s;i<n;i++){idx.push(i);rec(i+1);idx.pop();}})(0);return out;}
-function bestFive(p){ const k=playCount(p); let best=null,bk=null;
-  for(const s of combos(p.hand,k)){const e=evalHand(s);const key={speed:speedOf(p,e),high:e.high};if(!best||cmpAtk(key,bk)>0){best={cards:s,ev:e};bk=key;}} return best; }
+function bestOf(g,p,pool,k){ let best=null,bk=null; const m=modsOf(p,g&&g.ban),ctx={lastWin:g&&g.lastWin};
+  for(const s of combos(pool,k)){const e=evalHand(s,m);const key={speed:speedOf(p,e,ctx),high:e.high};if(!best||cmpAtk(key,bk)>0){best={cards:s,ev:e};bk=key;}} return best; }
+function bestFive(p,g){ return bestOf(g,p,p.hand,playCount(p)); }
 function botPrepare(g,pi){
   const p=g.players[pi],o=g.players[1-pi];
-  for(let guard=0;guard<3;guard++){ const b=bestFive(p); if(b.ev.speed>=3) break; const cost=discardCost(p); if(cost>1||p.g-cost<2||!canDiscard(g,p)) break;
-    const keep=new Set(b.ev.rankCards.map(c=>c.id)); const toss=p.hand.filter(c=>!keep.has(c.id)&&c.r<11); if(!toss.length) break; doDiscard(g,pi,toss.map(c=>c.id)); }
-  const b=bestFive(p);
-  let chip='A'; const sp=speedOf(p,b.ev);
+  const can=n=>tUses(g,pi).some(u=>u.name===n);
+  if(can('The Moon')&&p.hp<10&&p.g>=3) useT(g,pi,'The Moon');
+  if(can('The Sun')&&p.g>=3) useT(g,pi,'The Sun'); if(g.over) return;
+  for(let guard=0;guard<3;guard++){ if(p.prompt) return; const b=bestFive(p,g); if(b.ev.speed>=3) break; const cost=discardCost(p); if(cost>1||p.g-cost<2||!canDiscard(g,p)) break;
+    const keep=new Set(b.ev.rankCards.map(c=>(c.o||c).id)); const toss=p.hand.filter(c=>!keep.has(c.id)&&!(c.r>=11)&&!c.special); if(!toss.length) break; doDiscard(g,pi,toss.map(c=>c.id)); }
+  if(p.prompt) return;
+  const b=bestFive(p,g); const sp=speedOf(p,b.ev,{lastWin:g.lastWin});
+  if(can('The Duelist')&&sp>=5) useT(g,pi,'The Duelist');
+  let chip='A';
   if(sp<=1&&(p.shield>0||g.R()<0.7)) chip='D'; else if(sp===2&&g.R()<0.35) chip='D';
-  if(o.hp<=2&&sp>=2) chip='A';
+  if(o.hp<=2&&sp>=2) chip='A'; if(TN(p,'The Truth')) chip='A';
   commit(g,pi,b.cards.map(c=>c.id),chip);
 }
+function botAnswer(g,pi){ const p=g.players[pi],o=g.players[1-pi]; const P=(g.pending&&g.pending.type==='prompt'&&g.pending.pi===pi)?g.pending:p.prompt;
+  if(P.kind==='opts'){ let opt=P.options[0];
+    if(P.then==='world'){ const m=modsOf(p,g.ban),ctx={lastWin:g.lastWin}; const a=evalHand(p.commit.cards,m),b=evalHand(o.commit.cards,m); opt=cmpAtk({speed:speedOf(p,b,ctx),high:b.high},{speed:speedOf(p,a,ctx),high:a.high})>0?'swap':'keep'; }
+    if(P.then==='contraband'){ const cnt={};o.hand.forEach(c=>{if(c.s)cnt[c.s]=(cnt[c.s]||0)+1;}); opt=SUITS.slice().sort((x,y)=>(cnt[y]||0)-(cnt[x]||0))[0]; }
+    return answer(g,pi,{opt}); }
+  let items=P.items.slice();
+  if(P.then==='follower'){ let best={ids:[],k:null}; const m=modsOf(p,g.ban),ctx={lastWin:g.lastWin}; const e0=evalHand(p.commit.cards,m); best.k={speed:speedOf(p,e0,ctx),high:e0.high};
+    for(let k=1;k<=2;k++) for(const sub of combos(items,k)){ const r=bestReplace(g,p,sub.map(it=>it.c)); if(cmpAtk(r.k,best.k)>0) best={ids:sub.map(it=>it.id),k:r.k}; }
+    return answer(g,pi,{ids:best.ids}); }
+  const val=it=>it.t==='t'?it.tarot.cost:((it.c.special?20:0)+(it.c.r||0));
+  items.sort((a,b)=>val(b)-val(a)); if(P.goal==='worst') items.reverse();
+  let n=P.max; if(P.then==='commander') n=0; if(P.then==='mysteries') n=items.length;
+  n=Math.max(P.min,Math.min(P.max,n)); return answer(g,pi,{ids:items.slice(0,n).map(it=>it.id)}); }
 function botBonus(g,pi){ const p=g.players[pi],o=g.players[1-pi],op=g.pending.options;
   const pref=o.hp<=4?['S','H','C','D']:p.hp<=4?['H','C','S','D']:['S','D','C','H']; chooseBonus(g,pi,pref.find(s=>op.includes(s))); }
 function botKeep(g,pi){ const p=g.players[pi]; const cards=p.commit.cards; const pool=p.hand.includes(cards[0])?p.hand:p.hand.concat(cards); const cnt={};pool.forEach(c=>{if(c.r!=null)cnt[c.r]=(cnt[c.r]||0)+1;});
-  // take back good cards: specials/Upgrades, J+ and anything that pairs up; leave junk
   keepCards(g,pi,cards.filter(c=>c.special||c.r>=11||cnt[c.r]>=2).map(c=>c.id)); }
+const BOT_SKIP_T=new Set(['The Blind','The Truth','The Empress','The Dragon','The Wildfire','The Enforce']);
 function botShop(g,pi){ const p=g.players[pi];
-  for(let guard=0;guard<8;guard++){
+  for(let guard=0;guard<8;guard++){ if(g.pending) return;
     if(g.freeSpecial[pi]&&g.shop.s.length){ const c=g.shop.s.slice().sort((a,b)=>(b.r||0)-(a.r||0))[0]; buySpecial(g,pi,c.id); continue; }
-    const t=g.shop.t.filter(t=>tarotPrice(p,t)<=p.g-1).sort((a,b)=>tarotPrice(p,a)-tarotPrice(p,b))[0]; if(t&&p.tarots.length<6){buyTarot(g,pi,t.uid);continue;}
-    const ranks=new Set(p.hand.map(c=>c.r)); const c=g.shop.s.find(c=>ranks.has(c.r)); if(c&&p.g>=CFG.SPECIAL_COST+3){buySpecial(g,pi,c.id);continue;}
+    const t=g.shop.t.filter(t=>!BOT_SKIP_T.has(t.name)&&tarotPrice(p,t)<=p.g-1).sort((a,b)=>tarotPrice(p,a)-tarotPrice(p,b))[0]; if(t&&p.tarots.length<6){buyTarot(g,pi,t.uid);continue;}
+    const ranks=new Set(p.hand.map(c=>c.r)); const c=g.shop.s.find(c=>ranks.has(c.r)); if(c&&p.g>=specialCost(p)+3){buySpecial(g,pi,c.id);continue;}
     break; }
-  endShop(g,pi);
+  if(!g.pending) endShop(g,pi);
 }
-function botStep(g,pi){ const w=waitingFor(g,pi); if(w==='play') botPrepare(g,pi); else if(w==='bonus') botBonus(g,pi); else if(w==='keep') botKeep(g,pi); else if(w==='shop') botShop(g,pi); else return false; return true; }
-const api={VER,SHEET_UPG,BONUS_TXT,evalFixed,makeDeck,makeUpgrades,cname,CFG,SUIT,SUITS,RANK,RANK_TH,TAROTS,TBYNAME,rname,evalHand,bonusSuits,cmpAtk,speedOf,newGame,doDiscard,commit,chooseBonus,keepCards,buySpecial,buyTarot,refreshShop,endShop,
-  waitingFor,view,botStep,bestFive,discardCost,canDiscard,handSize,tarotPrice,playCount,rng,startRound};
+function botStep(g,pi){ const w=waitingFor(g,pi); if(w==='prompt') botAnswer(g,pi); else if(w==='play') botPrepare(g,pi); else if(w==='bonus') botBonus(g,pi); else if(w==='keep') botKeep(g,pi); else if(w==='shop') botShop(g,pi); else return false; return true; }
+const api={VER,SHEET_UPG,BONUS_TXT,evalFixed,makeDeck,makeUpgrades,cname,CFG,SUIT,SUITS,RANK,RANK_TH,TAROTS,TBYNAME,rname,evalHand,bonusSuits,cmpAtk,speedOf,modsOf,newGame,doDiscard,commit,chooseBonus,keepCards,buySpecial,buyTarot,refreshShop,endShop,
+  waitingFor,view,botStep,bestFive,bestOf,discardCost,canDiscard,handSize,tarotPrice,specialCost,playCount,rng,startRound,useT,tUses,answer,TUSE};
 if(typeof module!=='undefined') module.exports=api; else root.NC=api;
 })(this);
 </script>
@@ -448,15 +627,15 @@ function cardEl(c,opt={}){const S=c.s?NC.SUIT[c.s]:{sym:'',fac:'Upgrade (ไม�
  d.title=c.upg==='sheet'?`Upgrade ${NC.cname(c)} — ${upgDesc(c)}`:c.upg?`Upgrade ${NC.cname(c)}`:`${NC.rname(c.r)}${S.sym} ${S.fac} (${S.th})`;return d;}
 function backEl(){const d=document.createElement('div');d.className='card back';return d;}
 function tarotEl(t){const d=document.createElement('div');d.className='tarot';const a=ART[t.name];
- d.innerHTML=a?`<img src="${a}" alt=""><div class="tn">${t.name}</div>`:`<div class="ph2">🔮<br>${t.name}<br><span style="font-weight:normal;font-size:8px">${t.th}</span></div>`;
- d.onmousemove=e=>{const tp=$('tip');tp.style.display='block';tp.style.left=Math.min(e.clientX+12,innerWidth-250)+'px';tp.style.top=(e.clientY+12)+'px';tp.innerHTML=`<b>${t.name}</b> (${t.cost} Coin)<br>${t.en}<br>${t.th}`;};
+ d.innerHTML=a?`<img src="${a}" alt=""><div class="tn">${t.name}</div>`:`<div class="ph2">🔮<br>${t.name}<br><span style="font-weight:normal;font-size:7px;line-height:1.1;display:block">${t.arc||''}<br>${t.en.slice(0,70)}${t.en.length>70?'…':''}</span></div>`;
+ d.onmousemove=e=>{const tp=$('tip');tp.style.display='block';tp.style.left=Math.min(e.clientX+12,innerWidth-250)+'px';tp.style.top=(e.clientY+12)+'px';tp.innerHTML=`<b>${t.name}</b> · ${t.arc||''} (${t.cost} Coin)<br>${t.en}`;};
  d.onmouseleave=()=>$('tip').style.display='none';return d;}
 function pPanel(p,isMe,i){const pct=Math.max(0,Math.min(100,p.hp/Math.max(10,p.hp)*100));
  const w=V.phase==='prepare'?(p.committed?'<span class="chip" style="color:#7f9">✅ คว่ำการ์ดแล้ว</span>':'<span class="chip wait">… กำลังเตรียม</span>'):V.phase==='shop'?(V.shopTurn===i?'<span class="chip wait">🛒 กำลังช้อป</span>':''):'';
  const box=document.createElement('div');box.innerHTML=`<div class="ph"><span class="name">${isMe?'😎 ':(mode==='bot'?'🤖 ':'🧑 ')}${p.name}${isMe?' (คุณ)':''}</span>${V.lead===i?'<span class="chip" style="color:#fc6">👑 Lead</span>':''}<span class="chip">💰 ${p.g}G</span><span class="chip">🛡 Shield ${p.shield}</span><span class="chip">🂠 กองจั่ว ${p.deckN}</span><span class="chip">🗑 กองทิ้ง ${p.discardN}</span>${isMe?`<span class="chip">✋ Hand Size ${p.handSize}</span>`:`<span class="chip">✋ มือ ${p.handN}</span>`}<span class="chip">🔮 Tarot ${p.tarots.length}</span>${w}</div>`;
  const t=document.createElement('div');t.className='tarots';t.style.marginTop='6px';p.tarots.forEach(x=>t.appendChild(tarotEl(x)));box.appendChild(t);return box;}
 // ---------- view / actions ----------
-let chip='A',keepSel=new Set();
+let chip='A',keepSel=new Set(),promptSel=new Set();
 function curView(){return mode==='guest'?V:(g?NC.view(g,me):null);}
 function act(a){ if(mode==='guest'){ if(conn&&conn.open) conn.send({t:'act',a}); else banner('ยังไม่ได้เชื่อมต่อกับห้อง',true); } else { apply(a,me); } }
 function apply(a,pi){ // authoritative (bot mode or host); remote actions always arrive as pi=1
@@ -465,8 +644,10 @@ function apply(a,pi){ // authoritative (bot mode or host); remote actions always
  else if(a.k==='commit') NC.commit(g,pi,a.ids,a.chip);
  else if(a.k==='bonus') NC.chooseBonus(g,pi,a.s);
  else if(a.k==='keep') NC.keepCards(g,pi,a.ids);
+ else if(a.k==='useT') NC.useT(g,pi,a.name);
+ else if(a.k==='answer') NC.answer(g,pi,{ids:a.ids,opt:a.opt});
 
- else if(a.k==='buyS') NC.buySpecial(g,pi,a.id);
+ else if(a.k==='buyS') NC.buySpecial(g,pi,a.id,a.src);
  else if(a.k==='buyT') NC.buyTarot(g,pi,a.id);
  else if(a.k==='refresh') NC.refreshShop(g,pi,a.kind);
  else if(a.k==='endShop') NC.endShop(g,pi);
@@ -483,7 +664,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  $('botP').replaceChildren(pPanel(B,false,1-V.me));$('youP').replaceChildren(pPanel(Y,true,V.me));hpBar('botHP',B.hp,B.name);hpBar('youHP',Y.hp,'คุณ');chipStack('youChips',Y.g);chipStack('botChips',B.g);
  const hand=Y.hand||[];[...sel].forEach(id=>{if(!hand.some(c=>c.id===id))sel.delete(id);});
  const W=V.waiting; const need=Y.playN;
- const h=$('hand');h.replaceChildren();hand.slice().sort((a,b)=>(a.r||0)-(b.r||0)||String(a.s||'').localeCompare(String(b.s||''))).forEach(c=>{const e=cardEl(c,{sel:sel.has(c.id)});e.onclick=()=>{if(W!=='play')return;sel.has(c.id)?sel.delete(c.id):sel.add(c.id);render();};h.appendChild(e);});
+ const h=$('hand');h.replaceChildren();hand.slice().sort((a,b)=>(a.r||0)-(b.r||0)||String(a.s||'').localeCompare(String(b.s||''))).forEach(c=>{const e=cardEl(c,{sel:sel.has(c.id)});if(Y.blind)e.classList.add('covered');e.onclick=()=>{if(W!=='play')return;sel.has(c.id)?sel.delete(c.id):sel.add(c.id);render();};h.appendChild(e);});
  // board
  $('skipA')&&$('skipA').remove(); document.querySelector('.board').classList.remove('hideR'); document.body.classList.remove('animating');
  const bp=$('botPlay'),yp=$('youPlay');bp.replaceChildren();yp.replaceChildren();
@@ -495,10 +676,12 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
 
  const PH={play:['🃏','เตรียมไพ่','Prepare · Play',`💰 มี ${Y.g}G · `+'เลือกการ์ด '+need+' ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วกดคว่ำ · หรือ ♻ Discard จั่วใหม่','#f3f'],
   bonus:['✨','เลือกโบนัสดอก','Resolution · Suit Bonus','คุณชนะ! เลือก Suit Bonus 1 ดอก','#ffd23f'],
+  prompt:['🔮','เลือกผล Tarot','Tarot',V.prompt?V.prompt.title:'','#c8f'],
   keep:['↩','เก็บการ์ดคืนมือ','Resolution · Take Back',(V.pending&&V.pending.why==='defense'?'คุณ Defense':'คุณแพ้รอบนี้')+' — เลือกการ์ดที่ลงไปเพื่อเก็บคืนมือ','#3cf'],
   shop:['🛒','ร้านค้า','Shopping','ตาคุณซื้อ: Special Poker / Tarot / Refresh · เสร็จแล้วกด ✔ Ready (จบการซื้อ)','#3f9']};
  const WT={prepare:['⏳','รอคู่แข่งคว่ำการ์ด','Prepare · Waiting',Y.committed?'คว่ำการ์ดแล้ว — จะเปิดพร้อมกันเมื่ออีกฝ่ายพร้อม':'รอสักครู่…','#b9f'],
   bonus:['⏳','คู่แข่งเลือกโบนัส','Resolution · Suit Bonus',`รอ ${B.name} เลือก Suit Bonus…`,'#ffd23f'],
+  resolution:['⏳','คู่แข่งใช้ Tarot','Tarot',`รอ ${B.name} เลือกผล Tarot…`,'#c8f'],
   keep:['⏳','คู่แข่งเก็บการ์ด','Resolution · Take Back',`รอ ${B.name} เลือกการ์ดเก็บคืนมือ…`,'#3cf'],
   shop:['⏳','คู่แข่งช้อปอยู่','Shopping · Waiting',`รอ ${B.name} ซื้อของให้เสร็จ (คนไม่มี Lead ซื้อก่อน)`,'#3f9']};
  let P=V.over?['🏁','จบเกม','Game Over',V.winner<0?'เสมอ':V.winner===V.me?'คุณชนะ!':`${B.name} ชนะ`,'#fff']:(PH[W]||WT[V.phase]||['⏳','Resolution','Resolution','กำลังคิดผล…','#b9f']);
@@ -507,23 +690,30 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  pb.innerHTML=`<div class="pi">${P[0]}</div><div><div><span class="pn">${P[1]}</span><span class="pe">${P[2]}</span></div><div class="pd">${P[3]}</div></div><div class="pr"><span style="font-size:18px;color:#ffd23f;text-shadow:0 0 6px #fa0">💰 ${Y.g}G</span><br>รอบ ${V.round}<br>${V.lead===V.me?'👑 คุณถือ Lead':'👑 Lead: '+B.name}</div>`;
  pb.dataset.phase=V.over?'over':(PH[W]?W:'wait-'+V.phase);
  const key=V.round+'|'+pb.dataset.phase; if(key!==window.__lastPh){window.__lastPh=key;pb.classList.remove('anim');void pb.offsetWidth;pb.classList.add('anim');}
- const modalOn=['bonus','keep'].includes(W)&&!V.over; document.body.classList.toggle('modal',modalOn);
+ const modalOn=['bonus','keep','prompt'].includes(W)&&!V.over; document.body.classList.toggle('modal',modalOn);
  const ctrl=$('ctrl'),n=sel.size; $('pv').textContent=''; ctrl.className='actp'+(modalOn?' modalp':'');
  if(W==='play'){
-  ctrl.innerHTML=`<span class="ttl">เลือก Chip แล้วคว่ำการ์ด</span><div class="bigopt"><button id="cA" class="${chip==='A'?'gold chipsel':'alt'}">⚔️ Attack</button><button id="cD" class="${chip==='D'?'gold chipsel':'alt'}">🛡️ Defense</button><span style="width:14px"></span><button id="bPlay" ${n===need?'':'disabled'}>▶ คว่ำการ์ด ${n}/${need}</button><button id="bDisc" class="alt" ${Y.canDisc?'':'disabled'}>♻ Discard ${n?'ทิ้ง '+n+' ใบ แล้วจั่วใหม่':'(เลือกการ์ดที่จะทิ้ง)'} · ${Y.discCost?Y.discCost+'G':'ฟรี'}</button>${Y.canDisc?'':`<div class="hint" style="color:#f99">Discard ใช้ไม่ได้: มี ${Y.g}G แต่ครั้งที่ ${Y.discUsed+1} ต้องจ่าย ${Y.discCost}G</div>`}</div>`;
-  $('cA').onclick=()=>{chip='A';render();};$('cD').onclick=()=>{chip='D';render();};
+  ctrl.innerHTML=`<span class="ttl">เลือก Chip แล้วคว่ำการ์ด</span><div class="bigopt"><button id="cA" class="${chip==='A'?'gold chipsel':'alt'}">⚔️ Attack</button><button id="cD" class="${chip==='D'&&!Y.noDef?'gold chipsel':'alt'}" ${Y.noDef?'disabled title="The Truth: Defense ไม่ได้"':''}>🛡️ Defense</button><span style="width:14px"></span><button id="bPlay" ${n===need||Y.blind?'':'disabled'}>▶ คว่ำการ์ด ${Y.blind?'(The Blind: สุ่ม 5 ใบ)':n+'/'+need}</button><button id="bDisc" class="alt" ${Y.canDisc?'':'disabled'}>♻ Discard ${n?'ทิ้ง '+n+' ใบ แล้วจั่วใหม่':'(เลือกการ์ดที่จะทิ้ง)'} · ${Y.discCost?Y.discCost+'G':'ฟรี'}</button>${Y.canDisc?'':`<div class="hint" style="color:#f99">Discard ใช้ไม่ได้: มี ${Y.g}G แต่ครั้งที่ ${Y.discUsed+1} ต้องจ่าย ${Y.discCost}G</div>`}</div>${(V.tuses||[]).length?'<div class="bigopt" id="tUse">'+V.tuses.map(u=>`<button class="alt tuse" data-n="${u.name}">🔮 ${u.name}: ${u.label}</button>`).join('')+'</div>':''}${V.ban?`<div class="hint" style="color:#f99">🚫 The Contraband: ห้ามใช้ ${NC.SUIT[V.ban].sym} รอบนี้ (นับเป็นการ์ดเปล่า)</div>`:''}${V.duel?'<div class="hint" style="color:#fc6">⚔️ The Duelist: รอบนี้ทุกคนต้อง Attack</div>':''}`;
+  ctrl.querySelectorAll('.tuse').forEach(b=>b.onclick=()=>act({k:'useT',name:b.dataset.n}));
+  if(Y.noDef&&chip==='D')chip='A';
+  $('cA').onclick=()=>{chip='A';render();};$('cD').onclick=()=>{if(Y.noDef)return;chip='D';render();};
   $('bPlay').onclick=()=>{AN.rects=[...document.querySelectorAll('#hand .card.sel')].map(e=>e.getBoundingClientRect());const ids=[...sel];sel.clear();act({k:'commit',ids,chip});};$('bDisc').onclick=()=>{if(!sel.size){$('pv').innerHTML='<b style="color:#ff6">👆 แตะการ์ดในมือที่จะทิ้งก่อน (กี่ใบก็ได้) แล้วกด Discard อีกครั้ง</b>';return;}const ids=[...sel];sel.clear();act({k:'discard',ids});};
-  if(n){const cards=hand.filter(c=>sel.has(c.id));const e=NC.evalHand(cards);$('pv').textContent=`พรีวิว: ${NC.RANK[e.code][0]} (${NC.RANK_TH[e.code]}) · Speed ${NC.speedOf(Y,e)} · Prize ${e.prize}G · Suit Bonus จาก: ${NC.bonusSuits(e.rankCards).map(x=>NC.SUIT[x].sym).join('/')}`;}
+  if(n){const cards=hand.filter(c=>sel.has(c.id));const md=NC.modsOf(Y,V.ban);const e=NC.evalHand(cards,md);$('pv').textContent=Y.blind?'The Blind: มองการ์ดไม่ได้':`พรีวิว: ${NC.RANK[e.code][0]} (${NC.RANK_TH[e.code]}) · Speed ${NC.speedOf(Y,e,{lastWin:V.lastWin})} · Prize ${e.prize}G · Suit Bonus จาก: ${NC.bonusSuits(e.rankCards,md).map(x=>NC.SUIT[x].sym).join('/')}`;}
   else $('pv').textContent=`เลือกการ์ด ${need} ใบ + เลือก Chip แล้วกดคว่ำ · ทิ้งการ์ด: ครั้งที่ ${Y.discUsed+1} จ่าย ${Y.discCost}G (ทิ้งกี่ใบก็ได้ แล้วจั่วจนครบ Hand Size)`; }
  else if(W==='bonus'){ ctrl.innerHTML='<span class="ttl">✨ เลือก Suit Bonus</span><div class="bigopt">'+V.pending.options.map(x=>`<button class="gold" data-s="${x}">${NC.SUIT[x].sym} ${NC.SUIT[x].bonus}</button>`).join('')+'</div>';
   ctrl.querySelectorAll('button').forEach(b=>b.onclick=()=>act({k:'bonus',s:b.dataset.s})); $('pv').textContent='Suit ในการ์ดที่ประกอบ Ranking มีจำนวนเท่ากัน เลือกได้ 1 Suit'; }
+ else if(W==='prompt'){ const P=V.prompt; [...promptSel].forEach(id=>{if(!P.items.some(it=>it.id===id))promptSel.delete(id);});
+  if(P.kind==='opts'){ ctrl.innerHTML=`<span class="ttl">🔮 ${P.title}</span><div class="bigopt">`+P.options.map(o=>`<button class="gold popt" data-o="${o}">${NC.SUIT[o]?NC.SUIT[o].sym+' '+NC.SUIT[o].th:o==='swap'?'🔄 สลับ (จ่าย 1G)':o==='keep'?'✋ ไม่สลับ':o}</button>`).join('')+'</div>'; ctrl.querySelectorAll('.popt').forEach(b=>b.onclick=()=>act({k:'answer',opt:b.dataset.o})); }
+  else { ctrl.innerHTML=`<span class="ttl">🔮 ${P.title}</span><div class="cards" id="promptRow" style="margin:6px 0;flex-wrap:wrap;max-height:46vh;overflow:auto"></div><button id="bAns" class="gold" ${promptSel.size>=P.min&&promptSel.size<=P.max?'':'disabled'}>${P.max===0?'✔ ตกลง':'✔ ยืนยัน ('+promptSel.size+(P.max>1?'/'+P.max:'')+')'}</button>`;
+   P.items.forEach(it=>{const e=it.t==='t'?tarotEl(it.tarot):cardEl(it.c,{sel:promptSel.has(it.id)});if(it.t==='t'&&promptSel.has(it.id))e.style.outline='3px solid #ffd23f';if(P.max>0)e.onclick=()=>{if(promptSel.has(it.id))promptSel.delete(it.id);else{if(P.max===1)promptSel.clear();if(promptSel.size<P.max)promptSel.add(it.id);}render();};$('promptRow').appendChild(e);});
+   $('bAns').onclick=()=>{const ids=[...promptSel];promptSel.clear();act({k:'answer',ids});}; } }
  else if(W==='keep'){ const kc=V.keepCards||[];[...keepSel].forEach(id=>{if(!kc.some(c=>c.id===id))keepSel.delete(id);});
   ctrl.innerHTML='<span class="ttl">↩ '+(V.pending&&V.pending.why==='defense'?'คุณ Defense':'คุณพ่ายแพ้')+' — เลือกการ์ดเก็บคืนมือ (Take Back) กี่ใบก็ได้</span><div class="cards" id="keepRow" style="margin:6px 0"></div><button id="bKeep" class="gold">↩ เก็บ '+keepSel.size+' ใบ (ที่เหลือลงกองทิ้ง)</button><button id="bKeepAll" class="alt">เก็บทั้งหมด</button>';
   kc.forEach(c=>{const e=cardEl(c,{sel:keepSel.has(c.id)});e.onclick=()=>{keepSel.has(c.id)?keepSel.delete(c.id):keepSel.add(c.id);render();};$('keepRow').appendChild(e);});
   $('bKeep').onclick=()=>{const ids=[...keepSel];keepSel.clear();act({k:'keep',ids});};$('bKeepAll').onclick=()=>{keepSel.clear();act({k:'keep',ids:kc.map(c=>c.id)});}; }
  else if(W==='shop'){ ctrl.innerHTML=`<span class="ttl">🛒 ตาคุณช้อป — ซื้อจากร้านค้าด้านข้าง</span><div class="bigopt"><button class="gold" id="bEnd">✔ Ready · จบการซื้อ</button><button class="alt" id="rS" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Special ทั้งหมด (1G)</button><button class="alt" id="rT" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Tarot ทั้งหมด (1G)</button></div>`;
   $('bEnd').onclick=()=>act({k:'endShop'});$('rS').onclick=()=>act({k:'refresh',kind:'s'});$('rT').onclick=()=>act({k:'refresh',kind:'t'});
-  $('pv').textContent=V.free?'คุณพ่ายแพ้: ซื้อ Special Poker ได้ฟรี 1 ใบ':'Special Poker ใบละ 2G (ขึ้นมือทันที) · Tarot ราคา + จำนวน Tarot ที่มี'+(Y.tdisc?` · ♦A: Tarot ลด ${Y.tdisc}G รอบนี้`:''); }
+  $('pv').textContent=V.free?'คุณพ่ายแพ้: ซื้อ Special Poker ได้ฟรี 1 ใบ':`Special Poker ใบละ ${Y.specialCost}G (ขึ้นมือทันที) · Tarot ราคา + จำนวน Tarot ที่มี`+(Y.tdisc?` · ♦A: Tarot ลด ${Y.tdisc}G รอบนี้`:''); }
  else if(waitingNow){ctrl.innerHTML=`<div class="waitbox"><div class="spin"></div><div>${P[3]}</div></div>`;}
  else if(V.phase==='shop'){ctrl.innerHTML='';$('pv').textContent=`⏳ ${B.name} กำลังช้อป (เริ่มจากผู้เล่นที่ไม่มี Lead Token)`;}
  else if(['bonus','keep'].includes(V.phase)){ctrl.innerHTML='';$('pv').textContent=`⏳ รอ ${B.name} ${({bonus:'เลือก Suit Bonus',keep:'เลือกการ์ดเก็บคืนมือ'})[V.phase]}…`;}
@@ -531,7 +721,8 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  else {ctrl.innerHTML='';ctrl.className='';}
  // market (always visible; buy only on your shop turn)
  const sp=$('shopP');sp.innerHTML='<b>🛒 ร้านค้า</b>';const myTurn=W==='shop';const w=document.createElement('div');w.className='shop';
- V.shop.s.forEach(c=>{const it=document.createElement('div');it.className='item';it.appendChild(cardEl(c));const cost=V.free?0:2;const b=document.createElement('button');b.textContent=cost?`${cost}G`:'ฟรี';b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id});it.appendChild(b);w.appendChild(it);});
+ V.shop.s.forEach(c=>{const it=document.createElement('div');it.className='item';it.appendChild(cardEl(c));const cost=V.free?0:Y.specialCost;const b=document.createElement('button');b.textContent=cost?`${cost}G`:'ฟรี';b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id});it.appendChild(b);w.appendChild(it);});
+ (V.shopDisc||[]).forEach(c=>{const it=document.createElement('div');it.className='item';it.title='The Undertaker: กองทิ้งร้าน';it.appendChild(cardEl(c));const cost=V.free?0:Y.specialCost;const b=document.createElement('button');b.textContent=`⚰ ${cost}G`;b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id,src:'d'});it.appendChild(b);w.appendChild(it);});
  V.shop.t.forEach(t=>{const it=document.createElement('div');it.className='item';it.appendChild(tarotEl(t));const cost=NC.tarotPrice(Y,t);const b=document.createElement('button');b.textContent=`${cost}G`;b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyT',id:t.uid});it.appendChild(b);w.appendChild(it);});
  sp.appendChild(w);sp.insertAdjacentHTML('beforeend',`<div class="hint">${myTurn?'ตาคุณซื้อ':'ซื้อได้ใน Shopping Phase ตามลำดับ'} · Special Poker 5 ใบ · Tarot 3 ใบ</div>`);
  const L=$('log');L.textContent=V.log.join('\n');L.scrollTop=1e9;
@@ -592,7 +783,7 @@ function chipStack(id,gold){const box=$(id);if(!box)return;const sm=box.classLis
  box.dataset.gold=gold;box.querySelector('.cn').textContent=`💰 ${gold}G`;box.title=`${gold}G (1 ชิป = 1G)`;}
 function tidy(st){[...st.children].forEach(sk=>{if(!sk.children.length)sk.remove();});}
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.8.1 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.9.0 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
