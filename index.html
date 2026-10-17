@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.9.3</title>
+<title>NEON Clash v0.9.4</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -173,11 +173,11 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 #dvGrid .card:hover{transform:scale(1.25)}
 .flyc{position:fixed;z-index:65;pointer-events:none;margin:0}
 @media (max-width:700px){.pile{width:52px}.pile .stk,.pile .stk .card{width:46px;height:66px}.pile .empty{width:42px;height:62px}.pile .cnt{font-size:11px;padding:1px 5px}}
-.modePick{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:6px 0 12px}.modePick .hint{width:100%}.modeOpt{min-width:120px;min-height:56px;font-size:17px;line-height:1.2}</style></head><body>
+.modePick{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:6px 0 12px}.modePick .hint{width:100%}.modeOpt{min-width:120px;min-height:56px;font-size:17px;line-height:1.2}.hpb.overheal{box-shadow:0 0 10px #ffd23f,0 0 22px rgba(255,210,63,.7);border-color:#ffd23f!important;animation:hpOver 1.2s ease-in-out infinite alternate}.hpb.overheal i{background:linear-gradient(90deg,#39ff9c,#ffd23f)!important}.hpb.overheal span{color:#fff7c2;text-shadow:0 0 6px #ffd23f}@keyframes hpOver{from{box-shadow:0 0 6px #ffd23f}to{box-shadow:0 0 18px #ffd23f,0 0 30px rgba(255,210,63,.6)}}</style></head><body>
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.9.3 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" id="sfxBtn" onclick="SFX.toggle()" title="เสียงการ์ด เปิด/ปิด">🔊</button><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.9.4 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" id="sfxBtn" onclick="SFX.toggle()" title="เสียงการ์ด เปิด/ปิด">🔊</button><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div><div class="oppRow"><div class="hpb" id="botHP"><i></i><span></span></div><div class="chipsBox sm" id="botChips"><div class="stks"></div><div class="cn"></div></div></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
@@ -186,14 +186,14 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <div style="display:flex;flex-direction:column;gap:8px">
  <div class="panel" id="shopP"><b>🛒 Market</b></div>
  <div class="panel"><b>📜 Log</b><div id="log"></div></div>
- <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP (โหมด Extend = 15 HP; ฟื้น HP ได้ไม่เกิน HP เริ่มต้น ยกเว้น The Tough), 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: <b>ถ้าอีกฝ่าย Attack → ฝ่าย Defense แพ้รอบนั้นเสมอ ไม่ว่ามือจะเป็นอะไร</b> (กฏใหม่ v0.9.2) · ผู้ชนะได้ Lead/Prize/Suit Bonus · Defense นับว่า “พ่ายแพ้” → ช่วง Shop ซื้อ Special Poker ฟรี 1 ใบ (ข้อ 4.1) · รับ DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ · Defense ทั้งคู่ = ไม่มีใครแพ้ ไม่มี DMG เก็บการ์ดได้ทั้งคู่ · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · <b>Tarot 78 ใบ</b> (จากชีท Project Poker แท็บ Tarot, อย่างละ 1) ราคา = cost + จำนวน Tarot ที่มี (♦A ลด 1G) · Tarot ที่ใช้ตอน Prepare (Moon, Sun, Contraband, Scorch, Truth, Insider, Duelist, Commander) กดปุ่ม 🔮 ใต้ปุ่มคว่ำการ์ด ใช้ได้รอบละครั้ง · Power = DMG เพิ่มเมื่อชนะ · Coin = G · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
+ <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP (โหมด Extend = 15 HP; ฟื้น HP ได้ไม่จำกัด เกิน HP เริ่มต้นได้), 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: <b>ถ้าอีกฝ่าย Attack → ฝ่าย Defense แพ้รอบนั้นเสมอ ไม่ว่ามือจะเป็นอะไร</b> (กฏใหม่ v0.9.2) · ผู้ชนะได้ Lead/Prize/Suit Bonus · Defense นับว่า “พ่ายแพ้” → ช่วง Shop ซื้อ Special Poker ฟรี 1 ใบ (ข้อ 4.1) · รับ DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ · Defense ทั้งคู่ = ไม่มีใครแพ้ ไม่มี DMG เก็บการ์ดได้ทั้งคู่ · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · <b>Tarot 78 ใบ</b> (จากชีท Project Poker แท็บ Tarot, อย่างละ 1) ราคา = cost + จำนวน Tarot ที่มี (♦A ลด 1G) · Tarot ที่ใช้ตอน Prepare (Moon, Sun, Contraband, Scorch, Truth, Insider, Duelist, Commander) กดปุ่ม 🔮 ใต้ปุ่มคว่ำการ์ด ใช้ได้รอบละครั้ง · Power = DMG เพิ่มเมื่อชนะ · Coin = G · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
 </div></div>
 <div class="menu" id="menu"><div class="box" id="menuBox"></div></div>
 <div class="tip" id="tip"></div><div id="resultM"></div><div id="discV"><div class="dvbox"><div class="dvh"><b id="dvTitle">กองทิ้ง</b><button id="bDvClose" class="gold">✕ ปิด</button></div><div id="dvGrid" class="cards"></div></div></div>
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.9.3';
+const VER='0.9.4';
 const MODES={normal:{hp:10,th:'Normal',label:'Normal · 10 HP'},extend:{hp:15,th:'Extend',label:'Extend · 15 HP'}};
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
@@ -335,7 +335,7 @@ function draw(g,p,n){let k=0;for(let i=0;i<n;i++){ if(!p.deck.length){ if(!p.dis
 const handSize=p=>CFG.HAND+2*TN(p,'The Empress')+TN(p,'The Rich')-TN(p,'The Dragon')+(p.wheel||0);
 function drawTo(g,p){ draw(g,p,Math.max(0,handSize(p)-p.hand.length)); }
 // health: Heart Breaker (opponent can't gain health), The Tree (+1 whenever you gain health)
-function heal(g,p,n){ if(n<=0) return 0; if(TN(other(g,p),'Heart Breaker')){log(g,`💔 ${p.name} ฟื้น HP ไม่ได้ (Heart Breaker)`);return 0;} n+=TN(p,'The Tree'); const mx=g.maxHp||CFG.HP; if(!TN(p,'The Tough')) n=Math.max(0,Math.min(n,mx-p.hp)); p.hp+=n; return n; } // v0.9.3: HP max = starting HP (10 / Extend 15); The Tough: no maximum
+function heal(g,p,n){ if(n<=0) return 0; if(TN(other(g,p),'Heart Breaker')){log(g,`💔 ${p.name} ฟื้น HP ไม่ได้ (Heart Breaker)`);return 0;} n+=TN(p,'The Tree'); p.hp+=n; return n; } // v0.9.4 (Thongchai): no HP cap in any mode — healing unlimited
 function hurt(g,p,o,n){ if(n>0) p.hp-=n; }
 function invest(g){ g.players.forEach(p=>{ if(!p.investor&&TN(p,'The Investor')&&p.g>=10){p.investor=true;p.g+=10;log(g,`💹 ${p.name}: The Investor → +10G (ครั้งเดียวต่อเกม)`);} }); }
 function prompt(g,pi,o,phaseLevel){ const P={type:'prompt',pi,kind:o.kind||'pick',title:o.title,items:o.items||[],options:o.options||[],min:o.min||0,max:o.max==null?1:o.max,then:o.then,data:o.data||{},goal:o.goal||'best'};
@@ -845,7 +845,7 @@ function showResult(){ const R=V&&V.reveal; if(!R)return; const me=V.me,op=1-me,
 
 const HPPREV={};
 function hpBar(id,hp,label){const el=$(id);if(!el)return;const mx=(V&&V.maxHp)||10;const pct=Math.max(0,Math.min(100,hp/mx*100));el.querySelector('i').style.width=pct+'%';
- el.querySelector('span').textContent=`${label} ❤ ${hp}/${mx} HP`;el.classList.toggle('low',hp<=mx*.3);el.classList.toggle('mid',hp>mx*.3&&hp<=mx*.6);
+ el.querySelector('span').textContent=`${label} ❤ ${hp}/${mx} HP${hp>mx?' ✨ +'+(hp-mx):''}`;el.classList.toggle('overheal',hp>mx);el.classList.toggle('low',hp<=mx*.3);el.classList.toggle('mid',hp>mx*.3&&hp<=mx*.6);
  const pv=HPPREV[id];if(pv!=null&&pv!==hp){const c=hp<pv?'hit':'heal';el.classList.remove('hit','heal');void el.offsetWidth;el.classList.add(c);}HPPREV[id]=hp;el.dataset.hp=hp;}
 
 const CHIP_PER=10;
@@ -857,7 +857,7 @@ function chipStack(id,gold){const box=$(id);if(!box)return;const sm=box.classLis
  box.dataset.gold=gold;box.querySelector('.cn').textContent=`💰 ${gold}G`;box.title=`${gold}G (1 ชิป = 1G)`;}
 function tidy(st){[...st.children].forEach(sk=>{if(!sk.children.length)sk.remove();});}
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.9.3 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.9.4 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<div class="modePick" id="modePick"><div class="hint">โหมดเกม (Mode)</div><button class="modeOpt ${gameMode==='normal'?'gold':'alt'}" data-m="normal" onclick="setMode('normal')">⚔️ Normal<br><small>10 HP</small></button><button class="modeOpt ${gameMode==='extend'?'gold':'alt'}" data-m="extend" onclick="setMode('extend')">🛡️ Extend<br><small>15 HP</small></button><div class="hint" style="font-size:12px">ใช้กับ Vs Bot และห้องที่คุณสร้าง (Host เลือก)</div></div><button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
