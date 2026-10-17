@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.9.1</title>
+<title>NEON Clash v0.9.2</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -154,27 +154,46 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 #promptRow,#keepRow{padding-top:28px!important;padding-bottom:8px!important}
 .tarot.sel::after{top:3px;right:3px}
 #sfxBtn{min-width:44px}
+
+/* v0.9.2 draw pile (left) / discard pile (right) + discard viewer */
+.pile{flex:0 0 auto;width:74px;display:flex;flex-direction:column;align-items:center;gap:3px;align-self:center;font-size:12px;color:#cbb6ff}
+.pile .stk{position:relative;width:66px;height:94px}
+.pile .stk .card{position:absolute;left:0;top:0;width:66px;height:94px;transform:none!important}
+.pile .stk .card:nth-child(2){left:3px;top:-3px}.pile .stk .card:nth-child(3){left:6px;top:-6px}
+.pile .stk .card:hover{transform:none!important}
+.pile .empty{width:62px;height:90px;border:2px dashed #6a4a9a;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#6a4a9a}
+.pile .cnt{background:#2a1050;border:1px solid #a6f;border-radius:10px;padding:1px 8px;color:#fff;font-weight:700;white-space:nowrap}
+#discPile{cursor:pointer}#discPile:hover .stk{filter:brightness(1.25)}
+#discV{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;background:rgba(5,0,15,.7)}
+#discV.on{display:flex}
+#discV .dvbox{width:min(760px,94vw);max-height:86vh;display:flex;flex-direction:column;border:2px solid #a6f;border-radius:14px;background:linear-gradient(160deg,rgba(40,0,60,.97),rgba(8,0,24,.97));box-shadow:0 0 22px #a6f;padding:12px}
+#discV .dvh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;color:#fff;font-size:17px}
+#discV #bDvClose{min-height:44px;padding:8px 18px;font-size:16px}
+#dvGrid{display:flex;flex-wrap:wrap;gap:10px;overflow-y:auto;padding:8px 4px;justify-content:flex-start;-webkit-overflow-scrolling:touch}
+#dvGrid .card:hover{transform:scale(1.25)}
+.flyc{position:fixed;z-index:65;pointer-events:none;margin:0}
+@media (max-width:700px){.pile{width:52px}.pile .stk,.pile .stk .card{width:46px;height:66px}.pile .empty{width:42px;height:62px}.pile .cnt{font-size:11px;padding:1px 5px}}
 </style></head><body>
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.9.1 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" id="sfxBtn" onclick="SFX.toggle()" title="เสียงการ์ด เปิด/ปิด">🔊</button><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.9.2 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" id="sfxBtn" onclick="SFX.toggle()" title="เสียงการ์ด เปิด/ปิด">🔊</button><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div><div class="oppRow"><div class="hpb" id="botHP"><i></i><span></span></div><div class="chipsBox sm" id="botChips"><div class="stks"></div><div class="cn"></div></div></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
- <div class="panel"><div class="handRow"><div id="hand" class="cards"></div><div class="chipsBox" id="youChips"><div class="stks"></div><div class="cn"></div></div></div><div class="hpb me" id="youHP"><i></i><span></span></div><div id="ctrl" style="margin-top:6px"></div><div class="hint" id="pv"></div></div>
+ <div class="panel"><div class="handRow"><div class="pile" id="deckPile" title="กองจั่ว (Draw pile)"></div><div id="hand" class="cards"></div><div class="pile" id="discPile" title="กองทิ้ง — แตะเพื่อดูทุกใบ"></div><div class="chipsBox" id="youChips"><div class="stks"></div><div class="cn"></div></div></div><div class="hpb me" id="youHP"><i></i><span></span></div><div id="ctrl" style="margin-top:6px"></div><div class="hint" id="pv"></div></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:8px">
  <div class="panel" id="shopP"><b>🛒 Market</b></div>
  <div class="panel"><b>📜 Log</b><div id="log"></div></div>
- <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP, 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: ไม่ถือว่าแพ้หรือชนะ · DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่; Defense ทั้งคู่ = เก็บได้ทั้งคู่) · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · <b>Tarot 78 ใบ</b> (จากชีท Project Poker แท็บ Tarot, อย่างละ 1) ราคา = cost + จำนวน Tarot ที่มี (♦A ลด 1G) · Tarot ที่ใช้ตอน Prepare (Moon, Sun, Contraband, Scorch, Truth, Insider, Duelist, Commander) กดปุ่ม 🔮 ใต้ปุ่มคว่ำการ์ด ใช้ได้รอบละครั้ง · Power = DMG เพิ่มเมื่อชนะ · Coin = G · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
+ <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP, 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: <b>ถ้าอีกฝ่าย Attack → ฝ่าย Defense แพ้รอบนั้นเสมอ ไม่ว่ามือจะเป็นอะไร</b> (กฏใหม่ v0.9.2) · ผู้ชนะได้ Lead/Prize/Suit Bonus · Defense นับว่า “พ่ายแพ้” → ช่วง Shop ซื้อ Special Poker ฟรี 1 ใบ (ข้อ 4.1) · รับ DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ · Defense ทั้งคู่ = ไม่มีใครแพ้ ไม่มี DMG เก็บการ์ดได้ทั้งคู่ · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · <b>Tarot 78 ใบ</b> (จากชีท Project Poker แท็บ Tarot, อย่างละ 1) ราคา = cost + จำนวน Tarot ที่มี (♦A ลด 1G) · Tarot ที่ใช้ตอน Prepare (Moon, Sun, Contraband, Scorch, Truth, Insider, Duelist, Commander) กดปุ่ม 🔮 ใต้ปุ่มคว่ำการ์ด ใช้ได้รอบละครั้ง · Power = DMG เพิ่มเมื่อชนะ · Coin = G · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
 </div></div>
 <div class="menu" id="menu"><div class="box" id="menuBox"></div></div>
-<div class="tip" id="tip"></div><div id="resultM"></div>
+<div class="tip" id="tip"></div><div id="resultM"></div><div id="discV"><div class="dvbox"><div class="dvh"><b id="dvTitle">กองทิ้ง</b><button id="bDvClose" class="gold">✕ ปิด</button></div><div id="dvGrid" class="cards"></div></div></div>
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.9.1';
+const VER='0.9.2';
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
 const SUITS=['S','H','D','C'];
@@ -262,7 +281,7 @@ const allBasic=cards=>cards.every(c=>!c.special);
 const fourSuits=cards=>{const s=new Set(cards.filter(c=>c.s&&!c.wild).map(c=>c.s));const w=cards.filter(c=>c.wild).length;return s.size+w>=4;};
 // Speed (only matters when Attacking). p needs: tarots, hp, g, defeatedLast. ctx: {lastWin}
 function speedOf(p,ev,ctx){ const cards=ev.cards||[]; ctx=ctx||{}; let s=ev.speed;
-  s+=TN(p,'The Wind'); if(p.defeatedLast) s+=2*TN(p,'The Revenge');
+  s+=TN(p,'The Wind'); if(p.atkLostLast) s+=2*TN(p,'The Revenge');
   if(ev.code==='HC') s+=2*TN(p,'The Lonewolf');
   if(['PAIR','TP','FH'].includes(ev.code)) s+=2*TN(p,'The Couple');
   if(kings(cards)===1) s+=TN(p,'The One King');
@@ -275,7 +294,7 @@ function speedOf(p,ev,ctx){ const cards=ev.cards||[]; ctx=ctx||{}; let s=ev.spee
   s+=cards.filter(c=>c.joker).length*TN(p,'The Joker');
   s+=2*TN(p,'The Blind');
   return s; }
-function newPlayer(name){return {name,hp:CFG.HP,g:CFG.G0,shield:0,tdisc:0,deck:[],hand:[],discard:[],tarots:[],discUsed:0,commit:null,defeatedLast:false,defendedLast:false,used:{},prompt:null,wheel:0,taxN:0,investor:false};}
+function newPlayer(name){return {name,hp:CFG.HP,g:CFG.G0,shield:0,tdisc:0,deck:[],hand:[],discard:[],tarots:[],discUsed:0,commit:null,defeatedLast:false,atkLostLast:false,defendedLast:false,used:{},prompt:null,wheel:0,taxN:0,investor:false};}
 let UID=1;
 // Basic cards = exactly one standard 52-card poker deck (13 ranks × 4 suits, one each), NO abilities (binding owner rule)
 function makeDeck(){const a=[];SUITS.forEach(s=>{for(let r=2;r<=14;r++)a.push({r,s,id:UID++});});return a;}
@@ -455,7 +474,7 @@ function resolve(g){
   g.res={ev,st,w};
   // The Execution: play a Straight Flush or Five of a Kind → you win the game
   P.forEach((p,i)=>{ if(TN(p,'The Execution')&&(['SF','RSF'].includes(ev[i].code)||ev[i].five)){ P[1-i].hp=Math.min(P[1-i].hp,0); log(g,`⚰️ The Execution! ${p.name} ชนะเกมทันที`);} });
-  if(w<0){ log(g,'ไม่มีผู้ชนะในรอบนี้ ไม่มีใครได้รับ DMG · Lead Token อยู่ที่เดิม'); P.forEach(p=>p.defeatedLast=false); g.lastWin=null; return afterDamage(g); }
+  if(w<0){ log(g,'ไม่มีผู้ชนะในรอบนี้ ไม่มีใครได้รับ DMG · Lead Token อยู่ที่เดิม'); P.forEach(p=>{p.defeatedLast=false;p.atkLostLast=false;}); g.lastWin=null; return afterDamage(g); }
   const opts=bonusSuits(ev[w].rankCards,modsOf(P[w],g.ban));
   if(!opts.length) return applyWin(g,null);
   if(opts.length>1){ g.phase='bonus'; g.pending={type:'bonus',pi:w,options:opts}; return; }
@@ -506,7 +525,7 @@ function applyWin(g,suit){
   if(TN(L,'The Shield')){ L.shield+=TN(L,'The Shield'); log(g,`🛡 ${L.name}: The Shield แพ้ → +${TN(L,'The Shield')} Shield`); }
   if(coin-prize) log(g,`💰 ${W.name} ได้ G เพิ่มจาก Bonus/Tarot +${coin-prize}G`);
   g.reveal.dmg=taken; g.reveal.bonus=suit; g.reveal.prize=prize; g.reveal.power=pw;
-  W.defeatedLast=false; L.defeatedLast=(lst.chip==='A'); g.lastWin=e.code;
+  W.defeatedLast=false; W.atkLostLast=false; L.defeatedLast=true; L.atkLostLast=(lst.chip==='A'); g.lastWin=e.code; /* v0.9.2 binding: Defender vs Attacker always loses (defeated) */
   g.post=[]; if(n('The Hitman')&&lst.chip==='A'&&sp>=3) g.post.push({f:'hitman',pi:w}); if(n('The Mysteries')) g.post.push({f:'mysteries',pi:w});
   invest(g); afterDamage(g);
 }
@@ -518,7 +537,7 @@ function afterDamage(g){
   // OVERRIDE (Thongchai, binding, v0.6.4): Defense players may also take back (when opponent wins with Attack; both-Defense → both)
   const kq=keepers(g);
   P.forEach((p,i)=>{ if(!kq.includes(i)){ p.discard.push(...p.commit.cards); p.hand=p.hand.filter(c=>!p.commit.cards.includes(c)); } });
-  P.forEach((p,i)=>{ if(p.commit.chip==='D'&&kq.includes(i)) log(g,`🛡️ ${p.name} Defense → ไม่ถือว่าพ่ายแพ้ แต่เลือกเก็บการ์ดที่ลงคืนมือได้ (กฏใหม่ของพี่ Thongchai)`); });
+  P.forEach((p,i)=>{ if(p.commit.chip==='D'&&kq.includes(i)) log(g,`🛡️ ${p.name} Defense แพ้รอบนี้ (Defense แพ้ Attack เสมอ) → ลด DMG แล้ว เลือกเก็บการ์ดที่ลงคืนมือได้`); });
   g.reveal.fate=P.map((p,i)=>kq.includes(i)?'takeback':'discard');
   g.q=(g.post||[]).concat([{f:'keep'}]); g.post=[]; run(g);
 }
@@ -529,7 +548,7 @@ function keepCards(g,pi,ids){ if(g.phase!=='keep'||!g.pending||g.pending.pi!==pi
   const back=played.filter(c=>ids.includes(c.id)), gone=played.filter(c=>!ids.includes(c.id));
   p.hand=p.hand.filter(c=>!played.includes(c)).concat(back); p.discard.push(...gone);
   log(g,`↩️ ${p.name} (${p.commit.chip==='A'?'พ่ายแพ้':'Defense'}) เก็บการ์ดคืนมือ ${back.length} ใบ`); g.pending=null; nextKeep(g); return true; }
-function toShop(g){ g.phase='shop'; g.pending=null; g.shopDone=[false,false]; g.shopTurn=1-g.lead; g.freeSpecial=g.players.map((p,i)=>g.res.w>=0&&i!==g.res.w&&p.commit.chip==='A'); g.players.forEach(p=>p.commit=null); }
+function toShop(g){ g.phase='shop'; g.pending=null; g.shopDone=[false,false]; g.shopTurn=1-g.lead; g.freeSpecial=g.players.map((p,i)=>g.res.w>=0&&i!==g.res.w); /* 4.1 defeated player: 1 free Special Poker — v0.9.2: Defender who loses gets it too */ g.players.forEach(p=>p.commit=null); }
 function tarotPrice(p,t){return Math.max(0,t.cost+p.tarots.length-(p.tdisc||0));}
 function taxOn(g,pi){ const o=g.players[1-pi]; const t=TN(o,'The Tax'); if(t&&o.taxN<3){const k=Math.min(t,3-o.taxN);o.taxN+=k;o.g+=k;log(g,`🏛 ${o.name}: The Tax +${k}G`);} }
 const shopOK=(g,pi)=>g.phase==='shop'&&g.shopTurn===pi&&!g.pending;
@@ -566,8 +585,8 @@ function view(g,me){ const myP=(g.pending&&g.pending.type==='prompt'&&g.pending.
     pending:g.pending&&g.pending.type!=='prompt'?g.pending:(g.pending?{type:'prompt',pi:g.pending.pi}:null),prompt:myP||null,free:g.freeSpecial?g.freeSpecial[me]:false,waiting:waitingFor(g,me),
     keepCards:(g.phase==='keep'&&g.pending&&g.pending.pi===me)?g.players[me].commit.cards:null,ban:g.ban,duel:g.duel,lastWin:g.lastWin,tuses:tUses(g,me),
     shopDisc:TN(g.players[me],'The Undertaker')?g.specialDiscard:null,
-    players:g.players.map((p,i)=>({name:p.name,hp:p.hp,g:p.g,shield:p.shield,tdisc:p.tdisc,deckN:p.deck.length,discardN:p.discard.length,handN:p.hand.length,tarots:p.tarots,used:p.used,
-      committed:!!p.commit&&g.phase==='prepare',hand:i===me?p.hand:null,handSize:handSize(p),playN:playCount(p),defeatedLast:p.defeatedLast,specialCost:specialCost(p),
+    players:g.players.map((p,i)=>({name:p.name,hp:p.hp,g:p.g,shield:p.shield,tdisc:p.tdisc,deckN:p.deck.length,discardN:p.discard.length,discard:p.discard,handN:p.hand.length,tarots:p.tarots,used:p.used,
+      committed:!!p.commit&&g.phase==='prepare',hand:i===me?p.hand:null,handSize:handSize(p),playN:playCount(p),defeatedLast:p.defeatedLast,atkLostLast:p.atkLostLast,specialCost:specialCost(p),
       canDisc:i===me?canDiscard(g,p):false,discCost:discardCost(p),discUsed:p.discUsed,blind:TN(p,'The Blind')>0,noDef:TN(p,'The Truth')>0,prompting:!!p.prompt}))};
 }
 // ---------- Bot ----------
@@ -585,7 +604,8 @@ function botPrepare(g,pi){
   const b=bestFive(p,g); const sp=speedOf(p,b.ev,{lastWin:g.lastWin});
   if(can('The Duelist')&&sp>=5) useT(g,pi,'The Duelist');
   let chip='A';
-  if(sp<=1&&(p.shield>0||g.R()<0.7)) chip='D'; else if(sp===2&&g.R()<0.35) chip='D';
+  // v0.9.2: Defense always loses vs Attack → defend only weak hands (cuts DMG by 1 / Shield, +3G, take back); never with a decent hand
+  if(sp<=1&&(p.shield>0||p.hp<=4||g.R()<0.6)) chip='D'; else if(sp===2&&(p.shield>0&&g.R()<0.3)) chip='D';
   if(o.hp<=2&&sp>=2) chip='A'; if(TN(p,'The Truth')) chip='A';
   commit(g,pi,b.cards.map(c=>c.id),chip);
 }
@@ -689,13 +709,34 @@ const SFX=(()=>{let ctx=null,muted=false,prev=null;try{muted=localStorage.getIte
  function toggle(){muted=!muted;try{localStorage.setItem('nc_mute',muted?'1':'0');}catch(e){}unlock();paint();if(!muted)play('pick');}
  setTimeout(paint,0);
  return {play,seq,handDiff,toggle,get muted(){return muted;},get ctx(){return ctx;}};})();
+
+// v0.9.2 piles: draw pile left, discard pile right; viewer; fly animations
+const PILE={prevIds:null,oldEls:new Map()};
+function snapHand(){PILE.oldEls=new Map();document.querySelectorAll('#hand .card[data-cid]').forEach(e=>PILE.oldEls.set(e.dataset.cid,{r:e.getBoundingClientRect(),el:e}));}
+function fly(el,from,to,ms,delay){const g=el.cloneNode(true);g.classList.add('flyc');g.classList.remove('sel');g.style.left=from.left+'px';g.style.top=from.top+'px';g.style.width=from.width+'px';g.style.height=from.height+'px';document.body.appendChild(g);
+ const dx=to.left+to.width/2-(from.left+from.width/2),dy=to.top+to.height/2-(from.top+from.height/2),sc=Math.max(.4,to.width/Math.max(1,from.width));
+ const an=g.animate([{transform:'none',opacity:1},{transform:`translate(${dx}px,${dy}px) scale(${sc})`,opacity:.9}],{duration:ms,delay:delay||0,easing:'cubic-bezier(.3,.7,.2,1)',fill:'both'});an.onfinish=()=>g.remove();setTimeout(()=>g.remove(),ms+(delay||0)+200);}
+function renderPiles(Y){const dp=$('deckPile'),xp=$('discPile');if(!dp||!xp)return;
+ const n=Y.deckN||0;dp.innerHTML=`<div class="stk">${n?Array.from({length:Math.min(3,n)},()=>'<div class="card back"></div>').join(''):'<div class="empty">ว่าง</div>'}</div><span class="cnt" id="deckCnt">🂠 ${n}</span>`;
+ const d=Y.discard||[];xp.innerHTML='<div class="stk"></div><span class="cnt" id="discCnt">🗑 '+d.length+'</span>';const st=xp.querySelector('.stk');
+ if(d.length){d.slice(-3).forEach(c=>st.appendChild(cardEl(c)));}else st.innerHTML='<div class="empty">ว่าง</div>';
+ xp.onclick=()=>openDisc();}
+function openDisc(){const Y=V&&V.players[V.me];if(!Y)return;const d=(Y.discard||[]).slice().reverse();$('dvTitle').textContent=`🗑 กองทิ้งของคุณ · ${d.length} ใบ (ใหม่สุดก่อน)`;
+ const gr=$('dvGrid');gr.replaceChildren();if(!d.length)gr.innerHTML='<div class="hint">ยังไม่มีการ์ดในกองทิ้ง</div>';d.forEach((c,i)=>{const e=cardEl(c);if(i===0)e.title='(ใหม่สุด) '+e.title;gr.appendChild(e);});$('discV').classList.add('on');SFX.play('pick');}
+function closeDisc(){$('discV').classList.remove('on');}
+addEventListener('DOMContentLoaded',()=>{});setTimeout(()=>{const b=$('bDvClose');if(b)b.onclick=closeDisc;const v=$('discV');if(v)v.onclick=e=>{if(e.target===v)closeDisc();};addEventListener('keydown',e=>{if(e.key==='Escape')closeDisc();});},0);
+function pileAnim(Y,hand){const ids=new Set(hand.map(c=>String(c.id)));const prev=PILE.prevIds;PILE.prevIds=ids;if(!prev||animOff())return;
+ const dr=$('deckPile').querySelector('.stk').getBoundingClientRect(),xr=$('discPile').querySelector('.stk').getBoundingClientRect();
+ const discIds=new Set((Y.discard||[]).map(c=>String(c.id)));let k=0;
+ PILE.oldEls.forEach((o,id)=>{if(!ids.has(id)&&discIds.has(id)){fly(o.el,o.r,xr,420,k*60);k++;}});if(k)SFX.seq('slide',Math.min(k,5),60);
+ let j=0;document.querySelectorAll('#hand .card[data-cid]').forEach(e=>{if(!prev.has(e.dataset.cid)){const to=e.getBoundingClientRect();const dx=dr.left-to.left,dy=dr.top-to.top;e.animate([{transform:`translate(${dx}px,${dy}px) scale(.8) rotateY(180deg)`,opacity:.6},{transform:'none',opacity:1}],{duration:460,delay:j*70,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'});j++;}});}
 function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.players[1-V.me],R=V.reveal;
  $('round').textContent=`รอบ ${V.round} · ${({prepare:'Prepare / Play',bonus:'Resolution: เลือก Suit Bonus',keep:'Resolution: เก็บการ์ดคืนมือ',shop:'Shopping',over:'จบเกม',resolution:'Resolution'})[V.phase]||V.phase}`;
  $('modeChip').textContent=mode==='bot'?'🤖 Vs Bot':mode==='host'?`🌐 Host · ห้อง ${roomCode} · ${connected?'🟢 เพื่อนออนไลน์':'🔴 รอเพื่อน'}`:`🌐 Guest · ห้อง ${roomCode} · ${connected?'🟢 เชื่อมต่อแล้ว':'🔴 หลุด'}`;
  $('botP').replaceChildren(pPanel(B,false,1-V.me));$('youP').replaceChildren(pPanel(Y,true,V.me));hpBar('botHP',B.hp,B.name);hpBar('youHP',Y.hp,'คุณ');chipStack('youChips',Y.g);chipStack('botChips',B.g);
  const hand=Y.hand||[];SFX.handDiff(hand,V);[...sel].forEach(id=>{if(!hand.some(c=>c.id===id))sel.delete(id);});
  const W=V.waiting; const need=Y.playN;
- const h=$('hand');h.replaceChildren();hand.slice().sort((a,b)=>(a.r||0)-(b.r||0)||String(a.s||'').localeCompare(String(b.s||''))).forEach(c=>{const e=cardEl(c,{sel:sel.has(c.id)});if(sel.has(c.id))e.dataset.n=[...sel].indexOf(c.id)+1;if(Y.blind)e.classList.add('covered');e.onclick=()=>{if(W!=='play')return;sel.has(c.id)?sel.delete(c.id):sel.add(c.id);SFX.play(sel.has(c.id)?'pick':'unpick');render();};h.appendChild(e);});h.classList.toggle('hasSel',sel.size>0);
+ snapHand();const h=$('hand');h.replaceChildren();hand.slice().sort((a,b)=>(a.r||0)-(b.r||0)||String(a.s||'').localeCompare(String(b.s||''))).forEach(c=>{const e=cardEl(c,{sel:sel.has(c.id)});e.dataset.cid=c.id;if(sel.has(c.id))e.dataset.n=[...sel].indexOf(c.id)+1;if(Y.blind)e.classList.add('covered');e.onclick=()=>{if(W!=='play')return;sel.has(c.id)?sel.delete(c.id):sel.add(c.id);SFX.play(sel.has(c.id)?'pick':'unpick');render();};h.appendChild(e);});h.classList.toggle('hasSel',sel.size>0);renderPiles(Y);pileAnim(Y,hand);
  // board
  $('skipA')&&$('skipA').remove(); document.querySelector('.board').classList.remove('hideR'); document.body.classList.remove('animating');
  const bp=$('botPlay'),yp=$('youPlay');bp.replaceChildren();yp.replaceChildren();
@@ -708,7 +749,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  const PH={play:['🃏','เตรียมไพ่','Prepare · Play',`💰 มี ${Y.g}G · `+'เลือกการ์ด '+need+' ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วกดคว่ำ · หรือ ♻ Discard จั่วใหม่','#f3f'],
   bonus:['✨','เลือกโบนัสดอก','Resolution · Suit Bonus','คุณชนะ! เลือก Suit Bonus 1 ดอก','#ffd23f'],
   prompt:['🔮','เลือกผล Tarot','Tarot',V.prompt?V.prompt.title:'','#c8f'],
-  keep:['↩','เก็บการ์ดคืนมือ','Resolution · Take Back',(V.pending&&V.pending.why==='defense'?'คุณ Defense':'คุณแพ้รอบนี้')+' — เลือกการ์ดที่ลงไปเพื่อเก็บคืนมือ','#3cf'],
+  keep:['↩','เก็บการ์ดคืนมือ','Resolution · Take Back',(V.pending&&V.pending.why==='defense'?'คุณ Defense แพ้รอบนี้':'คุณแพ้รอบนี้')+' — เลือกการ์ดที่ลงไปเพื่อเก็บคืนมือ','#3cf'],
   shop:['🛒','ร้านค้า','Shopping','ตาคุณซื้อ: Special Poker / Tarot / Refresh · เสร็จแล้วกด ✔ Ready (จบการซื้อ)','#3f9']};
  const WT={prepare:['⏳','รอคู่แข่งคว่ำการ์ด','Prepare · Waiting',Y.committed?'คว่ำการ์ดแล้ว — จะเปิดพร้อมกันเมื่ออีกฝ่ายพร้อม':'รอสักครู่…','#b9f'],
   bonus:['⏳','คู่แข่งเลือกโบนัส','Resolution · Suit Bonus',`รอ ${B.name} เลือก Suit Bonus…`,'#ffd23f'],
@@ -739,7 +780,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
    P.items.forEach(it=>{const e=it.t==='t'?tarotEl(it.tarot):cardEl(it.c,{sel:promptSel.has(it.id)});if(promptSel.has(it.id)){e.classList.add('sel');e.dataset.n=[...promptSel].indexOf(it.id)+1;}if(P.max>0)e.onclick=()=>{if(promptSel.has(it.id))promptSel.delete(it.id);else{if(P.max===1)promptSel.clear();if(promptSel.size<P.max)promptSel.add(it.id);}SFX.play(promptSel.has(it.id)?'pick':'unpick');render();};$('promptRow').appendChild(e);});$('promptRow').classList.toggle('hasSel',promptSel.size>0);
    $('bAns').onclick=()=>{const ids=[...promptSel];promptSel.clear();act({k:'answer',ids});}; } }
  else if(W==='keep'){ const kc=V.keepCards||[];[...keepSel].forEach(id=>{if(!kc.some(c=>c.id===id))keepSel.delete(id);});
-  ctrl.innerHTML='<span class="ttl">↩ '+(V.pending&&V.pending.why==='defense'?'คุณ Defense':'คุณพ่ายแพ้')+' — เลือกการ์ดเก็บคืนมือ (Take Back) กี่ใบก็ได้</span><div class="cards" id="keepRow" style="margin:6px 0"></div><button id="bKeep" class="gold">↩ เก็บ '+keepSel.size+' ใบ (ที่เหลือลงกองทิ้ง)</button><button id="bKeepAll" class="alt">เก็บทั้งหมด</button>';
+  ctrl.innerHTML='<span class="ttl">↩ '+(V.pending&&V.pending.why==='defense'?'คุณ Defense แพ้รอบนี้':'คุณพ่ายแพ้')+' — เลือกการ์ดเก็บคืนมือ (Take Back) กี่ใบก็ได้</span><div class="cards" id="keepRow" style="margin:6px 0"></div><button id="bKeep" class="gold">↩ เก็บ '+keepSel.size+' ใบ (ที่เหลือลงกองทิ้ง)</button><button id="bKeepAll" class="alt">เก็บทั้งหมด</button>';
   kc.forEach(c=>{const e=cardEl(c,{sel:keepSel.has(c.id)});if(keepSel.has(c.id))e.dataset.n=[...keepSel].indexOf(c.id)+1;e.onclick=()=>{keepSel.has(c.id)?keepSel.delete(c.id):keepSel.add(c.id);SFX.play(keepSel.has(c.id)?'pick':'unpick');render();};$('keepRow').appendChild(e);});$('keepRow').classList.toggle('hasSel',keepSel.size>0);
   $('bKeep').onclick=()=>{const ids=[...keepSel];keepSel.clear();act({k:'keep',ids});};$('bKeepAll').onclick=()=>{keepSel.clear();act({k:'keep',ids:kc.map(c=>c.id)});}; }
  else if(W==='shop'){ ctrl.innerHTML=`<span class="ttl">🛒 ตาคุณช้อป — ซื้อจากร้านค้าด้านข้าง</span><div class="bigopt"><button class="gold" id="bEnd">✔ Ready · จบการซื้อ</button><button class="alt" id="rS" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Special ทั้งหมด (1G)</button><button class="alt" id="rT" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Tarot ทั้งหมด (1G)</button></div>`;
@@ -785,17 +826,17 @@ function showResult(){ const R=V&&V.reveal; if(!R)return; const me=V.me,op=1-me,
  const nm=i=>((NC.RANK[R.codes&&R.codes[i]])||['—'])[0]; const chip=i=>R.chips[i]==='A'?'⚔️ Attack':'🛡️ Defense';
  const gold=i=>(R.defG?R.defG[i]:0)+(R.w===i?R.prize:0); const sp=i=>R.chips[i]==='A'?(R.spd0?R.spd0[i]:R.speeds[i]):'—';
  const W=R.w>=0?(R.w===me?'คุณ':B.name):''; const L=R.w>=0?(R.w===me?B.name:'คุณ'):'';
- const why={none:'ทั้งคู่ Defense — ไม่มีผู้ชนะ ไม่มี DMG',only:`${W} เป็นฝ่ายเดียวที่ Attack จึงชนะ`,speed:`${W} ชนะเพราะมือ ${nm(R.w)} มี Speed สูงกว่า (${sp(R.w)} ต่อ ${sp(1-R.w)})`,high:`Speed เท่ากัน (${sp(R.w)}) — ${W} ชนะด้วย Tie-break (High Card ไล่จากใบสูงสุด)`,tie:'Speed และ High Card เท่ากันทุกใบ → เสมอ ไม่มี DMG'}[R.why]||'';
+ const why={none:'ทั้งคู่ Defense — ไม่มีผู้ชนะ ไม่มี DMG',only:`${W} Attack ส่วนอีกฝ่าย Defense → Defense แพ้เสมอ ไม่ว่ามือจะเป็นอะไร`,speed:`${W} ชนะเพราะมือ ${nm(R.w)} มี Speed สูงกว่า (${sp(R.w)} ต่อ ${sp(1-R.w)})`,high:`Speed เท่ากัน (${sp(R.w)}) — ${W} ชนะด้วย Tie-break (High Card ไล่จากใบสูงสุด)`,tie:'Speed และ High Card เท่ากันทุกใบ → เสมอ ไม่มี DMG'}[R.why]||'';
  const dmgTxt=R.w>=0?(R.dmg?`${L} โดน ${R.dmg} DMG`:'(DMG คำนวณหลังเลือก Suit Bonus)'):'ไม่มี DMG';
  const m=$('resultM');m.style.setProperty('--rc',rc);
  const iDef=R.chips[me]==='D'&&(R.w===op||(R.w<0&&R.chips[op]==='D')); const fate=i=>(R.fate&&R.fate[i]==='takeback')?(R.chips[i]==='D'?'↩ Defense: เลือกเก็บคืนมือได้':'↩ พ่ายแพ้: เลือกเก็บคืนมือได้'):(R.w<0?'🗑 ลงกองทิ้ง (ไม่มีผู้ชนะ)':i===R.w?'🗑 ลงกองทิ้ง (ผู้ชนะ)':'🗑 ลงกองทิ้ง');
- m.innerHTML=`<div class="rbox"><h2>${draw?'🤝 เสมอ / ไม่มีผู้ชนะ':won?'🏆 คุณชนะ!':iDef?`🛡️ ${B.name} ชนะ — คุณ Defense (ไม่ถือว่าแพ้)`:`💀 ${B.name} ชนะ — คุณพ่ายแพ้`}</h2>
+ m.innerHTML=`<div class="rbox"><h2>${draw?'🤝 เสมอ / ไม่มีผู้ชนะ':won?'🏆 คุณชนะ!':iDef?`🛡️ ${B.name} ชนะ — คุณ Defense จึงแพ้รอบนี้`:`💀 ${B.name} ชนะ — คุณพ่ายแพ้`}</h2>
  <table><tr><th></th><th>คุณ</th><th>${B.name}</th></tr>
  <tr><th>มือ (Hand)</th><td class="${R.w===me?'win':''}">${nm(me)}</td><td class="${R.w===op?'win':''}">${nm(op)}</td></tr>
  <tr><th>Chip</th><td>${chip(me)}</td><td>${chip(op)}</td></tr>
  <tr><th>Speed</th><td>${sp(me)}</td><td>${sp(op)}</td></tr>
  <tr><th>Gold</th><td>+${gold(me)}G</td><td>+${gold(op)}G</td></tr>
- <tr><th>การ์ดที่ลง</th><td class="fate">${fate(me)}</td><td>${fate(op)}</td></tr></table>${iDef?'<div class="why" id="defNote" style="color:#9cf">🛡️ Defense <b>ไม่ถือว่าพ่ายแพ้</b>: ได้ +3G และ DMG −1 (หรือใช้ Shield) · ไม่ได้ Prize/Suit Bonus · <b>เลือกเก็บการ์ดที่ลงคืนมือได้</b> (กฏใหม่ แทนข้อ 3.5)</div>':''}
+ <tr><th>การ์ดที่ลง</th><td class="fate">${fate(me)}</td><td>${fate(op)}</td></tr></table>${iDef?'<div class="why" id="defNote" style="color:#9cf">🛡️ Defense <b>แพ้ Attack เสมอ</b> (กฏใหม่ v0.9.2): ฝ่ายชนะได้ Lead + Prize + Suit Bonus · คุณรับ DMG −1 (หรือใช้ Shield = 0) · ยังได้ +3G · <b>เลือกเก็บการ์ดที่ลงคืนมือได้</b> · 🎁 <b>ซื้อ Special Poker ฟรี 1 ใบ</b> ตอน Shop</div>':''}
  <div class="why">💡 ${why}<br>💥 ${dmgTxt}</div><button id="bResOk" class="gold">ต่อไป ▶</button></div>`;
  m.classList.add('on'); const close=()=>{m.classList.remove('on');clearTimeout(AN.rt);}; $('bResOk').onclick=close; m.onclick=e=>{if(e.target===m)close();};
  clearTimeout(AN.rt); AN.rt=setTimeout(close,6000); }
@@ -814,7 +855,7 @@ function chipStack(id,gold){const box=$(id);if(!box)return;const sm=box.classLis
  box.dataset.gold=gold;box.querySelector('.cn').textContent=`💰 ${gold}G`;box.title=`${gold}G (1 ชิป = 1G)`;}
 function tidy(st){[...st.children].forEach(sk=>{if(!sk.children.length)sk.remove();});}
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.9.1 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.9.2 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
