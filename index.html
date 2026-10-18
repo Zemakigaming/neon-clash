@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEON Clash v0.9.4</title>
+<title>NEON Clash v0.9.5</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0f4a,#07040f 70%);color:#eee;font-family:"Segoe UI",Tahoma,"Noto Sans Thai",sans-serif;min-height:100vh}
 h1{margin:0;font-size:20px;letter-spacing:3px;color:#ff3df2;text-shadow:0 0 8px #ff3df2,0 0 20px #7a2cff}
@@ -177,7 +177,7 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <div id="banner"></div>
 <div class="wrap">
 <div style="display:flex;flex-direction:column;gap:8px">
- <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.9.4 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" id="sfxBtn" onclick="SFX.toggle()" title="เสียงการ์ด เปิด/ปิด">🔊</button><button class="alt" onclick="toMenu()">เมนู</button></div>
+ <div class="panel ph"><h1>NEON CLASH</h1><span class="hint">v0.9.5 · Oasis · Poker Duel</span><span class="chip" id="round"></span><span class="chip" id="modeChip"></span><button class="alt" id="sfxBtn" onclick="SFX.toggle()" title="เสียงการ์ด เปิด/ปิด">🔊</button><button class="alt" onclick="toMenu()">เมนู</button></div>
  <div class="panel" id="botP"></div><div class="oppRow"><div class="hpb" id="botHP"><i></i><span></span></div><div class="chipsBox sm" id="botChips"><div class="stks"></div><div class="cn"></div></div></div>
  <div id="phaseBar"></div><div id="modalBk"></div><div class="panel board"><div id="botPlay" class="cards" style="justify-content:center"></div><div class="res" id="res"></div><div id="youPlay" class="cards" style="justify-content:center"></div></div>
  <div class="panel" id="youP"></div>
@@ -186,14 +186,14 @@ body.animating #ctrl{visibility:hidden}body.animating #modalBk{display:none}
 <div style="display:flex;flex-direction:column;gap:8px">
  <div class="panel" id="shopP"><b>🛒 Market</b></div>
  <div class="panel"><b>📜 Log</b><div id="log"></div></div>
- <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP (โหมด Extend = 15 HP; ฟื้น HP ได้ไม่จำกัด เกิน HP เริ่มต้นได้), 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้, ซื้อ Special ฟรี 1 ใบ) · Defense: <b>ถ้าอีกฝ่าย Attack → ฝ่าย Defense แพ้รอบนั้นเสมอ ไม่ว่ามือจะเป็นอะไร</b> (กฏใหม่ v0.9.2) · ผู้ชนะได้ Lead/Prize/Suit Bonus · Defense นับว่า “พ่ายแพ้” → ช่วง Shop ซื้อ Special Poker ฟรี 1 ใบ (ข้อ 4.1) · รับ DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ · Defense ทั้งคู่ = ไม่มีใครแพ้ ไม่มี DMG เก็บการ์ดได้ทั้งคู่ · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · พ่ายแพ้ได้ Special Poker ฟรี 1 ใบ · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · <b>Tarot 78 ใบ</b> (จากชีท Project Poker แท็บ Tarot, อย่างละ 1) ราคา = cost + จำนวน Tarot ที่มี (♦A ลด 1G) · Tarot ที่ใช้ตอน Prepare (Moon, Sun, Contraband, Scorch, Truth, Insider, Duelist, Commander) กดปุ่ม 🔮 ใต้ปุ่มคว่ำการ์ด ใช้ได้รอบละครั้ง · Power = DMG เพิ่มเมื่อชนะ · Coin = G · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
+ <div class="panel hint"><b>วิธีเล่น (กฏ 1.2)</b><br>เริ่ม 10 HP (โหมด Extend = 15 HP; ฟื้น HP ได้ไม่จำกัด เกิน HP เริ่มต้นได้), 3G (Lead +1G), เด็คส่วนตัว 21 ใบจากไพ่มาตรฐาน 52 ใบ (การ์ด Basic ไม่มีความสามารถ) · <b>Prepare</b>: จั่วจนครบ Hand Size 7 · ทิ้งการ์ดกี่ใบก็ได้ ครั้งที่ X จ่าย XG · <b>Play</b>: คว่ำการ์ด 5 ใบ + Chip ⚔️ Attack / 🛡️ Defense แล้วเปิดพร้อมกัน · <b>Resolution</b>: ผู้ Attack ที่ Speed สูงสุดชนะ (เท่ากันเทียบ High Card) → ได้ Lead Token, Prize G, Suit Bonus และทำ 2 DMG · Attack แล้วแพ้ = พ่ายแพ้ (DMG เต็ม, เก็บการ์ดที่เล่นคืนมือได้) · Defense: <b>ถ้าอีกฝ่าย Attack → ฝ่าย Defense แพ้รอบนั้นเสมอ ไม่ว่ามือจะเป็นอะไร</b> (กฏใหม่ v0.9.2) · ผู้ชนะได้ Lead/Prize/Suit Bonus · Defense นับว่า “พ่ายแพ้” · รับ DMG −1 (มี Shield = 0 แต่เสีย 1 Shield) · ได้ 3G · เลือกเก็บการ์ดที่ลงคืนมือได้ · Defense ทั้งคู่ = ไม่มีใครแพ้ ไม่มี DMG เก็บการ์ดได้ทั้งคู่ · <b>Shopping</b>: เริ่มจากคนไม่มี Lead · ไม่มีซื้อฟรีสำหรับฝ่ายแพ้ (กฏใหม่ v0.9.5 แทนข้อ 4.1) · Special Poker = การ์ด Upgrade ใบละ 2G ขึ้นมือ (กองเดียว: <b>Upgrade จากชีท</b> 43 ใบ อย่างละ 1 · ไม่มีการ์ด Burn แล้ว): ✱ทุกดอก (S/C/H/D) 2–10,J,Q,K,A = นับเป็นดอกไหนก็ได้ · เลขหลายตัว 2-3-4 / 5-6-7 / 8-9-10 = นับเป็นเลขใดเลขหนึ่ง <b>เกมเลือกค่าที่ดีที่สุดให้อัตโนมัติ</b> · Bonus ตอนชนะ (การ์ดอยู่ใน 5 ใบที่ลง): 2-3-4 จั่ว +1, ♣A Shield +1, ♦A Tarot ลด 1G รอบนี้, ♥A Heal +1, ♠A Damage +1 · J/Q/K สี: ทิ้งด้วย Discard +1G · Joker (ไม่มีแต้ม/ดอก): ทิ้ง +2G · <b>Tarot 78 ใบ</b> (จากชีท Project Poker แท็บ Tarot, อย่างละ 1) ราคา = cost + จำนวน Tarot ที่มี (♦A ลด 1G) · Tarot ที่ใช้ตอน Prepare (Moon, Sun, Contraband, Scorch, Truth, Insider, Duelist, Commander) กดปุ่ม 🔮 ใต้ปุ่มคว่ำการ์ด ใช้ได้รอบละครั้ง · Power = DMG เพิ่มเมื่อชนะ · Coin = G · จ่าย 1G เปลี่ยนแถวร้าน<br>Speed: High 1 · Pair 2 · Two Pair 3 · Three 4 · Straight/Flush 5 · Full House 6 · Four 7 · Straight Flush 9 · Royal 15 · Suit Bonus: ♠ +2 DMG ♣ +1 Shield ♥ +1 HP ♦ +2G<br><span id='facs'></span></div>
 </div></div>
 <div class="menu" id="menu"><div class="box" id="menuBox"></div></div>
 <div class="tip" id="tip"></div><div id="resultM"></div><div id="discV"><div class="dvbox"><div class="dvh"><b id="dvTitle">กองทิ้ง</b><button id="bDvClose" class="gold">✕ ปิด</button></div><div id="dvGrid" class="cards"></div></div></div>
 <script>// NEON Clash engine v0.4.0 — implements rules doc "กฏ 1.2" (Project Poker Rule). Pure logic, shared by browser + node tests.
 (function(root){
 'use strict';
-const VER='0.9.4';
+const VER='0.9.5';
 const MODES={normal:{hp:10,th:'Normal',label:'Normal · 10 HP'},extend:{hp:15,th:'Extend',label:'Extend · 15 HP'}};
 const CFG={HP:10, G0:3, LEAD_BONUS_G:1, HAND:7, DECK0:21, PLAY_N:5, SHOP_S:5, SHOP_T:3, SPECIAL_COST:2, REFRESH_COST:1,
   BASE_DMG:2, DEF_G:3, ROUND_CAP:60};
@@ -550,14 +550,14 @@ function keepCards(g,pi,ids){ if(g.phase!=='keep'||!g.pending||g.pending.pi!==pi
   const back=played.filter(c=>ids.includes(c.id)), gone=played.filter(c=>!ids.includes(c.id));
   p.hand=p.hand.filter(c=>!played.includes(c)).concat(back); p.discard.push(...gone);
   log(g,`↩️ ${p.name} (${p.commit.chip==='A'?'พ่ายแพ้':'Defense'}) เก็บการ์ดคืนมือ ${back.length} ใบ`); g.pending=null; nextKeep(g); return true; }
-function toShop(g){ g.phase='shop'; g.pending=null; g.shopDone=[false,false]; g.shopTurn=1-g.lead; g.freeSpecial=g.players.map((p,i)=>g.res.w>=0&&i!==g.res.w); /* 4.1 defeated player: 1 free Special Poker — v0.9.2: Defender who loses gets it too */ g.players.forEach(p=>p.commit=null); }
+function toShop(g){ g.phase='shop'; g.pending=null; g.shopDone=[false,false]; g.shopTurn=1-g.lead; g.freeSpecial=[false,false]; /* v0.9.5 binding (Thongchai): no free Special buy for the loser — overrides rule 1.2 §4.1 */ g.players.forEach(p=>p.commit=null); }
 function tarotPrice(p,t){return Math.max(0,t.cost+p.tarots.length-(p.tdisc||0));}
 function taxOn(g,pi){ const o=g.players[1-pi]; const t=TN(o,'The Tax'); if(t&&o.taxN<3){const k=Math.min(t,3-o.taxN);o.taxN+=k;o.g+=k;log(g,`🏛 ${o.name}: The Tax +${k}G`);} }
 const shopOK=(g,pi)=>g.phase==='shop'&&g.shopTurn===pi&&!g.pending;
 function buySpecial(g,pi,id,src){ if(!shopOK(g,pi)) return false; const p=g.players[pi]; const pile=src==='d'?(TN(p,'The Undertaker')?g.specialDiscard:null):g.shop.s; if(!pile) return false;
   const i=pile.findIndex(c=>c.id===id); if(i<0) return false;
-  const free=g.freeSpecial[pi]; const cost=free?0:specialCost(p); if(p.g<cost) return false;
-  p.g-=cost; if(free) g.freeSpecial[pi]=false; const c=pile.splice(i,1)[0]; p.hand.push(c); taxOn(g,pi);
+  const cost=specialCost(p); if(p.g<cost) return false;
+  p.g-=cost; const c=pile.splice(i,1)[0]; p.hand.push(c); taxOn(g,pi);
   log(g,`🛒 ${p.name} ซื้อ Upgrade ${cname(c)}${src==='d'?' จากกองทิ้งร้าน (The Undertaker)':''} ขึ้นมือ (${cost?'−'+cost+'G':'ฟรี'})`); invest(g); return true; }
 function buyTarot(g,pi,uid){ if(!shopOK(g,pi)) return false; const p=g.players[pi],o=g.players[1-pi]; const i=g.shop.t.findIndex(t=>t.uid===uid); if(i<0) return false;
   const t=g.shop.t[i],cost=tarotPrice(p,t); if(p.g<cost) return false; p.g-=cost; p.tarots.push(t); g.shop.t.splice(i,1); taxOn(g,pi);
@@ -584,7 +584,7 @@ function waitingFor(g,pi){ const p=g.players[pi]; if(g.over) return null;
   if(g.phase==='keep') return g.pending.pi===pi?'keep':null; if(g.phase==='shop') return g.shopTurn===pi?'shop':null; return null; }
 function view(g,me){ const myP=(g.pending&&g.pending.type==='prompt'&&g.pending.pi===me)?g.pending:g.players[me].prompt;
   return {ver:VER,me,mode:g.mode||'normal',maxHp:g.maxHp||CFG.HP,round:g.round,phase:g.phase,over:g.over,winner:g.winner,lead:g.lead,shop:g.shop,shopTurn:g.shopTurn,log:g.log.slice(-200),reveal:g.reveal,
-    pending:g.pending&&g.pending.type!=='prompt'?g.pending:(g.pending?{type:'prompt',pi:g.pending.pi}:null),prompt:myP||null,free:g.freeSpecial?g.freeSpecial[me]:false,waiting:waitingFor(g,me),
+    pending:g.pending&&g.pending.type!=='prompt'?g.pending:(g.pending?{type:'prompt',pi:g.pending.pi}:null),prompt:myP||null,waiting:waitingFor(g,me),
     keepCards:(g.phase==='keep'&&g.pending&&g.pending.pi===me)?g.players[me].commit.cards:null,ban:g.ban,duel:g.duel,lastWin:g.lastWin,tuses:tUses(g,me),
     shopDisc:TN(g.players[me],'The Undertaker')?g.specialDiscard:null,
     players:g.players.map((p,i)=>({name:p.name,hp:p.hp,g:p.g,shield:p.shield,tdisc:p.tdisc,deckN:p.deck.length,discardN:p.discard.length,discard:p.discard,handN:p.hand.length,tarots:p.tarots,used:p.used,
@@ -631,7 +631,6 @@ function botKeep(g,pi){ const p=g.players[pi]; const cards=p.commit.cards; const
 const BOT_SKIP_T=new Set(['The Blind','The Truth','The Empress','The Dragon','The Wildfire','The Enforce']);
 function botShop(g,pi){ const p=g.players[pi];
   for(let guard=0;guard<8;guard++){ if(g.pending) return;
-    if(g.freeSpecial[pi]&&g.shop.s.length){ const c=g.shop.s.slice().sort((a,b)=>(b.r||0)-(a.r||0))[0]; buySpecial(g,pi,c.id); continue; }
     const t=g.shop.t.filter(t=>!BOT_SKIP_T.has(t.name)&&tarotPrice(p,t)<=p.g-1).sort((a,b)=>tarotPrice(p,a)-tarotPrice(p,b))[0]; if(t&&p.tarots.length<6){buyTarot(g,pi,t.uid);continue;}
     const ranks=new Set(p.hand.map(c=>c.r)); const c=g.shop.s.find(c=>ranks.has(c.r)); if(c&&p.g>=specialCost(p)+3){buySpecial(g,pi,c.id);continue;}
     break; }
@@ -787,7 +786,7 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
   $('bKeep').onclick=()=>{const ids=[...keepSel];keepSel.clear();act({k:'keep',ids});};$('bKeepAll').onclick=()=>{keepSel.clear();act({k:'keep',ids:kc.map(c=>c.id)});}; }
  else if(W==='shop'){ ctrl.innerHTML=`<span class="ttl">🛒 ตาคุณช้อป — ซื้อจากร้านค้าด้านข้าง</span><div class="bigopt"><button class="gold" id="bEnd">✔ Ready · จบการซื้อ</button><button class="alt" id="rS" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Special ทั้งหมด (1G)</button><button class="alt" id="rT" ${Y.g>=1?'':'disabled'}>🔄 เปลี่ยน Tarot ทั้งหมด (1G)</button></div>`;
   $('bEnd').onclick=()=>act({k:'endShop'});$('rS').onclick=()=>act({k:'refresh',kind:'s'});$('rT').onclick=()=>act({k:'refresh',kind:'t'});
-  $('pv').textContent=V.free?'คุณพ่ายแพ้: ซื้อ Special Poker ได้ฟรี 1 ใบ':`Special Poker ใบละ ${Y.specialCost}G (ขึ้นมือทันที) · Tarot ราคา + จำนวน Tarot ที่มี`+(Y.tdisc?` · ♦A: Tarot ลด ${Y.tdisc}G รอบนี้`:''); }
+  $('pv').textContent=`Special Poker ใบละ ${Y.specialCost}G (ขึ้นมือทันที) · Tarot ราคา + จำนวน Tarot ที่มี`+(Y.tdisc?` · ♦A: Tarot ลด ${Y.tdisc}G รอบนี้`:''); }
  else if(waitingNow){ctrl.innerHTML=`<div class="waitbox"><div class="spin"></div><div>${P[3]}</div></div>`;}
  else if(V.phase==='shop'){ctrl.innerHTML='';$('pv').textContent=`⏳ ${B.name} กำลังช้อป (เริ่มจากผู้เล่นที่ไม่มี Lead Token)`;}
  else if(['bonus','keep'].includes(V.phase)){ctrl.innerHTML='';$('pv').textContent=`⏳ รอ ${B.name} ${({bonus:'เลือก Suit Bonus',keep:'เลือกการ์ดเก็บคืนมือ'})[V.phase]}…`;}
@@ -795,8 +794,8 @@ function render(){ V=curView(); if(!V) return; const Y=V.players[V.me],B=V.playe
  else {ctrl.innerHTML='';ctrl.className='';}
  // market (always visible; buy only on your shop turn)
  const sp=$('shopP');sp.innerHTML='<b>🛒 ร้านค้า</b>';const myTurn=W==='shop';const w=document.createElement('div');w.className='shop';
- V.shop.s.forEach(c=>{const it=document.createElement('div');it.className='item';it.appendChild(cardEl(c));const cost=V.free?0:Y.specialCost;const b=document.createElement('button');b.textContent=cost?`${cost}G`:'ฟรี';b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id});it.appendChild(b);w.appendChild(it);});
- (V.shopDisc||[]).forEach(c=>{const it=document.createElement('div');it.className='item';it.title='The Undertaker: กองทิ้งร้าน';it.appendChild(cardEl(c));const cost=V.free?0:Y.specialCost;const b=document.createElement('button');b.textContent=`⚰ ${cost}G`;b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id,src:'d'});it.appendChild(b);w.appendChild(it);});
+ V.shop.s.forEach(c=>{const it=document.createElement('div');it.className='item';it.appendChild(cardEl(c));const cost=Y.specialCost;const b=document.createElement('button');b.textContent=cost?`${cost}G`:'ฟรี';b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id});it.appendChild(b);w.appendChild(it);});
+ (V.shopDisc||[]).forEach(c=>{const it=document.createElement('div');it.className='item';it.title='The Undertaker: กองทิ้งร้าน';it.appendChild(cardEl(c));const cost=Y.specialCost;const b=document.createElement('button');b.textContent=`⚰ ${cost}G`;b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyS',id:c.id,src:'d'});it.appendChild(b);w.appendChild(it);});
  V.shop.t.forEach(t=>{const it=document.createElement('div');it.className='item';it.appendChild(tarotEl(t));const cost=NC.tarotPrice(Y,t);const b=document.createElement('button');b.textContent=`${cost}G`;b.disabled=!myTurn||Y.g<cost;b.onclick=()=>act({k:'buyT',id:t.uid});it.appendChild(b);w.appendChild(it);});
  sp.appendChild(w);sp.insertAdjacentHTML('beforeend',`<div class="hint">${myTurn?'ตาคุณซื้อ':'ซื้อได้ใน Shopping Phase ตามลำดับ'} · Special Poker 5 ใบ · Tarot 3 ใบ</div>`);
  const L=$('log');L.textContent=V.log.join('\n');L.scrollTop=1e9;
@@ -838,7 +837,7 @@ function showResult(){ const R=V&&V.reveal; if(!R)return; const me=V.me,op=1-me,
  <tr><th>Chip</th><td>${chip(me)}</td><td>${chip(op)}</td></tr>
  <tr><th>Speed</th><td>${sp(me)}</td><td>${sp(op)}</td></tr>
  <tr><th>Gold</th><td>+${gold(me)}G</td><td>+${gold(op)}G</td></tr>
- <tr><th>การ์ดที่ลง</th><td class="fate">${fate(me)}</td><td>${fate(op)}</td></tr></table>${iDef?'<div class="why" id="defNote" style="color:#9cf">🛡️ Defense <b>แพ้ Attack เสมอ</b> (กฏใหม่ v0.9.2): ฝ่ายชนะได้ Lead + Prize + Suit Bonus · คุณรับ DMG −1 (หรือใช้ Shield = 0) · ยังได้ +3G · <b>เลือกเก็บการ์ดที่ลงคืนมือได้</b> · 🎁 <b>ซื้อ Special Poker ฟรี 1 ใบ</b> ตอน Shop</div>':''}
+ <tr><th>การ์ดที่ลง</th><td class="fate">${fate(me)}</td><td>${fate(op)}</td></tr></table>${iDef?'<div class="why" id="defNote" style="color:#9cf">🛡️ Defense <b>แพ้ Attack เสมอ</b> (กฏใหม่ v0.9.2): ฝ่ายชนะได้ Lead + Prize + Suit Bonus · คุณรับ DMG −1 (หรือใช้ Shield = 0) · ยังได้ +3G · <b>เลือกเก็บการ์ดที่ลงคืนมือได้</b></div>':''}
  <div class="why">💡 ${why}<br>💥 ${dmgTxt}</div><button id="bResOk" class="gold">ต่อไป ▶</button></div>`;
  m.classList.add('on'); const close=()=>{m.classList.remove('on');clearTimeout(AN.rt);}; $('bResOk').onclick=close; m.onclick=e=>{if(e.target===m)close();};
  clearTimeout(AN.rt); AN.rt=setTimeout(close,6000); }
@@ -857,7 +856,7 @@ function chipStack(id,gold){const box=$(id);if(!box)return;const sm=box.classLis
  box.dataset.gold=gold;box.querySelector('.cn').textContent=`💰 ${gold}G`;box.title=`${gold}G (1 ชิป = 1G)`;}
 function tidy(st){[...st.children].forEach(sk=>{if(!sk.children.length)sk.remove();});}
 // ---------- menu ----------
-function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.9.4 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
+function menu(html){$('menuBox').innerHTML=`<h1 style="font-size:30px">NEON CLASH</h1><div class="hint">v0.9.5 · Street punk neon Poker Duel</div><div class="hero">${['S14','H14','D14','C14'].map((k,i)=>`<img src="${CARD_ART[k]}" style="--r:${(i-1.5)*8}deg">`).join('')}</div>`+html;$('menu').style.display='flex';}
 function toMenu(){teardown();mode=null;g=null;V=null;document.querySelectorAll('.over').forEach(e=>e.remove());banner('');
  menu(`<div class="modePick" id="modePick"><div class="hint">โหมดเกม (Mode)</div><button class="modeOpt ${gameMode==='normal'?'gold':'alt'}" data-m="normal" onclick="setMode('normal')">⚔️ Normal<br><small>10 HP</small></button><button class="modeOpt ${gameMode==='extend'?'gold':'alt'}" data-m="extend" onclick="setMode('extend')">🛡️ Extend<br><small>15 HP</small></button><div class="hint" style="font-size:12px">ใช้กับ Vs Bot และห้องที่คุณสร้าง (Host เลือก)</div></div><button onclick="startBot()">🤖 เล่นกับ Bot (Vs Bot)</button><br><br><button class="gold" onclick="createRoom()">🌐 สร้างห้อง (Create Room)</button><br><br>
  <input id="codeIn" maxlength="5" placeholder="CODE"> <button onclick="joinRoom($('codeIn').value)">เข้าห้อง (Join)</button><div class="hint" id="mmsg" style="margin-top:10px"></div>`);}
